@@ -1,0 +1,1 @@
+/home/ubuntu/denem/build/ros2_mpu6050/ament_cmake_environment_hooks/local_setup.sh

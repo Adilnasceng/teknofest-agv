@@ -1,0 +1,4 @@
+{
+    "cmake.sourceDirectory": "/home/ubuntu/denem/diffdrive_arduino",
+    "ros.distro": "humble"
+}

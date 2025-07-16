@@ -1,0 +1,35 @@
+[0.174s] Invoking command in '/home/ubuntu/denem/build/ros2_mpu6050': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble /usr/bin/cmake --build /home/ubuntu/denem/build/ros2_mpu6050 -- -j4 -l4
+[0.774s] [35m[1mConsolidate compiler generated dependencies of target ros2_mpu6050_calibrate[0m
+[0.822s] [35m[1mConsolidate compiler generated dependencies of target ros2_mpu6050[0m
+[1.028s] [ 50%] Built target ros2_mpu6050_calibrate
+[1.158s] [100%] Built target ros2_mpu6050
+[1.296s] Invoked command in '/home/ubuntu/denem/build/ros2_mpu6050' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble /usr/bin/cmake --build /home/ubuntu/denem/build/ros2_mpu6050 -- -j4 -l4
+[1.427s] Invoking command in '/home/ubuntu/denem/build/ros2_mpu6050': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble /usr/bin/cmake --install /home/ubuntu/denem/build/ros2_mpu6050
+[1.573s] -- Install configuration: ""
+[1.574s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/include/include
+[1.575s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/include/include/ros2_mpu6050
+[1.576s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/include/include/ros2_mpu6050/mpu6050.h
+[1.577s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/include/include/ros2_mpu6050/mpu6050_hal.h
+[1.583s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/include/include/ros2_mpu6050/mpu6050_node.h
+[1.601s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/lib/ros2_mpu6050/ros2_mpu6050
+[1.606s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/lib/ros2_mpu6050/ros2_mpu6050_calibrate
+[1.613s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/config
+[1.618s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/config/params.yaml
+[1.621s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/launch
+[1.634s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/launch/ros2_mpu6050.launch.py
+[1.636s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/share/ament_index/resource_index/package_run_dependencies/ros2_mpu6050
+[1.643s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/share/ament_index/resource_index/parent_prefix_path/ros2_mpu6050
+[1.655s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/environment/ament_prefix_path.sh
+[1.665s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/environment/ament_prefix_path.dsv
+[1.674s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/environment/path.sh
+[1.676s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/environment/path.dsv
+[1.682s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/local_setup.bash
+[1.684s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/local_setup.sh
+[1.685s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/local_setup.zsh
+[1.691s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/local_setup.dsv
+[1.708s] -- Installing: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/package.dsv
+[1.759s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/share/ament_index/resource_index/packages/ros2_mpu6050
+[1.775s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/cmake/ros2_mpu6050Config.cmake
+[1.808s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/cmake/ros2_mpu6050Config-version.cmake
+[1.857s] -- Up-to-date: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/package.xml
+[1.971s] Invoked command in '/home/ubuntu/denem/build/ros2_mpu6050' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble /usr/bin/cmake --install /home/ubuntu/denem/build/ros2_mpu6050

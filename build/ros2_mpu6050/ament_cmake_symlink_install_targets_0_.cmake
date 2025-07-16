@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/ubuntu/denem/build/ros2_mpu6050/ros2_mpu6050" "/home/ubuntu/denem/build/ros2_mpu6050/ros2_mpu6050_calibrate" "TARGETS" "ros2_mpu6050" "ros2_mpu6050_calibrate" "DESTINATION" "lib/ros2_mpu6050")

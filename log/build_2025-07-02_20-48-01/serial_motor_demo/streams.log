@@ -1,0 +1,24 @@
+[4.896s] Invoking command in '/home/ubuntu/denem/serial_motor_demo/serial_motor_demo': PYTHONPATH=/home/ubuntu/denem/build/serial_motor_demo/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ubuntu/denem/install/serial_motor_demo/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/serial_motor_demo build --build-base /home/ubuntu/denem/build/serial_motor_demo/build install --record /home/ubuntu/denem/build/serial_motor_demo/install.log --install-scripts $base/lib/serial_motor_demo --single-version-externally-managed install_data
+[6.356s] /usr/lib/python3/dist-packages/setuptools/dist.py:723: UserWarning: Usage of dash-separated 'script-dir' will not be supported in future versions. Please use the underscore name 'script_dir' instead
+[6.357s]   warnings.warn(
+[6.403s] running egg_info
+[6.406s] writing ../../build/serial_motor_demo/serial_motor_demo.egg-info/PKG-INFO
+[6.407s] writing dependency_links to ../../build/serial_motor_demo/serial_motor_demo.egg-info/dependency_links.txt
+[6.410s] writing entry points to ../../build/serial_motor_demo/serial_motor_demo.egg-info/entry_points.txt
+[6.411s] writing requirements to ../../build/serial_motor_demo/serial_motor_demo.egg-info/requires.txt
+[6.415s] writing top-level names to ../../build/serial_motor_demo/serial_motor_demo.egg-info/top_level.txt
+[6.425s] reading manifest file '../../build/serial_motor_demo/serial_motor_demo.egg-info/SOURCES.txt'
+[6.434s] writing manifest file '../../build/serial_motor_demo/serial_motor_demo.egg-info/SOURCES.txt'
+[6.436s] running build
+[6.437s] running build_py
+[6.441s] running install
+[6.444s] running install_lib
+[6.452s] running install_data
+[6.452s] running install_egg_info
+[6.461s] removing '/home/ubuntu/denem/install/serial_motor_demo/lib/python3.10/site-packages/serial_motor_demo-0.0.0-py3.10.egg-info' (and everything under it)
+[6.463s] Copying ../../build/serial_motor_demo/serial_motor_demo.egg-info to /home/ubuntu/denem/install/serial_motor_demo/lib/python3.10/site-packages/serial_motor_demo-0.0.0-py3.10.egg-info
+[6.470s] running install_scripts
+[6.565s] Installing driver script to /home/ubuntu/denem/install/serial_motor_demo/lib/serial_motor_demo
+[6.566s] Installing gui script to /home/ubuntu/denem/install/serial_motor_demo/lib/serial_motor_demo
+[6.568s] writing list of installed files to '/home/ubuntu/denem/build/serial_motor_demo/install.log'
+[6.755s] Invoked command in '/home/ubuntu/denem/serial_motor_demo/serial_motor_demo' returned '0': PYTHONPATH=/home/ubuntu/denem/build/serial_motor_demo/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ubuntu/denem/install/serial_motor_demo/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/serial_motor_demo build --build-base /home/ubuntu/denem/build/serial_motor_demo/build install --record /home/ubuntu/denem/build/serial_motor_demo/install.log --install-scripts $base/lib/serial_motor_demo --single-version-externally-managed install_data

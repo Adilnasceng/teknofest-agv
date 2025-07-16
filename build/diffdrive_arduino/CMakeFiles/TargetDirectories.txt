@@ -1,0 +1,10 @@
+/home/ubuntu/denem/build/diffdrive_arduino/CMakeFiles/uninstall.dir
+/home/ubuntu/denem/build/diffdrive_arduino/CMakeFiles/diffdrive_arduino_uninstall.dir
+/home/ubuntu/denem/build/diffdrive_arduino/CMakeFiles/diffdrive_arduino.dir
+/home/ubuntu/denem/build/diffdrive_arduino/CMakeFiles/test.dir
+/home/ubuntu/denem/build/diffdrive_arduino/CMakeFiles/edit_cache.dir
+/home/ubuntu/denem/build/diffdrive_arduino/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/denem/build/diffdrive_arduino/CMakeFiles/list_install_components.dir
+/home/ubuntu/denem/build/diffdrive_arduino/CMakeFiles/install.dir
+/home/ubuntu/denem/build/diffdrive_arduino/CMakeFiles/install/local.dir
+/home/ubuntu/denem/build/diffdrive_arduino/CMakeFiles/install/strip.dir

@@ -1,0 +1,11 @@
+lidar_scanner:
+  ros__parameters:
+    frame_id: "lidar_link"
+    port: "/dev/ttyUSB0"  # A2M12 Lidar için seri port
+    baudrate: 115200
+    scan_frequency: 10.0
+    angle_min: 0.0
+    angle_max: 6.28318530718  # 2*pi
+    range_min: 0.15
+    range_max: 12.0
+    scan_topic: "/scan"

@@ -1,0 +1,11 @@
+/home/ubuntu/denem/build/ros2_mpu6050/CMakeFiles/uninstall.dir
+/home/ubuntu/denem/build/ros2_mpu6050/CMakeFiles/ros2_mpu6050_uninstall.dir
+/home/ubuntu/denem/build/ros2_mpu6050/CMakeFiles/ros2_mpu6050.dir
+/home/ubuntu/denem/build/ros2_mpu6050/CMakeFiles/ros2_mpu6050_calibrate.dir
+/home/ubuntu/denem/build/ros2_mpu6050/CMakeFiles/test.dir
+/home/ubuntu/denem/build/ros2_mpu6050/CMakeFiles/edit_cache.dir
+/home/ubuntu/denem/build/ros2_mpu6050/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/denem/build/ros2_mpu6050/CMakeFiles/list_install_components.dir
+/home/ubuntu/denem/build/ros2_mpu6050/CMakeFiles/install.dir
+/home/ubuntu/denem/build/ros2_mpu6050/CMakeFiles/install/local.dir
+/home/ubuntu/denem/build/ros2_mpu6050/CMakeFiles/install/strip.dir
