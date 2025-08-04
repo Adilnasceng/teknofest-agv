@@ -18,6 +18,7 @@
         <param name="pid_d">12</param>
         <param name="pid_i">0</param>
         <param name="pid_o">50</param>
+        <param name="reverse_speed_threshold">-0.1</param>
       </hardware>
       <joint name="${prefix}left_wheel_joint">
         <command_interface name="velocity"/>

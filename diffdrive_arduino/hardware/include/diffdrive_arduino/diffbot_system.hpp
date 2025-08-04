@@ -41,10 +41,10 @@ class DiffDriveArduinoHardware : public hardware_interface::SystemInterface
 
 struct Config
 {
-  std::string left_wheel_name = "";
-  std::string right_wheel_name = "";
+  ::std::string left_wheel_name = "";
+  ::std::string right_wheel_name = "";
   float loop_rate = 0.0;
-  std::string device = "";
+  ::std::string device = "";
   int baud_rate = 0;
   int timeout_ms = 0;
   int left_enc_counts_per_rev = 0;
@@ -53,6 +53,7 @@ struct Config
   int pid_d = 0;
   int pid_i = 0;
   int pid_o = 0;
+  double reverse_speed_threshold = -0.1; // Geri gitme eşiği (m/s)
 };
 
 
@@ -64,10 +65,10 @@ public:
     const hardware_interface::HardwareInfo & info) override;
 
   DIFFDRIVE_ARDUINO_PUBLIC
-  std::vector<hardware_interface::StateInterface> export_state_interfaces() override;
+  ::std::vector<hardware_interface::StateInterface> export_state_interfaces() override;
 
   DIFFDRIVE_ARDUINO_PUBLIC
-  std::vector<hardware_interface::CommandInterface> export_command_interfaces() override;
+  ::std::vector<hardware_interface::CommandInterface> export_command_interfaces() override;
 
   DIFFDRIVE_ARDUINO_PUBLIC
   hardware_interface::CallbackReturn on_configure(
@@ -100,6 +101,7 @@ private:
   Config cfg_;
   Wheel wheel_l_;
   Wheel wheel_r_;
+  bool buzzer_active_ = false; // Buzzer durumu
 };
 
 }  // namespace diffdrive_arduino

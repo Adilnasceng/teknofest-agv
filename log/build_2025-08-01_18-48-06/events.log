@@ -1,0 +1,721 @@
+[0.000000] (-) TimerEvent: {}
+[0.001893] (diffdrive_arduino) JobQueued: {'identifier': 'diffdrive_arduino', 'dependencies': OrderedDict()}
+[0.002564] (ros2_mpu6050) JobQueued: {'identifier': 'ros2_mpu6050', 'dependencies': OrderedDict()}
+[0.003147] (diffdrive_arduino) JobStarted: {'identifier': 'diffdrive_arduino'}
+[0.051780] (ros2_mpu6050) JobStarted: {'identifier': 'ros2_mpu6050'}
+[0.091059] (diffdrive_arduino) JobProgress: {'identifier': 'diffdrive_arduino', 'progress': 'cmake'}
+[0.094136] (diffdrive_arduino) JobProgress: {'identifier': 'diffdrive_arduino', 'progress': 'build'}
+[0.097430] (diffdrive_arduino) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/ubuntu/denem/build/diffdrive_arduino', '--', '-j4', '-l4'], 'cwd': '/home/ubuntu/denem/build/diffdrive_arduino', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'tr:en'), ('USER', 'ubuntu'), ('SSH_CLIENT', '10.123.250.91 52900 22'), ('LC_TIME', 'tr_TR.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/ubuntu/.vscode-server/cli/servers/Stable-c306e94f98122556ca081f527b466015e1bc37b0/server/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs/lib:/home/ubuntu/denem/install/diffdrive_arduino/lib:/home/ubuntu/vizanti/install/vizanti_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/ubuntu/.vscode-server/cli/servers/Stable-c306e94f98122556ca081f527b466015e1bc37b0/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/ubuntu'), ('TERM_PROGRAM_VERSION', '1.102.2'), ('NVM_BIN', '/home/ubuntu/.nvm/versions/node/v16.20.2/bin'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-428406ae-0faa-4655-9b89-8fb1872912cd.sock'), ('NVM_INC', '/home/ubuntu/.nvm/versions/node/v16.20.2/include/node'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/ubuntu/.vscode-server/cli/servers/Stable-c306e94f98122556ca081f527b466015e1bc37b0/server/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/ubuntu/.vscode-server/cli/servers/Stable-c306e94f98122556ca081f527b466015e1bc37b0/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('BUNDLED_DEBUGPY_PATH', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('NVM_DIR', '/home/ubuntu/.nvm'), ('COLCON_PREFIX_PATH', '/home/ubuntu/vizanti/install:/home/ubuntu/denem/install:/home/ubuntu/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'ubuntu'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '4'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/ubuntu/.vscode-server/cli/servers/Stable-c306e94f98122556ca081f527b466015e1bc37b0/server/bin/remote-cli:/home/ubuntu/.local/bin:/home/ubuntu/.nvm/versions/node/v16.20.2/bin:/opt/ros/humble/bin:/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts'), ('PAPERSIZE', 'a4'), ('LC_ADDRESS', 'tr_TR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-00e9a689a7012013.txt'), ('LANG', 'tr_TR.UTF-8'), ('LC_TELEPHONE', 'tr_TR.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-3866691245.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo:/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'tr_TR.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'tr_TR.UTF-8'), ('LC_IDENTIFICATION', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/ubuntu/denem/build/diffdrive_arduino'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '10.123.250.91 52900 10.123.250.65 22'), ('NVM_CD_FLAGS', ''), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/ubuntu/denem/install/serial_motor_demo/lib/python3.10/site-packages:/home/ubuntu/denem/install/serial_motor_demo_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/vizanti/install/vizanti_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/ros2_ws/install/robot_lidar_mapper/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'tr_TR.UTF-8'), ('LC_PAPER', 'tr_TR.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble')]), 'shell': False}
+[0.103553] (-) TimerEvent: {}
+[0.118610] (ros2_mpu6050) JobProgress: {'identifier': 'ros2_mpu6050', 'progress': 'cmake'}
+[0.121980] (ros2_mpu6050) JobProgress: {'identifier': 'ros2_mpu6050', 'progress': 'build'}
+[0.123341] (ros2_mpu6050) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/ubuntu/denem/build/ros2_mpu6050', '--', '-j4', '-l4'], 'cwd': '/home/ubuntu/denem/build/ros2_mpu6050', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'tr:en'), ('USER', 'ubuntu'), ('SSH_CLIENT', '10.123.250.91 52900 22'), ('LC_TIME', 'tr_TR.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/ubuntu/.vscode-server/cli/servers/Stable-c306e94f98122556ca081f527b466015e1bc37b0/server/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs/lib:/home/ubuntu/denem/install/diffdrive_arduino/lib:/home/ubuntu/vizanti/install/vizanti_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/ubuntu/.vscode-server/cli/servers/Stable-c306e94f98122556ca081f527b466015e1bc37b0/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/ubuntu'), ('TERM_PROGRAM_VERSION', '1.102.2'), ('NVM_BIN', '/home/ubuntu/.nvm/versions/node/v16.20.2/bin'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-428406ae-0faa-4655-9b89-8fb1872912cd.sock'), ('NVM_INC', '/home/ubuntu/.nvm/versions/node/v16.20.2/include/node'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/ubuntu/.vscode-server/cli/servers/Stable-c306e94f98122556ca081f527b466015e1bc37b0/server/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/ubuntu/.vscode-server/cli/servers/Stable-c306e94f98122556ca081f527b466015e1bc37b0/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('BUNDLED_DEBUGPY_PATH', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('NVM_DIR', '/home/ubuntu/.nvm'), ('COLCON_PREFIX_PATH', '/home/ubuntu/vizanti/install:/home/ubuntu/denem/install:/home/ubuntu/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'ubuntu'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '4'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/ubuntu/.vscode-server/cli/servers/Stable-c306e94f98122556ca081f527b466015e1bc37b0/server/bin/remote-cli:/home/ubuntu/.local/bin:/home/ubuntu/.nvm/versions/node/v16.20.2/bin:/opt/ros/humble/bin:/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts'), ('PAPERSIZE', 'a4'), ('LC_ADDRESS', 'tr_TR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-00e9a689a7012013.txt'), ('LANG', 'tr_TR.UTF-8'), ('LC_TELEPHONE', 'tr_TR.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-3866691245.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo:/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'tr_TR.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'tr_TR.UTF-8'), ('LC_IDENTIFICATION', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/ubuntu/denem/build/ros2_mpu6050'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '10.123.250.91 52900 10.123.250.65 22'), ('NVM_CD_FLAGS', ''), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/ubuntu/denem/install/serial_motor_demo/lib/python3.10/site-packages:/home/ubuntu/denem/install/serial_motor_demo_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/vizanti/install/vizanti_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/ros2_ws/install/robot_lidar_mapper/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'tr_TR.UTF-8'), ('LC_PAPER', 'tr_TR.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble')]), 'shell': False}
+[0.203997] (-) TimerEvent: {}
+[0.305690] (-) TimerEvent: {}
+[0.406549] (-) TimerEvent: {}
+[0.439439] (ros2_mpu6050) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target ros2_mpu6050\x1b[0m\n'}
+[0.440376] (diffdrive_arduino) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target diffdrive_arduino\x1b[0m\n'}
+[0.494829] (ros2_mpu6050) StdoutLine: {'line': b'[ 50%] Built target ros2_mpu6050_calibrate\n'}
+[0.506756] (-) TimerEvent: {}
+[0.609124] (-) TimerEvent: {}
+[0.632794] (diffdrive_arduino) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/diffdrive_arduino.dir/hardware/diffbot_system.cpp.o\x1b[0m\n'}
+[0.652087] (ros2_mpu6050) StdoutLine: {'line': b'[100%] Built target ros2_mpu6050\n'}
+[0.705438] (ros2_mpu6050) CommandEnded: {'returncode': 0}
+[0.707178] (ros2_mpu6050) JobProgress: {'identifier': 'ros2_mpu6050', 'progress': 'install'}
+[0.709336] (-) TimerEvent: {}
+[0.747147] (ros2_mpu6050) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/ubuntu/denem/build/ros2_mpu6050'], 'cwd': '/home/ubuntu/denem/build/ros2_mpu6050', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'tr:en'), ('USER', 'ubuntu'), ('SSH_CLIENT', '10.123.250.91 52900 22'), ('LC_TIME', 'tr_TR.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/ubuntu/.vscode-server/cli/servers/Stable-c306e94f98122556ca081f527b466015e1bc37b0/server/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs/lib:/home/ubuntu/denem/install/diffdrive_arduino/lib:/home/ubuntu/vizanti/install/vizanti_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/ubuntu/.vscode-server/cli/servers/Stable-c306e94f98122556ca081f527b466015e1bc37b0/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/ubuntu'), ('TERM_PROGRAM_VERSION', '1.102.2'), ('NVM_BIN', '/home/ubuntu/.nvm/versions/node/v16.20.2/bin'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-428406ae-0faa-4655-9b89-8fb1872912cd.sock'), ('NVM_INC', '/home/ubuntu/.nvm/versions/node/v16.20.2/include/node'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/ubuntu/.vscode-server/cli/servers/Stable-c306e94f98122556ca081f527b466015e1bc37b0/server/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/ubuntu/.vscode-server/cli/servers/Stable-c306e94f98122556ca081f527b466015e1bc37b0/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('BUNDLED_DEBUGPY_PATH', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('NVM_DIR', '/home/ubuntu/.nvm'), ('COLCON_PREFIX_PATH', '/home/ubuntu/vizanti/install:/home/ubuntu/denem/install:/home/ubuntu/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'ubuntu'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '4'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/ubuntu/.vscode-server/cli/servers/Stable-c306e94f98122556ca081f527b466015e1bc37b0/server/bin/remote-cli:/home/ubuntu/.local/bin:/home/ubuntu/.nvm/versions/node/v16.20.2/bin:/opt/ros/humble/bin:/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts'), ('PAPERSIZE', 'a4'), ('LC_ADDRESS', 'tr_TR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-00e9a689a7012013.txt'), ('LANG', 'tr_TR.UTF-8'), ('LC_TELEPHONE', 'tr_TR.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-3866691245.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo:/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'tr_TR.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'tr_TR.UTF-8'), ('LC_IDENTIFICATION', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/ubuntu/denem/build/ros2_mpu6050'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '10.123.250.91 52900 10.123.250.65 22'), ('NVM_CD_FLAGS', ''), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/ubuntu/denem/install/serial_motor_demo/lib/python3.10/site-packages:/home/ubuntu/denem/install/serial_motor_demo_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/vizanti/install/vizanti_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/ros2_ws/install/robot_lidar_mapper/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'tr_TR.UTF-8'), ('LC_PAPER', 'tr_TR.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble')]), 'shell': False}
+[0.781875] (ros2_mpu6050) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[0.787749] (ros2_mpu6050) StdoutLine: {'line': b'-- Execute custom install script\n'}
+[0.795289] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/include/include/ros2_mpu6050/mpu6050.h\n'}
+[0.797793] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/include/include/ros2_mpu6050/mpu6050_hal.h\n'}
+[0.800873] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/include/include/ros2_mpu6050/mpu6050_node.h\n'}
+[0.804767] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/lib/ros2_mpu6050/ros2_mpu6050\n'}
+[0.808394] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/lib/ros2_mpu6050/ros2_mpu6050_calibrate\n'}
+[0.809627] (-) TimerEvent: {}
+[0.812472] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/config/params.yaml\n'}
+[0.815719] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/launch/ros2_mpu6050.launch.py\n'}
+[0.818558] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ament_index/resource_index/package_run_dependencies/ros2_mpu6050\n'}
+[0.822441] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ament_index/resource_index/parent_prefix_path/ros2_mpu6050\n'}
+[0.825368] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/environment/ament_prefix_path.sh\n'}
+[0.828116] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/environment/ament_prefix_path.dsv\n'}
+[0.829742] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/environment/path.sh\n'}
+[0.831580] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/environment/path.dsv\n'}
+[0.838291] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/local_setup.bash\n'}
+[0.841414] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/local_setup.sh\n'}
+[0.841794] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/local_setup.zsh\n'}
+[0.842086] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/local_setup.dsv\n'}
+[0.842395] (ros2_mpu6050) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/package.dsv\n'}
+[0.898574] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ament_index/resource_index/packages/ros2_mpu6050\n'}
+[0.900374] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/cmake/ros2_mpu6050Config.cmake\n'}
+[0.901561] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/cmake/ros2_mpu6050Config-version.cmake\n'}
+[0.903836] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/package.xml\n'}
+[0.910974] (ros2_mpu6050) CommandEnded: {'returncode': 0}
+[0.912802] (-) TimerEvent: {}
+[1.016688] (-) TimerEvent: {}
+[1.063237] (ros2_mpu6050) JobEnded: {'identifier': 'ros2_mpu6050', 'rc': 0}
+[1.116891] (-) TimerEvent: {}
+[1.218206] (-) TimerEvent: {}
+[1.318968] (-) TimerEvent: {}
+[1.419880] (-) TimerEvent: {}
+[1.520662] (-) TimerEvent: {}
+[1.621506] (-) TimerEvent: {}
+[1.722685] (-) TimerEvent: {}
+[1.823803] (-) TimerEvent: {}
+[1.924549] (-) TimerEvent: {}
+[2.025463] (-) TimerEvent: {}
+[2.126293] (-) TimerEvent: {}
+[2.227034] (-) TimerEvent: {}
+[2.327894] (-) TimerEvent: {}
+[2.428829] (-) TimerEvent: {}
+[2.529566] (-) TimerEvent: {}
+[2.630398] (-) TimerEvent: {}
+[2.731208] (-) TimerEvent: {}
+[2.831894] (-) TimerEvent: {}
+[2.932849] (-) TimerEvent: {}
+[3.033614] (-) TimerEvent: {}
+[3.134330] (-) TimerEvent: {}
+[3.235183] (-) TimerEvent: {}
+[3.335999] (-) TimerEvent: {}
+[3.436848] (-) TimerEvent: {}
+[3.537679] (-) TimerEvent: {}
+[3.638462] (-) TimerEvent: {}
+[3.739302] (-) TimerEvent: {}
+[3.840132] (-) TimerEvent: {}
+[3.940953] (-) TimerEvent: {}
+[4.041768] (-) TimerEvent: {}
+[4.155045] (-) TimerEvent: {}
+[4.255858] (-) TimerEvent: {}
+[4.356698] (-) TimerEvent: {}
+[4.457650] (-) TimerEvent: {}
+[4.558503] (-) TimerEvent: {}
+[4.659561] (-) TimerEvent: {}
+[4.760582] (-) TimerEvent: {}
+[4.861725] (-) TimerEvent: {}
+[4.963025] (-) TimerEvent: {}
+[5.064197] (-) TimerEvent: {}
+[5.165259] (-) TimerEvent: {}
+[5.266381] (-) TimerEvent: {}
+[5.367411] (-) TimerEvent: {}
+[5.468286] (-) TimerEvent: {}
+[5.569346] (-) TimerEvent: {}
+[5.670528] (-) TimerEvent: {}
+[5.771638] (-) TimerEvent: {}
+[5.872502] (-) TimerEvent: {}
+[5.973461] (-) TimerEvent: {}
+[6.074338] (-) TimerEvent: {}
+[6.175343] (-) TimerEvent: {}
+[6.276435] (-) TimerEvent: {}
+[6.377312] (-) TimerEvent: {}
+[6.478227] (-) TimerEvent: {}
+[6.579203] (-) TimerEvent: {}
+[6.680222] (-) TimerEvent: {}
+[6.781260] (-) TimerEvent: {}
+[6.882211] (-) TimerEvent: {}
+[6.983210] (-) TimerEvent: {}
+[7.084333] (-) TimerEvent: {}
+[7.185347] (-) TimerEvent: {}
+[7.286414] (-) TimerEvent: {}
+[7.387634] (-) TimerEvent: {}
+[7.488546] (-) TimerEvent: {}
+[7.589451] (-) TimerEvent: {}
+[7.690569] (-) TimerEvent: {}
+[7.791751] (-) TimerEvent: {}
+[7.892787] (-) TimerEvent: {}
+[7.993673] (-) TimerEvent: {}
+[8.094553] (-) TimerEvent: {}
+[8.195700] (-) TimerEvent: {}
+[8.296657] (-) TimerEvent: {}
+[8.397640] (-) TimerEvent: {}
+[8.498690] (-) TimerEvent: {}
+[8.599705] (-) TimerEvent: {}
+[8.700658] (-) TimerEvent: {}
+[8.801645] (-) TimerEvent: {}
+[8.902694] (-) TimerEvent: {}
+[9.003731] (-) TimerEvent: {}
+[9.104818] (-) TimerEvent: {}
+[9.205693] (-) TimerEvent: {}
+[9.306637] (-) TimerEvent: {}
+[9.407744] (-) TimerEvent: {}
+[9.508800] (-) TimerEvent: {}
+[9.609717] (-) TimerEvent: {}
+[9.710786] (-) TimerEvent: {}
+[9.811862] (-) TimerEvent: {}
+[9.912809] (-) TimerEvent: {}
+[10.013774] (-) TimerEvent: {}
+[10.114702] (-) TimerEvent: {}
+[10.215715] (-) TimerEvent: {}
+[10.316669] (-) TimerEvent: {}
+[10.417529] (-) TimerEvent: {}
+[10.518938] (-) TimerEvent: {}
+[10.619888] (-) TimerEvent: {}
+[10.721061] (-) TimerEvent: {}
+[10.823116] (-) TimerEvent: {}
+[10.923954] (-) TimerEvent: {}
+[11.024796] (-) TimerEvent: {}
+[11.125625] (-) TimerEvent: {}
+[11.226554] (-) TimerEvent: {}
+[11.327446] (-) TimerEvent: {}
+[11.428578] (-) TimerEvent: {}
+[11.529424] (-) TimerEvent: {}
+[11.630188] (-) TimerEvent: {}
+[11.730966] (-) TimerEvent: {}
+[11.831819] (-) TimerEvent: {}
+[11.932614] (-) TimerEvent: {}
+[12.033428] (-) TimerEvent: {}
+[12.134244] (-) TimerEvent: {}
+[12.235165] (-) TimerEvent: {}
+[12.336047] (-) TimerEvent: {}
+[12.437081] (-) TimerEvent: {}
+[12.537913] (-) TimerEvent: {}
+[12.638748] (-) TimerEvent: {}
+[12.739643] (-) TimerEvent: {}
+[12.840439] (-) TimerEvent: {}
+[12.941276] (-) TimerEvent: {}
+[13.042062] (-) TimerEvent: {}
+[13.142901] (-) TimerEvent: {}
+[13.243676] (-) TimerEvent: {}
+[13.298397] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:50\x1b[m\x1b[K,\n'}
+[13.299405] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.299978] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.300764] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/usr/include/console_bridge/console.h:115:31:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.301381] (diffdrive_arduino) StderrLine: {'line': b'  115 |   virtual void log(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K &text, LogLevel level, const char *filename, int line) = 0;\n'}
+[13.302536] (diffdrive_arduino) StderrLine: {'line': b'      |                               \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.303272] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/usr/include/console_bridge/console.h:126:31:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.303718] (diffdrive_arduino) StderrLine: {'line': b'  126 |   virtual void log(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K &text, LogLevel level, const char *filename, int line);\n'}
+[13.304100] (diffdrive_arduino) StderrLine: {'line': b'      |                               \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.304474] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/usr/include/console_bridge/console.h:138:31:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.304824] (diffdrive_arduino) StderrLine: {'line': b'  138 |   virtual void log(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K &text, LogLevel level, const char *filename, int line);\n'}
+[13.305147] (diffdrive_arduino) StderrLine: {'line': b'      |                               \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.305472] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:56\x1b[m\x1b[K,\n'}
+[13.305873] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:55\x1b[m\x1b[K,\n'}
+[13.306220] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.306634] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.307795] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/exceptions.hpp:48:1:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kexpected class-name before \xe2\x80\x98\x1b[01m\x1b[K{\x1b[m\x1b[K\xe2\x80\x99 token\n'}
+[13.309156] (diffdrive_arduino) StderrLine: {'line': b'   48 | \x1b[01;31m\x1b[K{\x1b[m\x1b[K\n'}
+[13.309599] (diffdrive_arduino) StderrLine: {'line': b'      | \x1b[01;31m\x1b[K^\x1b[m\x1b[K\n'}
+[13.309909] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/exceptions.hpp:50:51:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.310194] (diffdrive_arduino) StderrLine: {'line': b'   50 |   explicit inline ClassLoaderException(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & error_desc)\n'}
+[13.310483] (diffdrive_arduino) StderrLine: {'line': b'      |                                                   \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.310751] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/exceptions.hpp:\x1b[m\x1b[K In constructor \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::class_loader::ClassLoaderException::ClassLoaderException(const int&)\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[13.311217] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/exceptions.hpp:51:23:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kexpected class-name before \xe2\x80\x98\x1b[01m\x1b[K(\x1b[m\x1b[K\xe2\x80\x99 token\n'}
+[13.311549] (diffdrive_arduino) StderrLine: {'line': b'   51 |   : std::runtime_error\x1b[01;31m\x1b[K(\x1b[m\x1b[Kerror_desc)\n'}
+[13.311863] (diffdrive_arduino) StderrLine: {'line': b'      |                       \x1b[01;31m\x1b[K^\x1b[m\x1b[K\n'}
+[13.312170] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/exceptions.hpp:51:23:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kexpected \xe2\x80\x98\x1b[01m\x1b[K{\x1b[m\x1b[K\xe2\x80\x99 before \xe2\x80\x98\x1b[01m\x1b[K(\x1b[m\x1b[K\xe2\x80\x99 token\n'}
+[13.312496] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/exceptions.hpp:\x1b[m\x1b[K At global scope:\n'}
+[13.312789] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/exceptions.hpp:62:51:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.313161] (diffdrive_arduino) StderrLine: {'line': b'   62 |   explicit inline LibraryLoadException(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & error_desc)\n'}
+[13.313515] (diffdrive_arduino) StderrLine: {'line': b'      |                                                   \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.313911] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/exceptions.hpp:74:53:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.314375] (diffdrive_arduino) StderrLine: {'line': b'   74 |   explicit inline LibraryUnloadException(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & error_desc)\n'}
+[13.315013] (diffdrive_arduino) StderrLine: {'line': b'      |                                                     \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.315935] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/exceptions.hpp:86:51:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.316427] (diffdrive_arduino) StderrLine: {'line': b'   86 |   explicit inline CreateClassException(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & error_desc)\n'}
+[13.316814] (diffdrive_arduino) StderrLine: {'line': b'      |                                                   \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.317137] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/exceptions.hpp:99:59:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.317497] (diffdrive_arduino) StderrLine: {'line': b'   99 |   explicit inline NoClassLoaderExistsException(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & error_desc)\n'}
+[13.317852] (diffdrive_arduino) StderrLine: {'line': b'      |                                                           \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.318159] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:57\x1b[m\x1b[K,\n'}
+[13.318468] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:55\x1b[m\x1b[K,\n'}
+[13.319237] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.319729] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.320120] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/meta_object.hpp:64:16:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.320462] (diffdrive_arduino) StderrLine: {'line': b'   64 |     const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & class_name,\n'}
+[13.320729] (diffdrive_arduino) StderrLine: {'line': b'      |                \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.321012] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/meta_object.hpp:65:16:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.321353] (diffdrive_arduino) StderrLine: {'line': b'   65 |     const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & base_class_name,\n'}
+[13.321701] (diffdrive_arduino) StderrLine: {'line': b'      |                \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.322021] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/meta_object.hpp:66:16:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.322376] (diffdrive_arduino) StderrLine: {'line': b'   66 |     const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & typeid_base_class_name = "UNSET");\n'}
+[13.322720] (diffdrive_arduino) StderrLine: {'line': b'      |                \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.323129] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/meta_object.hpp:79:14:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.323565] (diffdrive_arduino) StderrLine: {'line': b'   79 |   const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & className() const;\n'}
+[13.323907] (diffdrive_arduino) StderrLine: {'line': b'      |              \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.324250] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/meta_object.hpp:84:14:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.324612] (diffdrive_arduino) StderrLine: {'line': b'   84 |   const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & baseClassName() const;\n'}
+[13.324950] (diffdrive_arduino) StderrLine: {'line': b'      |              \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.325305] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/meta_object.hpp:88:14:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.325663] (diffdrive_arduino) StderrLine: {'line': b'   88 |   const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & typeidBaseClassName() const;\n'}
+[13.326529] (diffdrive_arduino) StderrLine: {'line': b'      |              \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.327133] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/meta_object.hpp:95:14:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.327600] (diffdrive_arduino) StderrLine: {'line': b'   95 |   const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & getAssociatedLibraryPath() const;\n'}
+[13.327979] (diffdrive_arduino) StderrLine: {'line': b'      |              \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.328423] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/meta_object.hpp:100:44:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.329084] (diffdrive_arduino) StderrLine: {'line': b'  100 |   void setAssociatedLibraryPath(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & library_path);\n'}
+[13.329676] (diffdrive_arduino) StderrLine: {'line': b'      |                                            \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.330335] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/meta_object.hpp:66:50:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kinvalid conversion from \xe2\x80\x98\x1b[01m\x1b[Kconst char*\x1b[m\x1b[K\xe2\x80\x99 to \xe2\x80\x98\x1b[01m\x1b[Kint\x1b[m\x1b[K\xe2\x80\x99 [\x1b[01;31m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-fpermissive\x07-fpermissive\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[13.331294] (diffdrive_arduino) StderrLine: {'line': b'   66 |     const std::string & typeid_base_class_name = \x1b[01;31m\x1b[K"UNSET"\x1b[m\x1b[K);\n'}
+[13.332322] (diffdrive_arduino) StderrLine: {'line': b'      |                                                  \x1b[01;31m\x1b[K^~~~~~~\x1b[m\x1b[K\n'}
+[13.333097] (diffdrive_arduino) StderrLine: {'line': b'      |                                                  \x1b[01;31m\x1b[K|\x1b[m\x1b[K\n'}
+[13.333545] (diffdrive_arduino) StderrLine: {'line': b'      |                                                  \x1b[01;31m\x1b[Kconst char*\x1b[m\x1b[K\n'}
+[13.333942] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/meta_object.hpp:171:33:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.334231] (diffdrive_arduino) StderrLine: {'line': b'  171 |   AbstractMetaObject(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & class_name, const std::string & base_class_name)\n'}
+[13.334586] (diffdrive_arduino) StderrLine: {'line': b'      |                                 \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.335112] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/meta_object.hpp:171:65:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.335551] (diffdrive_arduino) StderrLine: {'line': b'  171 | AbstractMetaObject(const std::string & class_name, const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & base_class_name)\n'}
+[13.335938] (diffdrive_arduino) StderrLine: {'line': b'      |                                                               \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.336306] (diffdrive_arduino) StderrLine: {'line': b'\n'}
+[13.336668] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/meta_object.hpp:205:25:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.337064] (diffdrive_arduino) StderrLine: {'line': b'  205 |   MetaObject(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & class_name, const std::string & base_class_name)\n'}
+[13.337447] (diffdrive_arduino) StderrLine: {'line': b'      |                         \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.337820] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/meta_object.hpp:205:57:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.338553] (diffdrive_arduino) StderrLine: {'line': b'  205 |   MetaObject(const std::string & class_name, const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & base_class_name)\n'}
+[13.339366] (diffdrive_arduino) StderrLine: {'line': b'      |                                                         \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.340946] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:55\x1b[m\x1b[K,\n'}
+[13.341513] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.341992] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.342437] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:76:14:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.342973] (diffdrive_arduino) StderrLine: {'line': b'   76 | typedef std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K LibraryPath;\n'}
+[13.343448] (diffdrive_arduino) StderrLine: {'line': b'      |              \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.343867] (-) TimerEvent: {}
+[13.344388] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:77:14:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.345316] (diffdrive_arduino) StderrLine: {'line': b'   77 | typedef std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K ClassName;\n'}
+[13.345847] (diffdrive_arduino) StderrLine: {'line': b'      |              \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.346434] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:78:14:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.347035] (diffdrive_arduino) StderrLine: {'line': b'   78 | typedef std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K BaseClassName;\n'}
+[13.347585] (diffdrive_arduino) StderrLine: {'line': b'      |              \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.348167] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:79:14:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kmap\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a template type\n'}
+[13.348666] (diffdrive_arduino) StderrLine: {'line': b'   79 | typedef std::\x1b[01;31m\x1b[Kmap\x1b[m\x1b[K<ClassName, impl::AbstractMetaObjectBase *> FactoryMap;\n'}
+[13.349272] (diffdrive_arduino) StderrLine: {'line': b'      |              \x1b[01;31m\x1b[K^~~\x1b[m\x1b[K\n'}
+[13.349884] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:80:14:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kmap\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a template type\n'}
+[13.350704] (diffdrive_arduino) StderrLine: {'line': b'   80 | typedef std::\x1b[01;31m\x1b[Kmap\x1b[m\x1b[K<BaseClassName, FactoryMap> BaseToFactoryMapMap;\n'}
+[13.351327] (diffdrive_arduino) StderrLine: {'line': b'      |              \x1b[01;31m\x1b[K^~~\x1b[m\x1b[K\n'}
+[13.351733] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:81:14:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kpair\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a template type\n'}
+[13.352176] (diffdrive_arduino) StderrLine: {'line': b'   81 | typedef std::\x1b[01;31m\x1b[Kpair\x1b[m\x1b[K<LibraryPath, std::shared_ptr<rcpputils::SharedLibrary>> LibraryPair;\n'}
+[13.352775] (diffdrive_arduino) StderrLine: {'line': b'      |              \x1b[01;31m\x1b[K^~~~\x1b[m\x1b[K\n'}
+[13.353444] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:82:14:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kvector\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a template type\n'}
+[13.354201] (diffdrive_arduino) StderrLine: {'line': b'   82 | typedef std::\x1b[01;31m\x1b[Kvector\x1b[m\x1b[K<LibraryPair> LibraryVector;\n'}
+[13.354708] (diffdrive_arduino) StderrLine: {'line': b'      |              \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.355226] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:83:14:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kvector\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a template type\n'}
+[13.355794] (diffdrive_arduino) StderrLine: {'line': b'   83 | typedef std::\x1b[01;31m\x1b[Kvector\x1b[m\x1b[K<AbstractMetaObjectBase *> MetaObjectVector;\n'}
+[13.356212] (diffdrive_arduino) StderrLine: {'line': b'      |              \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.356653] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:100:1:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KBaseToFactoryMapMap\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.357098] (diffdrive_arduino) StderrLine: {'line': b'  100 | \x1b[01;31m\x1b[KBaseToFactoryMapMap\x1b[m\x1b[K & getGlobalPluginBaseToFactoryMapMap();\n'}
+[13.357501] (diffdrive_arduino) StderrLine: {'line': b'      | \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.357904] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:109:1:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KLibraryVector\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.358901] (diffdrive_arduino) StderrLine: {'line': b'  109 | \x1b[01;31m\x1b[KLibraryVector\x1b[m\x1b[K & getLoadedLibraryVector();\n'}
+[13.359501] (diffdrive_arduino) StderrLine: {'line': b'      | \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.359944] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:118:6:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.360373] (diffdrive_arduino) StderrLine: {'line': b'  118 | std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K getCurrentlyLoadingLibraryName();\n'}
+[13.360781] (diffdrive_arduino) StderrLine: {'line': b'      |      \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.361181] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:126:48:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.361610] (diffdrive_arduino) StderrLine: {'line': b'  126 | void setCurrentlyLoadingLibraryName(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & library_name);\n'}
+[13.362026] (diffdrive_arduino) StderrLine: {'line': b'      |                                                \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.362458] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:154:1:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFactoryMap\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.363145] (diffdrive_arduino) StderrLine: {'line': b'  154 | \x1b[01;31m\x1b[KFactoryMap\x1b[m\x1b[K & getFactoryMapForBaseClass(const std::string & typeid_base_class_name);\n'}
+[13.363702] (diffdrive_arduino) StderrLine: {'line': b'      | \x1b[01;31m\x1b[K^~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.364164] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:162:1:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFactoryMap\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.364759] (diffdrive_arduino) StderrLine: {'line': b'  162 | \x1b[01;31m\x1b[KFactoryMap\x1b[m\x1b[K & getFactoryMapForBaseClass()\n'}
+[13.365276] (diffdrive_arduino) StderrLine: {'line': b'      | \x1b[01;31m\x1b[K^~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.365715] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:176:6:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Krecursive_mutex\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.366279] (diffdrive_arduino) StderrLine: {'line': b'  176 | std::\x1b[01;31m\x1b[Krecursive_mutex\x1b[m\x1b[K & getLoadedLibraryVectorMutex();\n'}
+[13.366836] (diffdrive_arduino) StderrLine: {'line': b'      |      \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.367351] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:178:6:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Krecursive_mutex\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.367836] (diffdrive_arduino) StderrLine: {'line': b'  178 | std::\x1b[01;31m\x1b[Krecursive_mutex\x1b[m\x1b[K & getPluginBaseToFactoryMapMapMutex();\n'}
+[13.368375] (diffdrive_arduino) StderrLine: {'line': b'      |      \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.368886] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:210:32:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.369535] (diffdrive_arduino) StderrLine: {'line': b'  210 | void registerPlugin(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & class_name, const std::string & base_class_name)\n'}
+[13.370162] (diffdrive_arduino) StderrLine: {'line': b'      |                                \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.370622] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:210:64:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.371341] (diffdrive_arduino) StderrLine: {'line': b'  210 | oid registerPlugin(const std::string & class_name, const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & base_class_name)\n'}
+[13.371786] (diffdrive_arduino) StderrLine: {'line': b'      |                                                               \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.372082] (diffdrive_arduino) StderrLine: {'line': b'\n'}
+[13.372361] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:50\x1b[m\x1b[K,\n'}
+[13.372762] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.373263] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.373674] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:\x1b[m\x1b[K In function \xe2\x80\x98\x1b[01m\x1b[Kvoid diffdrive_arduino::class_loader::impl::registerPlugin(const int&, const int&)\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[13.374123] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:215:3:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Krequest for member \xe2\x80\x98\x1b[01m\x1b[Kc_str\x1b[m\x1b[K\xe2\x80\x99 in \xe2\x80\x98\x1b[01m\x1b[Kclass_name\x1b[m\x1b[K\xe2\x80\x99, which is of non-class type \xe2\x80\x98\x1b[01m\x1b[Kconst int\x1b[m\x1b[K\xe2\x80\x99\n'}
+[13.374557] (diffdrive_arduino) StderrLine: {'line': b'  215 |   \x1b[01;31m\x1b[KCONSOLE_BRIDGE_logDebug\x1b[m\x1b[K(\n'}
+[13.375230] (diffdrive_arduino) StderrLine: {'line': b'      |   \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.375808] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:215:3:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kthere are no arguments to \xe2\x80\x98\x1b[01m\x1b[KgetCurrentlyLoadingLibraryName\x1b[m\x1b[K\xe2\x80\x99 that depend on a template parameter, so a declaration of \xe2\x80\x98\x1b[01m\x1b[KgetCurrentlyLoadingLibraryName\x1b[m\x1b[K\xe2\x80\x99 must be available [\x1b[01;31m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-fpermissive\x07-fpermissive\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[13.376354] (diffdrive_arduino) StderrLine: {'line': b'  215 |   \x1b[01;31m\x1b[KCONSOLE_BRIDGE_logDebug\x1b[m\x1b[K(\n'}
+[13.376991] (diffdrive_arduino) StderrLine: {'line': b'      |   \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.377635] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:215:3:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K(if you use \xe2\x80\x98\x1b[01m\x1b[K-fpermissive\x1b[m\x1b[K\xe2\x80\x99, G++ will accept your code, but allowing the use of an undeclared name is deprecated)\n'}
+[13.378196] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:55\x1b[m\x1b[K,\n'}
+[13.378665] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.379227] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.379672] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:246:41:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kthere are no arguments to \xe2\x80\x98\x1b[01m\x1b[KgetCurrentlyLoadingLibraryName\x1b[m\x1b[K\xe2\x80\x99 that depend on a template parameter, so a declaration of \xe2\x80\x98\x1b[01m\x1b[KgetCurrentlyLoadingLibraryName\x1b[m\x1b[K\xe2\x80\x99 must be available [\x1b[01;31m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-fpermissive\x07-fpermissive\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[13.380130] (diffdrive_arduino) StderrLine: {'line': b'  246 |   new_factory->setAssociatedLibraryPath(\x1b[01;31m\x1b[KgetCurrentlyLoadingLibraryName\x1b[m\x1b[K());\n'}
+[13.380537] (diffdrive_arduino) StderrLine: {'line': b'      |                                         \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.380974] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:250:3:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kthere are no arguments to \xe2\x80\x98\x1b[01m\x1b[KgetPluginBaseToFactoryMapMapMutex\x1b[m\x1b[K\xe2\x80\x99 that depend on a template parameter, so a declaration of \xe2\x80\x98\x1b[01m\x1b[KgetPluginBaseToFactoryMapMapMutex\x1b[m\x1b[K\xe2\x80\x99 must be available [\x1b[01;31m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-fpermissive\x07-fpermissive\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[13.381480] (diffdrive_arduino) StderrLine: {'line': b'  250 |   \x1b[01;31m\x1b[KgetPluginBaseToFactoryMapMapMutex\x1b[m\x1b[K().lock();\n'}
+[13.382021] (diffdrive_arduino) StderrLine: {'line': b'      |   \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.382524] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:251:3:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFactoryMap\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[13.383120] (diffdrive_arduino) StderrLine: {'line': b'  251 |   \x1b[01;31m\x1b[KFactoryMap\x1b[m\x1b[K & factoryMap = getFactoryMapForBaseClass<Base>();\n'}
+[13.383603] (diffdrive_arduino) StderrLine: {'line': b'      |   \x1b[01;31m\x1b[K^~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.384102] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:251:16:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KfactoryMap\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[13.384746] (diffdrive_arduino) StderrLine: {'line': b'  251 |   FactoryMap & \x1b[01;31m\x1b[KfactoryMap\x1b[m\x1b[K = getFactoryMapForBaseClass<Base>();\n'}
+[13.385274] (diffdrive_arduino) StderrLine: {'line': b'      |                \x1b[01;31m\x1b[K^~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.407000] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:251:29:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KgetFactoryMapForBaseClass\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[13.408675] (diffdrive_arduino) StderrLine: {'line': b'  251 |   FactoryMap & factoryMap = \x1b[01;31m\x1b[KgetFactoryMapForBaseClass\x1b[m\x1b[K<Base>();\n'}
+[13.409719] (diffdrive_arduino) StderrLine: {'line': b'      |                             \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.410240] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:251:59:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kexpected primary-expression before \xe2\x80\x98\x1b[01m\x1b[K>\x1b[m\x1b[K\xe2\x80\x99 token\n'}
+[13.410719] (diffdrive_arduino) StderrLine: {'line': b'  251 |   FactoryMap & factoryMap = getFactoryMapForBaseClass<Base\x1b[01;31m\x1b[K>\x1b[m\x1b[K();\n'}
+[13.411276] (diffdrive_arduino) StderrLine: {'line': b'      |                                                           \x1b[01;31m\x1b[K^\x1b[m\x1b[K\n'}
+[13.411770] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:251:61:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kexpected primary-expression before \xe2\x80\x98\x1b[01m\x1b[K)\x1b[m\x1b[K\xe2\x80\x99 token\n'}
+[13.412215] (diffdrive_arduino) StderrLine: {'line': b'  251 |   FactoryMap & factoryMap = getFactoryMapForBaseClass<Base>(\x1b[01;31m\x1b[K)\x1b[m\x1b[K;\n'}
+[13.412716] (diffdrive_arduino) StderrLine: {'line': b'      |                                                             \x1b[01;31m\x1b[K^\x1b[m\x1b[K\n'}
+[13.413289] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:50\x1b[m\x1b[K,\n'}
+[13.413764] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.414333] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.414917] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:253:5:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Krequest for member \xe2\x80\x98\x1b[01m\x1b[Kc_str\x1b[m\x1b[K\xe2\x80\x99 in \xe2\x80\x98\x1b[01m\x1b[Kclass_name\x1b[m\x1b[K\xe2\x80\x99, which is of non-class type \xe2\x80\x98\x1b[01m\x1b[Kconst int\x1b[m\x1b[K\xe2\x80\x99\n'}
+[13.415516] (diffdrive_arduino) StderrLine: {'line': b'  253 |     \x1b[01;31m\x1b[KCONSOLE_BRIDGE_logWarn\x1b[m\x1b[K(\n'}
+[13.416014] (diffdrive_arduino) StderrLine: {'line': b'      |     \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.416586] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:55\x1b[m\x1b[K,\n'}
+[13.417110] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.417704] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.418340] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:264:3:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kthere are no arguments to \xe2\x80\x98\x1b[01m\x1b[KgetPluginBaseToFactoryMapMapMutex\x1b[m\x1b[K\xe2\x80\x99 that depend on a template parameter, so a declaration of \xe2\x80\x98\x1b[01m\x1b[KgetPluginBaseToFactoryMapMapMutex\x1b[m\x1b[K\xe2\x80\x99 must be available [\x1b[01;31m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-fpermissive\x07-fpermissive\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[13.419136] (diffdrive_arduino) StderrLine: {'line': b'  264 |   \x1b[01;31m\x1b[KgetPluginBaseToFactoryMapMapMutex\x1b[m\x1b[K().unlock();\n'}
+[13.419651] (diffdrive_arduino) StderrLine: {'line': b'      |   \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.420203] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:50\x1b[m\x1b[K,\n'}
+[13.420666] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.422059] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.422865] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:266:3:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Krequest for member \xe2\x80\x98\x1b[01m\x1b[Kc_str\x1b[m\x1b[K\xe2\x80\x99 in \xe2\x80\x98\x1b[01m\x1b[Kclass_name\x1b[m\x1b[K\xe2\x80\x99, which is of non-class type \xe2\x80\x98\x1b[01m\x1b[Kconst int\x1b[m\x1b[K\xe2\x80\x99\n'}
+[13.423757] (diffdrive_arduino) StderrLine: {'line': b'  266 |   \x1b[01;31m\x1b[KCONSOLE_BRIDGE_logDebug\x1b[m\x1b[K(\n'}
+[13.424642] (diffdrive_arduino) StderrLine: {'line': b'      |   \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.425483] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:55\x1b[m\x1b[K,\n'}
+[13.429465] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.430966] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.431774] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:\x1b[m\x1b[K At global scope:\n'}
+[13.432516] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:281:34:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.433476] (diffdrive_arduino) StderrLine: {'line': b'  281 | Base * createInstance(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & derived_class_name, ClassLoader * loader)\n'}
+[13.434349] (diffdrive_arduino) StderrLine: {'line': b'      |                                  \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.435246] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:\x1b[m\x1b[K In function \xe2\x80\x98\x1b[01m\x1b[KBase* diffdrive_arduino::class_loader::impl::createInstance(const int&, diffdrive_arduino::class_loader::ClassLoader*)\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[13.436169] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:285:3:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kthere are no arguments to \xe2\x80\x98\x1b[01m\x1b[KgetPluginBaseToFactoryMapMapMutex\x1b[m\x1b[K\xe2\x80\x99 that depend on a template parameter, so a declaration of \xe2\x80\x98\x1b[01m\x1b[KgetPluginBaseToFactoryMapMapMutex\x1b[m\x1b[K\xe2\x80\x99 must be available [\x1b[01;31m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-fpermissive\x07-fpermissive\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[13.437286] (diffdrive_arduino) StderrLine: {'line': b'  285 |   \x1b[01;31m\x1b[KgetPluginBaseToFactoryMapMapMutex\x1b[m\x1b[K().lock();\n'}
+[13.438501] (diffdrive_arduino) StderrLine: {'line': b'      |   \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.440057] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:286:3:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFactoryMap\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope; did you mean \xe2\x80\x98\x1b[01m\x1b[Kfactory\x1b[m\x1b[K\xe2\x80\x99?\n'}
+[13.440629] (diffdrive_arduino) StderrLine: {'line': b'  286 |   \x1b[01;31m\x1b[KFactoryMap\x1b[m\x1b[K & factoryMap = getFactoryMapForBaseClass<Base>();\n'}
+[13.441305] (diffdrive_arduino) StderrLine: {'line': b'      |   \x1b[01;31m\x1b[K^~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.442161] (diffdrive_arduino) StderrLine: {'line': b'      |   \x1b[32m\x1b[Kfactory\x1b[m\x1b[K\n'}
+[13.444148] (-) TimerEvent: {}
+[13.445891] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:286:16:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KfactoryMap\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope; did you mean \xe2\x80\x98\x1b[01m\x1b[Kfactory\x1b[m\x1b[K\xe2\x80\x99?\n'}
+[13.447105] (diffdrive_arduino) StderrLine: {'line': b'  286 |   FactoryMap & \x1b[01;31m\x1b[KfactoryMap\x1b[m\x1b[K = getFactoryMapForBaseClass<Base>();\n'}
+[13.447989] (diffdrive_arduino) StderrLine: {'line': b'      |                \x1b[01;31m\x1b[K^~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.448452] (diffdrive_arduino) StderrLine: {'line': b'      |                \x1b[32m\x1b[Kfactory\x1b[m\x1b[K\n'}
+[13.474600] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:286:29:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KgetFactoryMapForBaseClass\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[13.476678] (diffdrive_arduino) StderrLine: {'line': b'  286 |   FactoryMap & factoryMap = \x1b[01;31m\x1b[KgetFactoryMapForBaseClass\x1b[m\x1b[K<Base>();\n'}
+[13.478597] (diffdrive_arduino) StderrLine: {'line': b'      |                             \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.479004] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:286:59:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kexpected primary-expression before \xe2\x80\x98\x1b[01m\x1b[K>\x1b[m\x1b[K\xe2\x80\x99 token\n'}
+[13.479309] (diffdrive_arduino) StderrLine: {'line': b'  286 |   FactoryMap & factoryMap = getFactoryMapForBaseClass<Base\x1b[01;31m\x1b[K>\x1b[m\x1b[K();\n'}
+[13.479579] (diffdrive_arduino) StderrLine: {'line': b'      |                                                           \x1b[01;31m\x1b[K^\x1b[m\x1b[K\n'}
+[13.479848] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:286:61:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kexpected primary-expression before \xe2\x80\x98\x1b[01m\x1b[K)\x1b[m\x1b[K\xe2\x80\x99 token\n'}
+[13.480117] (diffdrive_arduino) StderrLine: {'line': b'  286 |   FactoryMap & factoryMap = getFactoryMapForBaseClass<Base>(\x1b[01;31m\x1b[K)\x1b[m\x1b[K;\n'}
+[13.480381] (diffdrive_arduino) StderrLine: {'line': b'      |                                                             \x1b[01;31m\x1b[K^\x1b[m\x1b[K\n'}
+[13.480639] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:50\x1b[m\x1b[K,\n'}
+[13.480902] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.481272] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.481782] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:290:5:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Krequest for member \xe2\x80\x98\x1b[01m\x1b[Kc_str\x1b[m\x1b[K\xe2\x80\x99 in \xe2\x80\x98\x1b[01m\x1b[Kderived_class_name\x1b[m\x1b[K\xe2\x80\x99, which is of non-class type \xe2\x80\x98\x1b[01m\x1b[Kconst int\x1b[m\x1b[K\xe2\x80\x99\n'}
+[13.482302] (diffdrive_arduino) StderrLine: {'line': b'  290 |     \x1b[01;31m\x1b[KCONSOLE_BRIDGE_logError\x1b[m\x1b[K(\n'}
+[13.482698] (diffdrive_arduino) StderrLine: {'line': b'      |     \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.483060] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:55\x1b[m\x1b[K,\n'}
+[13.483456] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.483886] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.484307] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:293:3:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kthere are no arguments to \xe2\x80\x98\x1b[01m\x1b[KgetPluginBaseToFactoryMapMapMutex\x1b[m\x1b[K\xe2\x80\x99 that depend on a template parameter, so a declaration of \xe2\x80\x98\x1b[01m\x1b[KgetPluginBaseToFactoryMapMapMutex\x1b[m\x1b[K\xe2\x80\x99 must be available [\x1b[01;31m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-fpermissive\x07-fpermissive\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[13.484718] (diffdrive_arduino) StderrLine: {'line': b'  293 |   \x1b[01;31m\x1b[KgetPluginBaseToFactoryMapMapMutex\x1b[m\x1b[K().unlock();\n'}
+[13.485084] (diffdrive_arduino) StderrLine: {'line': b'      |   \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.485494] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:\x1b[m\x1b[K At global scope:\n'}
+[13.485899] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:336:6:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kvector\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a template type\n'}
+[13.486335] (diffdrive_arduino) StderrLine: {'line': b'  336 | std::\x1b[01;31m\x1b[Kvector\x1b[m\x1b[K<std::string> getAvailableClasses(const ClassLoader * loader)\n'}
+[13.486780] (diffdrive_arduino) StderrLine: {'line': b'      |      \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.487276] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:367:6:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kvector\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a template type\n'}
+[13.487728] (diffdrive_arduino) StderrLine: {'line': b'  367 | std::\x1b[01;31m\x1b[Kvector\x1b[m\x1b[K<std::string> getAllLibrariesUsedByClassLoader(const ClassLoader * loader);\n'}
+[13.488120] (diffdrive_arduino) StderrLine: {'line': b'      |      \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.488928] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:378:33:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.489766] (diffdrive_arduino) StderrLine: {'line': b'  378 | bool isLibraryLoaded(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & library_path, const ClassLoader * loader);\n'}
+[13.490501] (diffdrive_arduino) StderrLine: {'line': b'      |                                 \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.491190] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:387:42:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.491745] (diffdrive_arduino) StderrLine: {'line': b'  387 | bool isLibraryLoadedByAnybody(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & library_path);\n'}
+[13.492184] (diffdrive_arduino) StderrLine: {'line': b'      |                                          \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.492686] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:397:29:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.492974] (diffdrive_arduino) StderrLine: {'line': b'  397 | void loadLibrary(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & library_path, ClassLoader * loader);\n'}
+[13.493239] (diffdrive_arduino) StderrLine: {'line': b'      |                             \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.493499] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:407:31:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.493762] (diffdrive_arduino) StderrLine: {'line': b'  407 | void unloadLibrary(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & library_path, ClassLoader * loader);\n'}
+[13.494019] (diffdrive_arduino) StderrLine: {'line': b'      |                               \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.494276] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.494535] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.495109] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:71:6:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.495883] (diffdrive_arduino) StderrLine: {'line': b'   71 | std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K systemLibraryFormat(const std::string & library_name);\n'}
+[13.496857] (diffdrive_arduino) StderrLine: {'line': b'      |      \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.497343] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:83:28:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kfunction\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a template type\n'}
+[13.497818] (diffdrive_arduino) StderrLine: {'line': b'   83 |   using DeleterType = std::\x1b[01;31m\x1b[Kfunction\x1b[m\x1b[K<void (Base *)>;\n'}
+[13.499203] (diffdrive_arduino) StderrLine: {'line': b'      |                            \x1b[01;31m\x1b[K^~~~~~~~\x1b[m\x1b[K\n'}
+[13.499811] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:86:26:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kunique_ptr\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a template type\n'}
+[13.500289] (diffdrive_arduino) StderrLine: {'line': b'   86 |   using UniquePtr = std::\x1b[01;31m\x1b[Kunique_ptr\x1b[m\x1b[K<Base, DeleterType<Base>>;\n'}
+[13.500789] (diffdrive_arduino) StderrLine: {'line': b'      |                          \x1b[01;31m\x1b[K^~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.501264] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:96:35:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.501807] (diffdrive_arduino) StderrLine: {'line': b'   96 |   explicit ClassLoader(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & library_path, bool ondemand_load_unload = false);\n'}
+[13.502265] (diffdrive_arduino) StderrLine: {'line': b'      |                                   \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.502742] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:110:8:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kvector\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a template type\n'}
+[13.503350] (diffdrive_arduino) StderrLine: {'line': b'  110 |   std::\x1b[01;31m\x1b[Kvector\x1b[m\x1b[K<std::string> getAvailableClasses() const\n'}
+[13.503835] (diffdrive_arduino) StderrLine: {'line': b'      |        \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.504316] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:125:8:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kshared_ptr\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a template type\n'}
+[13.504879] (diffdrive_arduino) StderrLine: {'line': b'  125 |   std::\x1b[01;31m\x1b[Kshared_ptr\x1b[m\x1b[K<Base> createInstance(const std::string & derived_class_name)\n'}
+[13.505477] (diffdrive_arduino) StderrLine: {'line': b'      |        \x1b[01;31m\x1b[K^~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.505980] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:147:3:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KUniquePtr\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.506774] (diffdrive_arduino) StderrLine: {'line': b'  147 |   \x1b[01;31m\x1b[KUniquePtr\x1b[m\x1b[K<Base> createUniqueInstance(const std::string & derived_class_name)\n'}
+[13.507505] (diffdrive_arduino) StderrLine: {'line': b'      |   \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[13.508152] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:170:45:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.508916] (diffdrive_arduino) StderrLine: {'line': b'  170 |   Base * createUnmanagedInstance(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & derived_class_name)\n'}
+[13.509525] (diffdrive_arduino) StderrLine: {'line': b'      |                                             \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.509962] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:183:36:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.510415] (diffdrive_arduino) StderrLine: {'line': b'  183 |   bool isClassAvailable(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & class_name) const\n'}
+[13.510708] (diffdrive_arduino) StderrLine: {'line': b'      |                                    \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.511150] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:196:14:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.511567] (diffdrive_arduino) StderrLine: {'line': b'  196 |   const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & getLibraryPath() const;\n'}
+[13.511845] (diffdrive_arduino) StderrLine: {'line': b'      |              \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.512108] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:303:39:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.512472] (diffdrive_arduino) StderrLine: {'line': b'  303 |   Base * createRawInstance(const std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K & derived_class_name, bool managed)\n'}
+[13.512840] (diffdrive_arduino) StderrLine: {'line': b'      |                                       \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.513118] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:362:8:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.513395] (diffdrive_arduino) StderrLine: {'line': b'  362 |   std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K library_path_;\n'}
+[13.513773] (diffdrive_arduino) StderrLine: {'line': b'      |        \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.514115] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:364:8:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Krecursive_mutex\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.514401] (diffdrive_arduino) StderrLine: {'line': b'  364 |   std::\x1b[01;31m\x1b[Krecursive_mutex\x1b[m\x1b[K load_ref_count_mutex_;\n'}
+[13.514675] (diffdrive_arduino) StderrLine: {'line': b'      |        \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.515161] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:366:8:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Krecursive_mutex\x1b[m\x1b[K\xe2\x80\x99 in namespace \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99 does not name a type\n'}
+[13.515485] (diffdrive_arduino) StderrLine: {'line': b'  366 |   std::\x1b[01;31m\x1b[Krecursive_mutex\x1b[m\x1b[K plugin_ref_count_mutex_;\n'}
+[13.515757] (diffdrive_arduino) StderrLine: {'line': b'      |        \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.516040] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:\x1b[m\x1b[K In member function \xe2\x80\x98\x1b[01m\x1b[Kbool diffdrive_arduino::class_loader::ClassLoader::isClassAvailable(const int&) const\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[13.516832] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:185:10:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kvector\x1b[m\x1b[K\xe2\x80\x99 is not a member of \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99\n'}
+[13.517223] (diffdrive_arduino) StderrLine: {'line': b'  185 |     std::\x1b[01;31m\x1b[Kvector\x1b[m\x1b[K<std::string> available_classes = getAvailableClasses<Base>();\n'}
+[13.517855] (diffdrive_arduino) StderrLine: {'line': b'      |          \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.518286] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:185:10:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[Ksuggested alternatives:\n'}
+[13.518931] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/usr/include/c++/11/vector:67\x1b[m\x1b[K,\n'}
+[13.519467] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/include/diffdrive_arduino/diffbot_system.hpp:20\x1b[m\x1b[K,\n'}
+[13.520208] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:15\x1b[m\x1b[K:\n'}
+[13.520781] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/usr/include/c++/11/bits/stl_vector.h:389:11:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  \xe2\x80\x98\x1b[01m\x1b[Kstd::vector\x1b[m\x1b[K\xe2\x80\x99\n'}
+[13.521583] (diffdrive_arduino) StderrLine: {'line': b'  389 |     class \x1b[01;36m\x1b[Kvector\x1b[m\x1b[K : protected _Vector_base<_Tp, _Alloc>\n'}
+[13.522181] (diffdrive_arduino) StderrLine: {'line': b'      |           \x1b[01;36m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.522925] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/include/diffdrive_arduino/diffbot_system.hpp:20\x1b[m\x1b[K,\n'}
+[13.523473] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:15\x1b[m\x1b[K:\n'}
+[13.523920] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/usr/include/c++/11/vector:86:13:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  \xe2\x80\x98\x1b[01m\x1b[Kstd::pmr::vector\x1b[m\x1b[K\xe2\x80\x99\n'}
+[13.524536] (diffdrive_arduino) StderrLine: {'line': b'   86 |       using \x1b[01;36m\x1b[Kvector\x1b[m\x1b[K = std::vector<_Tp, polymorphic_allocator<_Tp>>;\n'}
+[13.525324] (diffdrive_arduino) StderrLine: {'line': b'      |             \x1b[01;36m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.525973] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.526627] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.527267] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:185:22:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 is not a member of \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99\n'}
+[13.528377] (diffdrive_arduino) StderrLine: {'line': b'  185 |     std::vector<std::\x1b[01;31m\x1b[Kstring\x1b[m\x1b[K> available_classes = getAvailableClasses<Base>();\n'}
+[13.528855] (diffdrive_arduino) StderrLine: {'line': b'      |                      \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.529177] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:185:22:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[Ksuggested alternatives:\n'}
+[13.529463] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/usr/include/c++/11/iosfwd:39\x1b[m\x1b[K,\n'}
+[13.529741] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/usr/include/c++/11/bits/shared_ptr.h:52\x1b[m\x1b[K,\n'}
+[13.530004] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/usr/include/c++/11/memory:77\x1b[m\x1b[K,\n'}
+[13.530315] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/include/diffdrive_arduino/diffbot_system.hpp:18\x1b[m\x1b[K,\n'}
+[13.530626] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:15\x1b[m\x1b[K:\n'}
+[13.530944] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/usr/include/c++/11/bits/stringfwd.h:79:33:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  \xe2\x80\x98\x1b[01m\x1b[Kstd::string\x1b[m\x1b[K\xe2\x80\x99\n'}
+[13.531241] (diffdrive_arduino) StderrLine: {'line': b'   79 |   typedef basic_string<char>    \x1b[01;36m\x1b[Kstring\x1b[m\x1b[K;\n'}
+[13.531506] (diffdrive_arduino) StderrLine: {'line': b'      |                                 \x1b[01;36m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.531773] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/include/diffdrive_arduino/diffbot_system.hpp:19\x1b[m\x1b[K,\n'}
+[13.532042] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:15\x1b[m\x1b[K:\n'}
+[13.532311] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/usr/include/c++/11/string:67:11:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  \xe2\x80\x98\x1b[01m\x1b[Kstd::pmr::string\x1b[m\x1b[K\xe2\x80\x99\n'}
+[13.532580] (diffdrive_arduino) StderrLine: {'line': b'   67 |     using \x1b[01;36m\x1b[Kstring\x1b[m\x1b[K    = basic_string<char>;\n'}
+[13.532844] (diffdrive_arduino) StderrLine: {'line': b'      |           \x1b[01;36m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.542088] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.542994] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.543663] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:185:30:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kavailable_classes\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[13.544114] (-) TimerEvent: {}
+[13.545509] (diffdrive_arduino) StderrLine: {'line': b'  185 |     std::vector<std::string> \x1b[01;31m\x1b[Kavailable_classes\x1b[m\x1b[K = getAvailableClasses<Base>();\n'}
+[13.546316] (diffdrive_arduino) StderrLine: {'line': b'      |                              \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.581433] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:185:50:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KgetAvailableClasses\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[13.582470] (diffdrive_arduino) StderrLine: {'line': b'  185 |     std::vector<std::string> available_classes = \x1b[01;31m\x1b[KgetAvailableClasses\x1b[m\x1b[K<Base>();\n'}
+[13.583155] (diffdrive_arduino) StderrLine: {'line': b'      |                                                  \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.583805] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:185:74:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kexpected primary-expression before \xe2\x80\x98\x1b[01m\x1b[K>\x1b[m\x1b[K\xe2\x80\x99 token\n'}
+[13.585129] (diffdrive_arduino) StderrLine: {'line': b'  185 | std::vector<std::string> available_classes = getAvailableClasses<Base\x1b[01;31m\x1b[K>\x1b[m\x1b[K();\n'}
+[13.585721] (diffdrive_arduino) StderrLine: {'line': b'      |                                                                      \x1b[01;31m\x1b[K^\x1b[m\x1b[K\n'}
+[13.586428] (diffdrive_arduino) StderrLine: {'line': b'\n'}
+[13.587606] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:185:76:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kexpected primary-expression before \xe2\x80\x98\x1b[01m\x1b[K)\x1b[m\x1b[K\xe2\x80\x99 token\n'}
+[13.588157] (diffdrive_arduino) StderrLine: {'line': b'  185 | std::vector<std::string> available_classes = getAvailableClasses<Base>(\x1b[01;31m\x1b[K)\x1b[m\x1b[K;\n'}
+[13.588628] (diffdrive_arduino) StderrLine: {'line': b'      |                                                                        \x1b[01;31m\x1b[K^\x1b[m\x1b[K\n'}
+[13.589090] (diffdrive_arduino) StderrLine: {'line': b'\n'}
+[13.590243] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:186:17:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kfind\x1b[m\x1b[K\xe2\x80\x99 is not a member of \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99; did you mean \xe2\x80\x98\x1b[01m\x1b[Kstd::find\x1b[m\x1b[K\xe2\x80\x99?\n'}
+[13.590851] (diffdrive_arduino) StderrLine: {'line': b'  186 |     return std::\x1b[01;31m\x1b[Kfind\x1b[m\x1b[K(\n'}
+[13.591341] (diffdrive_arduino) StderrLine: {'line': b'      |                 \x1b[01;31m\x1b[K^~~~\x1b[m\x1b[K\n'}
+[13.591766] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/usr/include/c++/11/bits/locale_facets.h:48\x1b[m\x1b[K,\n'}
+[13.592176] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/usr/include/c++/11/bits/basic_ios.h:37\x1b[m\x1b[K,\n'}
+[13.592599] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/usr/include/c++/11/ios:44\x1b[m\x1b[K,\n'}
+[13.593034] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/usr/include/c++/11/istream:38\x1b[m\x1b[K,\n'}
+[13.593452] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/usr/include/c++/11/sstream:38\x1b[m\x1b[K,\n'}
+[13.593841] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/lifecycle_msgs/lifecycle_msgs/msg/detail/state__traits.hpp:10\x1b[m\x1b[K,\n'}
+[13.594302] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/lifecycle_msgs/lifecycle_msgs/msg/state.hpp:9\x1b[m\x1b[K,\n'}
+[13.594754] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/hardware_interface/system_interface.hpp:26\x1b[m\x1b[K,\n'}
+[13.595268] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/include/diffdrive_arduino/diffbot_system.hpp:24\x1b[m\x1b[K,\n'}
+[13.595786] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:15\x1b[m\x1b[K:\n'}
+[13.596238] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/usr/include/c++/11/bits/streambuf_iterator.h:421:5:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstd::find\x1b[m\x1b[K\xe2\x80\x99 declared here\n'}
+[13.596699] (diffdrive_arduino) StderrLine: {'line': b'  421 |     \x1b[01;36m\x1b[Kfind\x1b[m\x1b[K(istreambuf_iterator<_CharT> __first,\n'}
+[13.597247] (diffdrive_arduino) StderrLine: {'line': b'      |     \x1b[01;36m\x1b[K^~~~\x1b[m\x1b[K\n'}
+[13.597703] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.598165] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.598620] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:\x1b[m\x1b[K In member function \xe2\x80\x98\x1b[01m\x1b[Kvoid diffdrive_arduino::class_loader::ClassLoader::onPluginDeletion(Base*)\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[13.599400] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:270:10:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Klock_guard\x1b[m\x1b[K\xe2\x80\x99 is not a member of \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99; did you mean \xe2\x80\x98\x1b[01m\x1b[Kstd::lock_guard\x1b[m\x1b[K\xe2\x80\x99?\n'}
+[13.599918] (diffdrive_arduino) StderrLine: {'line': b'  270 |     std::\x1b[01;31m\x1b[Klock_guard\x1b[m\x1b[K<std::recursive_mutex> lock(plugin_ref_count_mutex_);\n'}
+[13.600366] (diffdrive_arduino) StderrLine: {'line': b'      |          \x1b[01;31m\x1b[K^~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.600918] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/usr/include/c++/11/mutex:43\x1b[m\x1b[K,\n'}
+[13.601378] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/clock.hpp:20\x1b[m\x1b[K,\n'}
+[13.601919] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/include/diffdrive_arduino/diffbot_system.hpp:26\x1b[m\x1b[K,\n'}
+[13.602391] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:15\x1b[m\x1b[K:\n'}
+[13.602703] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/usr/include/c++/11/bits/std_mutex.h:223:11:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstd::lock_guard\x1b[m\x1b[K\xe2\x80\x99 declared here\n'}
+[13.603047] (diffdrive_arduino) StderrLine: {'line': b'  223 |     class \x1b[01;36m\x1b[Klock_guard\x1b[m\x1b[K\n'}
+[13.603324] (diffdrive_arduino) StderrLine: {'line': b'      |           \x1b[01;36m\x1b[K^~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.603586] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.603862] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.604345] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:270:26:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Krecursive_mutex\x1b[m\x1b[K\xe2\x80\x99 is not a member of \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99; did you mean \xe2\x80\x98\x1b[01m\x1b[Kstd::recursive_mutex\x1b[m\x1b[K\xe2\x80\x99?\n'}
+[13.604868] (diffdrive_arduino) StderrLine: {'line': b'  270 |     std::lock_guard<std::\x1b[01;31m\x1b[Krecursive_mutex\x1b[m\x1b[K> lock(plugin_ref_count_mutex_);\n'}
+[13.605270] (diffdrive_arduino) StderrLine: {'line': b'      |                          \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.605571] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/clock.hpp:20\x1b[m\x1b[K,\n'}
+[13.605894] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/include/diffdrive_arduino/diffbot_system.hpp:26\x1b[m\x1b[K,\n'}
+[13.606253] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:15\x1b[m\x1b[K:\n'}
+[13.607361] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/usr/include/c++/11/mutex:94:9:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstd::recursive_mutex\x1b[m\x1b[K\xe2\x80\x99 declared here\n'}
+[13.607724] (diffdrive_arduino) StderrLine: {'line': b'   94 |   class \x1b[01;36m\x1b[Krecursive_mutex\x1b[m\x1b[K : private __recursive_mutex_base\n'}
+[13.608086] (diffdrive_arduino) StderrLine: {'line': b'      |         \x1b[01;36m\x1b[K^~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.632032] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.633146] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.633938] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:270:48:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kplugin_ref_count_mutex_\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope; did you mean \xe2\x80\x98\x1b[01m\x1b[Kplugin_ref_count_\x1b[m\x1b[K\xe2\x80\x99?\n'}
+[13.635155] (diffdrive_arduino) StderrLine: {'line': b'  270 |     std::lock_guard<std::recursive_mutex> lock(\x1b[01;31m\x1b[Kplugin_ref_count_mutex_\x1b[m\x1b[K);\n'}
+[13.635738] (diffdrive_arduino) StderrLine: {'line': b'      |                                                \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.636233] (diffdrive_arduino) StderrLine: {'line': b'      |                                                \x1b[32m\x1b[Kplugin_ref_count_\x1b[m\x1b[K\n'}
+[13.637466] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:270:43:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kthere are no arguments to \xe2\x80\x98\x1b[01m\x1b[Klock\x1b[m\x1b[K\xe2\x80\x99 that depend on a template parameter, so a declaration of \xe2\x80\x98\x1b[01m\x1b[Klock\x1b[m\x1b[K\xe2\x80\x99 must be available [\x1b[01;31m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-fpermissive\x07-fpermissive\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[13.637996] (diffdrive_arduino) StderrLine: {'line': b'  270 |     std::lock_guard<std::recursive_mutex> \x1b[01;31m\x1b[Klock\x1b[m\x1b[K(plugin_ref_count_mutex_);\n'}
+[13.638452] (diffdrive_arduino) StderrLine: {'line': b'      |                                           \x1b[01;31m\x1b[K^~~~\x1b[m\x1b[K\n'}
+[13.638929] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:50\x1b[m\x1b[K,\n'}
+[13.639429] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.639877] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.640273] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:278:9:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kthere are no arguments to \xe2\x80\x98\x1b[01m\x1b[KgetLibraryPath\x1b[m\x1b[K\xe2\x80\x99 that depend on a template parameter, so a declaration of \xe2\x80\x98\x1b[01m\x1b[KgetLibraryPath\x1b[m\x1b[K\xe2\x80\x99 must be available [\x1b[01;31m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-fpermissive\x07-fpermissive\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[13.640732] (diffdrive_arduino) StderrLine: {'line': b'  278 |         \x1b[01;31m\x1b[KCONSOLE_BRIDGE_logWarn\x1b[m\x1b[K(\n'}
+[13.641195] (diffdrive_arduino) StderrLine: {'line': b'      |         \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.641620] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.642131] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.642569] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:\x1b[m\x1b[K In member function \xe2\x80\x98\x1b[01m\x1b[KBase* diffdrive_arduino::class_loader::ClassLoader::createRawInstance(const int&, bool)\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[13.643627] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:331:12:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Klock_guard\x1b[m\x1b[K\xe2\x80\x99 is not a member of \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99; did you mean \xe2\x80\x98\x1b[01m\x1b[Kstd::lock_guard\x1b[m\x1b[K\xe2\x80\x99?\n'}
+[13.644168] (-) TimerEvent: {}
+[13.645683] (diffdrive_arduino) StderrLine: {'line': b'  331 |       std::\x1b[01;31m\x1b[Klock_guard\x1b[m\x1b[K<std::recursive_mutex> lock(plugin_ref_count_mutex_);\n'}
+[13.646369] (diffdrive_arduino) StderrLine: {'line': b'      |            \x1b[01;31m\x1b[K^~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.646983] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/usr/include/c++/11/mutex:43\x1b[m\x1b[K,\n'}
+[13.647601] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/clock.hpp:20\x1b[m\x1b[K,\n'}
+[13.648231] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/include/diffdrive_arduino/diffbot_system.hpp:26\x1b[m\x1b[K,\n'}
+[13.648783] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:15\x1b[m\x1b[K:\n'}
+[13.649127] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/usr/include/c++/11/bits/std_mutex.h:223:11:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstd::lock_guard\x1b[m\x1b[K\xe2\x80\x99 declared here\n'}
+[13.649416] (diffdrive_arduino) StderrLine: {'line': b'  223 |     class \x1b[01;36m\x1b[Klock_guard\x1b[m\x1b[K\n'}
+[13.649679] (diffdrive_arduino) StderrLine: {'line': b'      |           \x1b[01;36m\x1b[K^~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.649942] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.650210] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.650477] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:331:28:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Krecursive_mutex\x1b[m\x1b[K\xe2\x80\x99 is not a member of \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99; did you mean \xe2\x80\x98\x1b[01m\x1b[Kstd::recursive_mutex\x1b[m\x1b[K\xe2\x80\x99?\n'}
+[13.651685] (diffdrive_arduino) StderrLine: {'line': b'  331 |       std::lock_guard<std::\x1b[01;31m\x1b[Krecursive_mutex\x1b[m\x1b[K> lock(plugin_ref_count_mutex_);\n'}
+[13.652023] (diffdrive_arduino) StderrLine: {'line': b'      |                            \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.652296] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/clock.hpp:20\x1b[m\x1b[K,\n'}
+[13.652613] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/include/diffdrive_arduino/diffbot_system.hpp:26\x1b[m\x1b[K,\n'}
+[13.653077] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:15\x1b[m\x1b[K:\n'}
+[13.653386] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/usr/include/c++/11/mutex:94:9:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstd::recursive_mutex\x1b[m\x1b[K\xe2\x80\x99 declared here\n'}
+[13.653670] (diffdrive_arduino) StderrLine: {'line': b'   94 |   class \x1b[01;36m\x1b[Krecursive_mutex\x1b[m\x1b[K : private __recursive_mutex_base\n'}
+[13.653979] (diffdrive_arduino) StderrLine: {'line': b'      |         \x1b[01;36m\x1b[K^~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.674046] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.674911] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.675664] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:331:50:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kplugin_ref_count_mutex_\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope; did you mean \xe2\x80\x98\x1b[01m\x1b[Kplugin_ref_count_\x1b[m\x1b[K\xe2\x80\x99?\n'}
+[13.676360] (diffdrive_arduino) StderrLine: {'line': b'  331 |       std::lock_guard<std::recursive_mutex> lock(\x1b[01;31m\x1b[Kplugin_ref_count_mutex_\x1b[m\x1b[K);\n'}
+[13.677302] (diffdrive_arduino) StderrLine: {'line': b'      |                                                  \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.678555] (diffdrive_arduino) StderrLine: {'line': b'      |                                                  \x1b[32m\x1b[Kplugin_ref_count_\x1b[m\x1b[K\n'}
+[13.678933] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:331:45:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kthere are no arguments to \xe2\x80\x98\x1b[01m\x1b[Klock\x1b[m\x1b[K\xe2\x80\x99 that depend on a template parameter, so a declaration of \xe2\x80\x98\x1b[01m\x1b[Klock\x1b[m\x1b[K\xe2\x80\x99 must be available [\x1b[01;31m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-fpermissive\x07-fpermissive\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[13.679269] (diffdrive_arduino) StderrLine: {'line': b'  331 |       std::lock_guard<std::recursive_mutex> \x1b[01;31m\x1b[Klock\x1b[m\x1b[K(plugin_ref_count_mutex_);\n'}
+[13.679540] (diffdrive_arduino) StderrLine: {'line': b'      |                                             \x1b[01;31m\x1b[K^~~~\x1b[m\x1b[K\n'}
+[13.679802] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:56\x1b[m\x1b[K,\n'}
+[13.680068] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.680346] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.680610] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:\x1b[m\x1b[K In constructor \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::{anonymous}::ProxyExec0::ProxyExec0()\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[13.680919] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:265:1:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstring\x1b[m\x1b[K\xe2\x80\x99 is not a member of \xe2\x80\x98\x1b[01m\x1b[Kdiffdrive_arduino::std\x1b[m\x1b[K\xe2\x80\x99\n'}
+[13.681231] (diffdrive_arduino) StderrLine: {'line': b'  265 | \x1b[01;31m\x1b[KPLUGINLIB_EXPORT_CLASS\x1b[m\x1b[K(\n'}
+[13.681568] (diffdrive_arduino) StderrLine: {'line': b'      | \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.681899] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:265:1:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[Ksuggested alternatives:\n'}
+[13.682262] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/usr/include/c++/11/iosfwd:39\x1b[m\x1b[K,\n'}
+[13.682778] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/usr/include/c++/11/bits/shared_ptr.h:52\x1b[m\x1b[K,\n'}
+[13.683863] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/usr/include/c++/11/memory:77\x1b[m\x1b[K,\n'}
+[13.685226] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/include/diffdrive_arduino/diffbot_system.hpp:18\x1b[m\x1b[K,\n'}
+[13.685787] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:15\x1b[m\x1b[K:\n'}
+[13.686230] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/usr/include/c++/11/bits/stringfwd.h:79:33:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  \xe2\x80\x98\x1b[01m\x1b[Kstd::string\x1b[m\x1b[K\xe2\x80\x99\n'}
+[13.686692] (diffdrive_arduino) StderrLine: {'line': b'   79 |   typedef basic_string<char>    \x1b[01;36m\x1b[Kstring\x1b[m\x1b[K;\n'}
+[13.687292] (diffdrive_arduino) StderrLine: {'line': b'      |                                 \x1b[01;36m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.687757] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/include/diffdrive_arduino/diffbot_system.hpp:19\x1b[m\x1b[K,\n'}
+[13.688185] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:15\x1b[m\x1b[K:\n'}
+[13.688618] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/usr/include/c++/11/string:67:11:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  \xe2\x80\x98\x1b[01m\x1b[Kstd::pmr::string\x1b[m\x1b[K\xe2\x80\x99\n'}
+[13.689117] (diffdrive_arduino) StderrLine: {'line': b'   67 |     using \x1b[01;36m\x1b[Kstring\x1b[m\x1b[K    = basic_string<char>;\n'}
+[13.689554] (diffdrive_arduino) StderrLine: {'line': b'      |           \x1b[01;36m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[13.689978] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:56\x1b[m\x1b[K,\n'}
+[13.690449] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.690935] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.691443] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:265:1:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kinvalid conversion from \xe2\x80\x98\x1b[01m\x1b[Kconst char*\x1b[m\x1b[K\xe2\x80\x99 to \xe2\x80\x98\x1b[01m\x1b[Kint\x1b[m\x1b[K\xe2\x80\x99 [\x1b[01;31m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-fpermissive\x07-fpermissive\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[13.691928] (diffdrive_arduino) StderrLine: {'line': b'  265 | \x1b[01;31m\x1b[KPLUGINLIB_EXPORT_CLASS\x1b[m\x1b[K(\n'}
+[13.692399] (diffdrive_arduino) StderrLine: {'line': b'      | \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.692856] (diffdrive_arduino) StderrLine: {'line': b'      | \x1b[01;31m\x1b[K|\x1b[m\x1b[K\n'}
+[13.693272] (diffdrive_arduino) StderrLine: {'line': b'      | \x1b[01;31m\x1b[Kconst char*\x1b[m\x1b[K\n'}
+[13.693662] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:55\x1b[m\x1b[K,\n'}
+[13.694077] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.694460] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.694898] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:210:41:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  initializing argument 1 of \xe2\x80\x98\x1b[01m\x1b[Kvoid diffdrive_arduino::class_loader::impl::registerPlugin(const int&, const int&) [with Derived = diffdrive_arduino::DiffDriveArduinoHardware; Base = hardware_interface::SystemInterface]\x1b[m\x1b[K\xe2\x80\x99\n'}
+[13.695461] (diffdrive_arduino) StderrLine: {'line': b'  210 | void registerPlugin(\x1b[01;36m\x1b[Kconst std::string & class_name\x1b[m\x1b[K, const std::string & base_class_name)\n'}
+[13.695867] (diffdrive_arduino) StderrLine: {'line': b'      |                     \x1b[01;36m\x1b[K~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.696249] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:56\x1b[m\x1b[K,\n'}
+[13.696637] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.697056] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.697428] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:265:1:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kinvalid conversion from \xe2\x80\x98\x1b[01m\x1b[Kconst char*\x1b[m\x1b[K\xe2\x80\x99 to \xe2\x80\x98\x1b[01m\x1b[Kint\x1b[m\x1b[K\xe2\x80\x99 [\x1b[01;31m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-fpermissive\x07-fpermissive\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[13.697921] (diffdrive_arduino) StderrLine: {'line': b'  265 | \x1b[01;31m\x1b[KPLUGINLIB_EXPORT_CLASS\x1b[m\x1b[K(\n'}
+[13.698318] (diffdrive_arduino) StderrLine: {'line': b'      | \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.698690] (diffdrive_arduino) StderrLine: {'line': b'      | \x1b[01;31m\x1b[K|\x1b[m\x1b[K\n'}
+[13.699169] (diffdrive_arduino) StderrLine: {'line': b'      | \x1b[01;31m\x1b[Kconst char*\x1b[m\x1b[K\n'}
+[13.699563] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:55\x1b[m\x1b[K,\n'}
+[13.699939] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.700299] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.700672] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:210:73:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  initializing argument 2 of \xe2\x80\x98\x1b[01m\x1b[Kvoid diffdrive_arduino::class_loader::impl::registerPlugin(const int&, const int&) [with Derived = diffdrive_arduino::DiffDriveArduinoHardware; Base = hardware_interface::SystemInterface]\x1b[m\x1b[K\xe2\x80\x99\n'}
+[13.701126] (diffdrive_arduino) StderrLine: {'line': b'  210 | terPlugin(const std::string & class_name, \x1b[01;36m\x1b[Kconst std::string & base_class_name\x1b[m\x1b[K)\n'}
+[13.701636] (diffdrive_arduino) StderrLine: {'line': b'      |                                           \x1b[01;36m\x1b[K~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.702057] (diffdrive_arduino) StderrLine: {'line': b'\n'}
+[13.702419] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:56\x1b[m\x1b[K,\n'}
+[13.702775] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[13.703271] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[13.703652] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:\x1b[m\x1b[K At global scope:\n'}
+[13.704029] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:265:1:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kexpected \xe2\x80\x98\x1b[01m\x1b[K}\x1b[m\x1b[K\xe2\x80\x99 at end of input\n'}
+[13.704501] (diffdrive_arduino) StderrLine: {'line': b'  265 | \x1b[01;31m\x1b[KPLUGINLIB_EXPORT_CLASS\x1b[m\x1b[K(\n'}
+[13.704866] (diffdrive_arduino) StderrLine: {'line': b'      | \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.705219] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:27:1:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[Kto match this \xe2\x80\x98\x1b[01m\x1b[K{\x1b[m\x1b[K\xe2\x80\x99\n'}
+[13.705578] (diffdrive_arduino) StderrLine: {'line': b'   27 | \x1b[01;36m\x1b[K{\x1b[m\x1b[K\n'}
+[13.705934] (diffdrive_arduino) StderrLine: {'line': b'      | \x1b[01;36m\x1b[K^\x1b[m\x1b[K\n'}
+[13.744369] (-) TimerEvent: {}
+[13.845151] (-) TimerEvent: {}
+[13.945936] (-) TimerEvent: {}
+[14.046884] (-) TimerEvent: {}
+[14.105468] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:50\x1b[m\x1b[K,\n'}
+[14.106204] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[14.106923] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[14.107512] (diffdrive_arduino) StderrLine: {'line': b'/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp: In instantiation of \xe2\x80\x98\x1b[01m\x1b[Kvoid diffdrive_arduino::class_loader::impl::registerPlugin(const int&, const int&) [with Derived = diffdrive_arduino::DiffDriveArduinoHardware; Base = hardware_interface::SystemInterface]\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[14.108089] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:265:1:\x1b[m\x1b[K   required from here\n'}
+[14.108535] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:215:3:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KgetCurrentlyLoadingLibraryName\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[14.108996] (diffdrive_arduino) StderrLine: {'line': b'  215 |   \x1b[01;31m\x1b[KCONSOLE_BRIDGE_logDebug\x1b[m\x1b[K(\n'}
+[14.109458] (diffdrive_arduino) StderrLine: {'line': b'      |   \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[14.138583] (diffdrive_arduino) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader.hpp:55\x1b[m\x1b[K,\n'}
+[14.139385] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/pluginlib/pluginlib/class_list_macros.hpp:40\x1b[m\x1b[K,\n'}
+[14.139868] (diffdrive_arduino) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ubuntu/denem/diffdrive_arduino/hardware/diffbot_system.cpp:264\x1b[m\x1b[K:\n'}
+[14.140423] (diffdrive_arduino) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:250:36:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KgetPluginBaseToFactoryMapMapMutex\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[14.140867] (diffdrive_arduino) StderrLine: {'line': b'  250 |   \x1b[01;31m\x1b[KgetPluginBaseToFactoryMapMapMutex()\x1b[m\x1b[K.lock();\n'}
+[14.141273] (diffdrive_arduino) StderrLine: {'line': b'      |   \x1b[01;31m\x1b[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~\x1b[m\x1b[K\n'}
+[14.147048] (-) TimerEvent: {}
+[14.247989] (-) TimerEvent: {}
+[14.348823] (-) TimerEvent: {}
+[14.449625] (-) TimerEvent: {}
+[14.550379] (-) TimerEvent: {}
+[14.651253] (-) TimerEvent: {}
+[14.752036] (-) TimerEvent: {}
+[14.852844] (-) TimerEvent: {}
+[14.953780] (-) TimerEvent: {}
+[15.054555] (-) TimerEvent: {}
+[15.155616] (-) TimerEvent: {}
+[15.256442] (-) TimerEvent: {}
+[15.357431] (-) TimerEvent: {}
+[15.458189] (-) TimerEvent: {}
+[15.559054] (-) TimerEvent: {}
+[15.659791] (-) TimerEvent: {}
+[15.760685] (-) TimerEvent: {}
+[15.815246] (diffdrive_arduino) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/diffdrive_arduino.dir/build.make:76: CMakeFiles/diffdrive_arduino.dir/hardware/diffbot_system.cpp.o] Error 1\n'}
+[15.816128] (diffdrive_arduino) StderrLine: {'line': b'gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/diffdrive_arduino.dir/all] Error 2\n'}
+[15.816908] (diffdrive_arduino) StderrLine: {'line': b'gmake: *** [Makefile:146: all] Error 2\n'}
+[15.824793] (diffdrive_arduino) CommandEnded: {'returncode': 2}
+[15.861538] (-) TimerEvent: {}
+[15.877163] (diffdrive_arduino) JobEnded: {'identifier': 'diffdrive_arduino', 'rc': 2}
+[15.891619] (-) EventReactorShutdown: {}
