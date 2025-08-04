@@ -1,1 +1,1 @@
-/home/ubuntu/denem/diffdrive_arduino/description/launch/install/local_setup.bash
+/home/ubuntu/denem/diffdrive_arduino/bringup/launch/install/local_setup.bash

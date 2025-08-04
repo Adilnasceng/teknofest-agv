@@ -1,1 +1,1 @@
-/home/ubuntu/denem/diffdrive_arduino/description/launch/install/setup.ps1
+/home/ubuntu/denem/diffdrive_arduino/bringup/launch/install/setup.ps1

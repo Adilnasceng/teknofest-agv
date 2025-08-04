@@ -1,0 +1,1 @@
+/home/ubuntu/denem/diffdrive_arduino/bringup/launch/simple_nav2.launch.py

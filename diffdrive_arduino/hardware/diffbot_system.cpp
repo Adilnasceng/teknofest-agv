@@ -25,6 +25,7 @@
 
 namespace diffdrive_arduino
 {
+
 hardware_interface::CallbackReturn DiffDriveArduinoHardware::on_init(
   const hardware_interface::HardwareInfo & info)
 {
@@ -35,30 +36,60 @@ hardware_interface::CallbackReturn DiffDriveArduinoHardware::on_init(
     return hardware_interface::CallbackReturn::ERROR;
   }
 
-
   cfg_.left_wheel_name = info_.hardware_parameters["left_wheel_name"];
   cfg_.right_wheel_name = info_.hardware_parameters["right_wheel_name"];
-  cfg_.loop_rate = std::stof(info_.hardware_parameters["loop_rate"]);
+  cfg_.loop_rate = ::std::stof(info_.hardware_parameters["loop_rate"]);
   cfg_.device = info_.hardware_parameters["device"];
-  cfg_.baud_rate = std::stoi(info_.hardware_parameters["baud_rate"]);
-  cfg_.timeout_ms = std::stoi(info_.hardware_parameters["timeout_ms"]);
-  cfg_.enc_counts_per_rev = std::stoi(info_.hardware_parameters["enc_counts_per_rev"]);
+  cfg_.baud_rate = ::std::stoi(info_.hardware_parameters["baud_rate"]);
+  cfg_.timeout_ms = ::std::stoi(info_.hardware_parameters["timeout_ms"]);
+  cfg_.left_enc_counts_per_rev = ::std::stoi(info_.hardware_parameters["left_enc_counts_per_rev"]);
+  cfg_.right_enc_counts_per_rev = ::std::stoi(info_.hardware_parameters["right_enc_counts_per_rev"]);
+  
+  // Buzzer eşik değerini config'den oku
+  if (info_.hardware_parameters.count("reverse_speed_threshold") > 0)
+  {
+    cfg_.reverse_speed_threshold = ::std::stod(info_.hardware_parameters["reverse_speed_threshold"]);
+    RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                "Reverse speed threshold set to: %.3f", cfg_.reverse_speed_threshold);
+  }
+  else 
+  {
+    cfg_.reverse_speed_threshold = -0.1; // Default değer
+    RCLCPP_WARN(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                "reverse_speed_threshold not found in config, using default: %.3f", cfg_.reverse_speed_threshold);
+  }
+
+  // Geri gitme buzzer'ı kontrol parametresi
+  if (info_.hardware_parameters.count("enable_reverse_buzzer") > 0)
+  {
+    cfg_.enable_reverse_buzzer = (info_.hardware_parameters["enable_reverse_buzzer"] == "true");
+    RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                "Reverse buzzer enabled: %s", cfg_.enable_reverse_buzzer ? "true" : "false");
+  }
+  else 
+  {
+    cfg_.enable_reverse_buzzer = true; // Default aktif
+  }
+  
   if (info_.hardware_parameters.count("pid_p") > 0)
   {
-    cfg_.pid_p = std::stoi(info_.hardware_parameters["pid_p"]);
-    cfg_.pid_d = std::stoi(info_.hardware_parameters["pid_d"]);
-    cfg_.pid_i = std::stoi(info_.hardware_parameters["pid_i"]);
-    cfg_.pid_o = std::stoi(info_.hardware_parameters["pid_o"]);
+    cfg_.pid_p = ::std::stoi(info_.hardware_parameters["pid_p"]);
+    cfg_.pid_d = ::std::stoi(info_.hardware_parameters["pid_d"]);
+    cfg_.pid_i = ::std::stoi(info_.hardware_parameters["pid_i"]);
+    cfg_.pid_o = ::std::stoi(info_.hardware_parameters["pid_o"]);
   }
   else
   {
     RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), "PID values not supplied, using defaults.");
   }
-  
 
-  wheel_l_.setup(cfg_.left_wheel_name, cfg_.enc_counts_per_rev);
-  wheel_r_.setup(cfg_.right_wheel_name, cfg_.enc_counts_per_rev);
+  wheel_l_.setup(cfg_.left_wheel_name, cfg_.left_enc_counts_per_rev);
+  wheel_r_.setup(cfg_.right_wheel_name, cfg_.right_enc_counts_per_rev);
 
+  // Buzzer durumunu başlat
+  buzzer_reverse_active_ = false;
+  buzzer_manual_active_ = false;
+  buzzer_active_ = false;
 
   for (const hardware_interface::ComponentInfo & joint : info_.joints)
   {
@@ -112,9 +143,9 @@ hardware_interface::CallbackReturn DiffDriveArduinoHardware::on_init(
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
-std::vector<hardware_interface::StateInterface> DiffDriveArduinoHardware::export_state_interfaces()
+::std::vector<hardware_interface::StateInterface> DiffDriveArduinoHardware::export_state_interfaces()
 {
-  std::vector<hardware_interface::StateInterface> state_interfaces;
+  ::std::vector<hardware_interface::StateInterface> state_interfaces;
 
   state_interfaces.emplace_back(hardware_interface::StateInterface(
     wheel_l_.name, hardware_interface::HW_IF_POSITION, &wheel_l_.pos));
@@ -129,9 +160,9 @@ std::vector<hardware_interface::StateInterface> DiffDriveArduinoHardware::export
   return state_interfaces;
 }
 
-std::vector<hardware_interface::CommandInterface> DiffDriveArduinoHardware::export_command_interfaces()
+::std::vector<hardware_interface::CommandInterface> DiffDriveArduinoHardware::export_command_interfaces()
 {
-  std::vector<hardware_interface::CommandInterface> command_interfaces;
+  ::std::vector<hardware_interface::CommandInterface> command_interfaces;
 
   command_interfaces.emplace_back(hardware_interface::CommandInterface(
     wheel_l_.name, hardware_interface::HW_IF_VELOCITY, &wheel_l_.cmd));
@@ -168,7 +199,6 @@ hardware_interface::CallbackReturn DiffDriveArduinoHardware::on_cleanup(
 
   return hardware_interface::CallbackReturn::SUCCESS;
 }
-
 
 hardware_interface::CallbackReturn DiffDriveArduinoHardware::on_activate(
   const rclcpp_lifecycle::State & /*previous_state*/)
@@ -219,7 +249,7 @@ hardware_interface::return_type DiffDriveArduinoHardware::read(
   return hardware_interface::return_type::OK;
 }
 
-hardware_interface::return_type diffdrive_arduino ::DiffDriveArduinoHardware::write(
+hardware_interface::return_type DiffDriveArduinoHardware::write(
   const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
 {
   if (!comms_.connected())
@@ -229,8 +259,82 @@ hardware_interface::return_type diffdrive_arduino ::DiffDriveArduinoHardware::wr
 
   int motor_l_counts_per_loop = wheel_l_.cmd / wheel_l_.rads_per_count / cfg_.loop_rate;
   int motor_r_counts_per_loop = wheel_r_.cmd / wheel_r_.rads_per_count / cfg_.loop_rate;
+  
+  // Geri gitme kontrolü (sadece aktifse)
+  if (cfg_.enable_reverse_buzzer)
+  {
+    check_reverse_condition();
+  }
+  
   comms_.set_motor_values(motor_l_counts_per_loop, motor_r_counts_per_loop);
   return hardware_interface::return_type::OK;
+}
+
+void DiffDriveArduinoHardware::set_manual_buzzer(bool active)
+{
+  if (buzzer_manual_active_ != active)
+  {
+    buzzer_manual_active_ = active;
+    update_buzzer_state();
+    
+    RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                "Manual buzzer set to: %s", active ? "ON" : "OFF");
+  }
+}
+
+void DiffDriveArduinoHardware::enable_reverse_buzzer(bool enable)
+{
+  cfg_.enable_reverse_buzzer = enable;
+  
+  if (!enable)
+  {
+    // Geri gitme buzzer'ını deaktif et
+    buzzer_reverse_active_ = false;
+    update_buzzer_state();
+  }
+  
+  RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+              "Reverse buzzer %s", enable ? "enabled" : "disabled");
+}
+
+bool DiffDriveArduinoHardware::is_buzzer_active() const
+{
+  return buzzer_active_;
+}
+
+void DiffDriveArduinoHardware::update_buzzer_state()
+{
+  bool should_be_active = (buzzer_reverse_active_ || buzzer_manual_active_);
+  
+  if (should_be_active != buzzer_active_)
+  {
+    buzzer_active_ = should_be_active;
+    comms_.set_buzzer_state(buzzer_active_);
+    
+    if (buzzer_active_)
+    {
+      RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                  "Buzzer ON - Reverse: %s, Manual: %s", 
+                  buzzer_reverse_active_ ? "ON" : "OFF",
+                  buzzer_manual_active_ ? "ON" : "OFF");
+    }
+    else
+    {
+      RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), "Buzzer OFF");
+    }
+  }
+}
+
+void DiffDriveArduinoHardware::check_reverse_condition()
+{
+  bool is_reversing = (wheel_l_.cmd < cfg_.reverse_speed_threshold && 
+                      wheel_r_.cmd < cfg_.reverse_speed_threshold);
+  
+  if (buzzer_reverse_active_ != is_reversing)
+  {
+    buzzer_reverse_active_ = is_reversing;
+    update_buzzer_state();
+  }
 }
 
 }  // namespace diffdrive_arduino

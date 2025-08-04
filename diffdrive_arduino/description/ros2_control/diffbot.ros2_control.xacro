@@ -8,15 +8,17 @@
         <plugin>diffdrive_arduino/DiffDriveArduinoHardware</plugin>
         <param name="left_wheel_name">left_wheel_joint</param>
         <param name="right_wheel_name">right_wheel_joint</param>
-        <param name="loop_rate">20</param>
+        <param name="loop_rate">40</param>
         <param name="device">/dev/ttyACM0</param>
         <param name="baud_rate">57600</param>
         <param name="timeout_ms">1000</param>
-        <param name="enc_counts_per_rev">400</param>
+        <param name="right_enc_counts_per_rev">4000</param>
+        <param name="left_enc_counts_per_rev">4000</param>
         <param name="pid_p">20</param>
         <param name="pid_d">12</param>
         <param name="pid_i">0</param>
         <param name="pid_o">50</param>
+        <param name="reverse_speed_threshold">-0.1</param>
       </hardware>
       <joint name="${prefix}left_wheel_joint">
         <command_interface name="velocity"/>

@@ -1,1 +1,1 @@
-/home/ubuntu/denem/diffdrive_arduino/description/launch/install/_local_setup_util_ps1.py
+/home/ubuntu/denem/diffdrive_arduino/bringup/launch/install/_local_setup_util_ps1.py

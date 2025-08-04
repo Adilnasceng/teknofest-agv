@@ -1,1 +1,1 @@
-/home/ubuntu/denem/diffdrive_arduino/description/launch/install/setup.sh
+/home/ubuntu/denem/diffdrive_arduino/bringup/launch/install/setup.sh
