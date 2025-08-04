@@ -1,17 +1,3 @@
-// Copyright 2021 ros2_control Development Team
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 #ifndef DIFFDRIVE_ARDUINO__DIFFBOT_SYSTEM_HPP_
 #define DIFFDRIVE_ARDUINO__DIFFBOT_SYSTEM_HPP_
 
@@ -36,6 +22,7 @@
 
 namespace diffdrive_arduino
 {
+
 class DiffDriveArduinoHardware : public hardware_interface::SystemInterface
 {
 
@@ -54,8 +41,8 @@ struct Config
   int pid_i = 0;
   int pid_o = 0;
   double reverse_speed_threshold = -0.1; // Geri gitme eşiği (m/s)
+  bool enable_reverse_buzzer = true; // Geri gitme buzzer'ını aktif et/deaktif et
 };
-
 
 public:
   RCLCPP_SHARED_PTR_DEFINITIONS(DiffDriveArduinoHardware);
@@ -78,7 +65,6 @@ public:
   hardware_interface::CallbackReturn on_cleanup(
     const rclcpp_lifecycle::State & previous_state) override;
 
-
   DIFFDRIVE_ARDUINO_PUBLIC
   hardware_interface::CallbackReturn on_activate(
     const rclcpp_lifecycle::State & previous_state) override;
@@ -95,13 +81,29 @@ public:
   hardware_interface::return_type write(
     const rclcpp::Time & time, const rclcpp::Duration & period) override;
 
-private:
+  // Basit buzzer kontrolü için public fonksiyonlar
+  DIFFDRIVE_ARDUINO_PUBLIC
+  void set_manual_buzzer(bool active);
 
+  DIFFDRIVE_ARDUINO_PUBLIC
+  void enable_reverse_buzzer(bool enable);
+
+  DIFFDRIVE_ARDUINO_PUBLIC
+  bool is_buzzer_active() const;
+
+private:
   ArduinoComms comms_;
   Config cfg_;
   Wheel wheel_l_;
   Wheel wheel_r_;
-  bool buzzer_active_ = false; // Buzzer durumu
+  
+  // Basit buzzer durumu yönetimi
+  bool buzzer_reverse_active_ = false;  // Geri gitme buzzer durumu
+  bool buzzer_manual_active_ = false;   // Manuel buzzer durumu
+  bool buzzer_active_ = false;          // Genel buzzer durumu
+  
+  void update_buzzer_state();
+  void check_reverse_condition();
 };
 
 }  // namespace diffdrive_arduino
