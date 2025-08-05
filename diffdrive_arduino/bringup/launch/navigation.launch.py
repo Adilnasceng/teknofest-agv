@@ -157,7 +157,9 @@ def generate_launch_description():
                 output='screen',
                 respawn=use_respawn,
                 respawn_delay=2.0,
-                parameters=[configured_params],
+                parameters=[
+                configured_params,
+                {'bt_xml_filename': '/home/ubuntu/denem/diffdrive_arduino/bringup/config/navigate_w_replanning_and_recovery.xml'}],
                 arguments=['--ros-args', '--log-level', log_level],
                 remappings=remappings),
             Node(

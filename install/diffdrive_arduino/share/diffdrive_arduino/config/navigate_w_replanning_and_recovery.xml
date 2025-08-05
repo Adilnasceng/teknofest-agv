@@ -1,1 +1,42 @@
-/home/ubuntu/denem/diffdrive_arduino/bringup/config/navigate_w_replanning_and_recovery.xml
+<root main_tree_to_execute="MainTree">
+  <BehaviorTree ID="MainTree">
+    <RecoveryNode number_of_retries="6" name="NavigateRecovery">
+      <SequenceStar name="NavigateSequence">
+
+        <!-- Compute Initial Path -->
+        <ComputePathToPose goal="{goal}" path="{path}" planner_id="GridBased"/>
+        
+        <!-- Path Following with Obstacle Detection -->
+        <ReactiveSequence name="FollowAndMonitor">
+          <!-- Obstacle on Path Detected -->
+          <PathLongerOnApproach path="{path}" prox_len="1.0" length_factor="2.0">
+            <Sequence name="ObstacleHandling">
+              <CancelControl name="CancelControlAction"/>
+              <Wait wait_duration="15.0"/>
+              <ComputePathToPose goal="{goal}" path="{path}" planner_id="GridBased"/>
+              <ClearEntireCostmap name="ClearLocalCostmap" service_name="local_costmap/clear_entirely_local_costmap"/>
+            </Sequence>
+          </PathLongerOnApproach>
+
+          <!-- Normal Path Following -->
+          <FollowPath path="{path}" controller_id="FollowPath"/>
+
+        </ReactiveSequence>
+
+      </SequenceStar>
+
+      <!-- Recovery Fallback -->
+      <ReactiveFallback name="RecoveryFallback">
+        <GoalUpdated/>
+        <SequenceStar name="RecoveryActions">
+          <ClearEntireCostmap name="ClearLocalCostmap-Recovery" service_name="local_costmap/clear_entirely_local_costmap"/>
+          <ClearEntireCostmap name="ClearGlobalCostmap-Recovery" service_name="global_costmap/clear_entirely_global_costmap"/>
+          <Spin spin_dist="1.57"/>
+          <Wait wait_duration="5.0"/>
+          <BackUp backup_dist="0.30" backup_speed="0.05"/>
+        </SequenceStar>
+      </ReactiveFallback>
+
+    </RecoveryNode>
+  </BehaviorTree>
+</root>

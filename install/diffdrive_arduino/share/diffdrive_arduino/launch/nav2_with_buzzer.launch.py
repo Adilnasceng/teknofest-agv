@@ -1,1 +1,0 @@
-/home/ubuntu/denem/diffdrive_arduino/bringup/launch/nav2_with_buzzer.launch.py

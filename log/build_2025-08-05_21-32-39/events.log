@@ -1,0 +1,444 @@
+[0.000000] (-) TimerEvent: {}
+[0.001633] (diffdrive_arduino) JobQueued: {'identifier': 'diffdrive_arduino', 'dependencies': OrderedDict()}
+[0.002213] (ros2_mpu6050) JobQueued: {'identifier': 'ros2_mpu6050', 'dependencies': OrderedDict()}
+[0.002715] (diffdrive_arduino) JobStarted: {'identifier': 'diffdrive_arduino'}
+[0.049910] (ros2_mpu6050) JobStarted: {'identifier': 'ros2_mpu6050'}
+[0.088371] (diffdrive_arduino) JobProgress: {'identifier': 'diffdrive_arduino', 'progress': 'cmake'}
+[0.091253] (diffdrive_arduino) Command: {'cmd': ['/usr/bin/cmake', '/home/ubuntu/denem/diffdrive_arduino', '-DCMAKE_INSTALL_PREFIX=/home/ubuntu/denem/install/diffdrive_arduino'], 'cwd': '/home/ubuntu/denem/build/diffdrive_arduino', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'tr:en'), ('USER', 'ubuntu'), ('SSH_CLIENT', '10.123.250.91 45770 22'), ('LC_TIME', 'tr_TR.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs/lib:/home/ubuntu/denem/install/diffdrive_arduino/lib:/home/ubuntu/vizanti/install/vizanti_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/ubuntu'), ('TERM_PROGRAM_VERSION', '1.102.3'), ('NVM_BIN', '/home/ubuntu/.nvm/versions/node/v16.20.2/bin'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-c3590277-eb73-4c22-af08-de24725f3432.sock'), ('NVM_INC', '/home/ubuntu/.nvm/versions/node/v16.20.2/include/node'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('BUNDLED_DEBUGPY_PATH', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('NVM_DIR', '/home/ubuntu/.nvm'), ('COLCON_PREFIX_PATH', '/home/ubuntu/vizanti/install:/home/ubuntu/denem/install:/home/ubuntu/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'ubuntu'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '4'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/bin/remote-cli:/home/ubuntu/.local/bin:/home/ubuntu/.nvm/versions/node/v16.20.2/bin:/opt/ros/humble/bin:/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts'), ('PAPERSIZE', 'a4'), ('LC_ADDRESS', 'tr_TR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-00e9a689a7012013.txt'), ('LANG', 'tr_TR.UTF-8'), ('LC_TELEPHONE', 'tr_TR.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-3f824b2362.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo:/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'tr_TR.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'tr_TR.UTF-8'), ('LC_IDENTIFICATION', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/ubuntu/denem/build/diffdrive_arduino'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '10.123.250.91 45770 10.123.250.65 22'), ('NVM_CD_FLAGS', ''), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/ubuntu/denem/install/serial_motor_demo/lib/python3.10/site-packages:/home/ubuntu/denem/install/serial_motor_demo_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/vizanti/install/vizanti_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/ros2_ws/install/robot_lidar_mapper/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'tr_TR.UTF-8'), ('LC_PAPER', 'tr_TR.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble')]), 'shell': False}
+[0.100618] (-) TimerEvent: {}
+[0.111321] (ros2_mpu6050) JobProgress: {'identifier': 'ros2_mpu6050', 'progress': 'cmake'}
+[0.114916] (ros2_mpu6050) JobProgress: {'identifier': 'ros2_mpu6050', 'progress': 'build'}
+[0.117519] (ros2_mpu6050) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/ubuntu/denem/build/ros2_mpu6050', '--', '-j4', '-l4'], 'cwd': '/home/ubuntu/denem/build/ros2_mpu6050', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'tr:en'), ('USER', 'ubuntu'), ('SSH_CLIENT', '10.123.250.91 45770 22'), ('LC_TIME', 'tr_TR.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs/lib:/home/ubuntu/denem/install/diffdrive_arduino/lib:/home/ubuntu/vizanti/install/vizanti_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/ubuntu'), ('TERM_PROGRAM_VERSION', '1.102.3'), ('NVM_BIN', '/home/ubuntu/.nvm/versions/node/v16.20.2/bin'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-c3590277-eb73-4c22-af08-de24725f3432.sock'), ('NVM_INC', '/home/ubuntu/.nvm/versions/node/v16.20.2/include/node'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('BUNDLED_DEBUGPY_PATH', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('NVM_DIR', '/home/ubuntu/.nvm'), ('COLCON_PREFIX_PATH', '/home/ubuntu/vizanti/install:/home/ubuntu/denem/install:/home/ubuntu/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'ubuntu'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '4'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/bin/remote-cli:/home/ubuntu/.local/bin:/home/ubuntu/.nvm/versions/node/v16.20.2/bin:/opt/ros/humble/bin:/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts'), ('PAPERSIZE', 'a4'), ('LC_ADDRESS', 'tr_TR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-00e9a689a7012013.txt'), ('LANG', 'tr_TR.UTF-8'), ('LC_TELEPHONE', 'tr_TR.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-3f824b2362.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo:/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'tr_TR.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'tr_TR.UTF-8'), ('LC_IDENTIFICATION', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/ubuntu/denem/build/ros2_mpu6050'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '10.123.250.91 45770 10.123.250.65 22'), ('NVM_CD_FLAGS', ''), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/ubuntu/denem/install/serial_motor_demo/lib/python3.10/site-packages:/home/ubuntu/denem/install/serial_motor_demo_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/vizanti/install/vizanti_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/ros2_ws/install/robot_lidar_mapper/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'tr_TR.UTF-8'), ('LC_PAPER', 'tr_TR.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble')]), 'shell': False}
+[0.200849] (-) TimerEvent: {}
+[0.301667] (-) TimerEvent: {}
+[0.384129] (ros2_mpu6050) StdoutLine: {'line': b'[ 50%] Built target ros2_mpu6050_calibrate\n'}
+[0.401885] (-) TimerEvent: {}
+[0.406574] (ros2_mpu6050) StdoutLine: {'line': b'[100%] Built target ros2_mpu6050\n'}
+[0.460595] (ros2_mpu6050) CommandEnded: {'returncode': 0}
+[0.464015] (ros2_mpu6050) JobProgress: {'identifier': 'ros2_mpu6050', 'progress': 'install'}
+[0.479142] (diffdrive_arduino) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.504717] (ros2_mpu6050) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/ubuntu/denem/build/ros2_mpu6050'], 'cwd': '/home/ubuntu/denem/build/ros2_mpu6050', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'tr:en'), ('USER', 'ubuntu'), ('SSH_CLIENT', '10.123.250.91 45770 22'), ('LC_TIME', 'tr_TR.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs/lib:/home/ubuntu/denem/install/diffdrive_arduino/lib:/home/ubuntu/vizanti/install/vizanti_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/ubuntu'), ('TERM_PROGRAM_VERSION', '1.102.3'), ('NVM_BIN', '/home/ubuntu/.nvm/versions/node/v16.20.2/bin'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-c3590277-eb73-4c22-af08-de24725f3432.sock'), ('NVM_INC', '/home/ubuntu/.nvm/versions/node/v16.20.2/include/node'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('BUNDLED_DEBUGPY_PATH', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('NVM_DIR', '/home/ubuntu/.nvm'), ('COLCON_PREFIX_PATH', '/home/ubuntu/vizanti/install:/home/ubuntu/denem/install:/home/ubuntu/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'ubuntu'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '4'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/bin/remote-cli:/home/ubuntu/.local/bin:/home/ubuntu/.nvm/versions/node/v16.20.2/bin:/opt/ros/humble/bin:/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts'), ('PAPERSIZE', 'a4'), ('LC_ADDRESS', 'tr_TR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-00e9a689a7012013.txt'), ('LANG', 'tr_TR.UTF-8'), ('LC_TELEPHONE', 'tr_TR.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-3f824b2362.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo:/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'tr_TR.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'tr_TR.UTF-8'), ('LC_IDENTIFICATION', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/ubuntu/denem/build/ros2_mpu6050'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '10.123.250.91 45770 10.123.250.65 22'), ('NVM_CD_FLAGS', ''), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/ubuntu/denem/install/serial_motor_demo/lib/python3.10/site-packages:/home/ubuntu/denem/install/serial_motor_demo_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/vizanti/install/vizanti_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/ros2_ws/install/robot_lidar_mapper/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'tr_TR.UTF-8'), ('LC_PAPER', 'tr_TR.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble')]), 'shell': False}
+[0.511714] (-) TimerEvent: {}
+[0.521587] (diffdrive_arduino) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.540908] (ros2_mpu6050) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[0.542576] (ros2_mpu6050) StdoutLine: {'line': b'-- Execute custom install script\n'}
+[0.544624] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/include/include/ros2_mpu6050/mpu6050.h\n'}
+[0.545603] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/include/include/ros2_mpu6050/mpu6050_hal.h\n'}
+[0.546618] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/include/include/ros2_mpu6050/mpu6050_node.h\n'}
+[0.548894] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/lib/ros2_mpu6050/ros2_mpu6050\n'}
+[0.550125] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/lib/ros2_mpu6050/ros2_mpu6050_calibrate\n'}
+[0.552029] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/config/params.yaml\n'}
+[0.553428] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/launch/ros2_mpu6050.launch.py\n'}
+[0.555228] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ament_index/resource_index/package_run_dependencies/ros2_mpu6050\n'}
+[0.556481] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ament_index/resource_index/parent_prefix_path/ros2_mpu6050\n'}
+[0.557814] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/environment/ament_prefix_path.sh\n'}
+[0.559216] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/environment/ament_prefix_path.dsv\n'}
+[0.560675] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/environment/path.sh\n'}
+[0.561945] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/environment/path.dsv\n'}
+[0.563272] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/local_setup.bash\n'}
+[0.564611] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/local_setup.sh\n'}
+[0.566058] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/local_setup.zsh\n'}
+[0.567333] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/local_setup.dsv\n'}
+[0.568262] (ros2_mpu6050) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/package.dsv\n'}
+[0.605677] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ament_index/resource_index/packages/ros2_mpu6050\n'}
+[0.607254] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/cmake/ros2_mpu6050Config.cmake\n'}
+[0.608183] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/cmake/ros2_mpu6050Config-version.cmake\n'}
+[0.608934] (ros2_mpu6050) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/package.xml\n'}
+[0.612024] (-) TimerEvent: {}
+[0.615203] (ros2_mpu6050) CommandEnded: {'returncode': 0}
+[0.712378] (-) TimerEvent: {}
+[0.719606] (ros2_mpu6050) JobEnded: {'identifier': 'ros2_mpu6050', 'rc': 0}
+[0.812644] (-) TimerEvent: {}
+[0.913519] (-) TimerEvent: {}
+[0.922258] (diffdrive_arduino) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.948460] (diffdrive_arduino) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.950495] (diffdrive_arduino) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.952850] (diffdrive_arduino) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[1.001800] (diffdrive_arduino) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[1.013632] (-) TimerEvent: {}
+[1.114395] (-) TimerEvent: {}
+[1.215189] (-) TimerEvent: {}
+[1.315870] (-) TimerEvent: {}
+[1.416628] (-) TimerEvent: {}
+[1.517374] (-) TimerEvent: {}
+[1.618131] (-) TimerEvent: {}
+[1.719238] (-) TimerEvent: {}
+[1.820351] (-) TimerEvent: {}
+[1.858442] (diffdrive_arduino) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[1.920516] (-) TimerEvent: {}
+[2.021202] (-) TimerEvent: {}
+[2.122077] (-) TimerEvent: {}
+[2.223421] (-) TimerEvent: {}
+[2.324111] (-) TimerEvent: {}
+[2.424795] (-) TimerEvent: {}
+[2.525488] (-) TimerEvent: {}
+[2.626188] (-) TimerEvent: {}
+[2.726929] (-) TimerEvent: {}
+[2.743645] (diffdrive_arduino) StdoutLine: {'line': b'-- Found hardware_interface: 2.51.0 (/opt/ros/humble/share/hardware_interface/cmake)\n'}
+[2.827106] (-) TimerEvent: {}
+[2.927815] (-) TimerEvent: {}
+[3.028502] (-) TimerEvent: {}
+[3.129255] (-) TimerEvent: {}
+[3.229970] (-) TimerEvent: {}
+[3.320746] (diffdrive_arduino) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[3.330145] (-) TimerEvent: {}
+[3.407435] (diffdrive_arduino) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[3.430309] (-) TimerEvent: {}
+[3.506987] (diffdrive_arduino) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[3.530481] (-) TimerEvent: {}
+[3.624976] (diffdrive_arduino) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[3.630618] (-) TimerEvent: {}
+[3.731313] (-) TimerEvent: {}
+[3.790464] (diffdrive_arduino) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[3.831491] (-) TimerEvent: {}
+[3.932195] (-) TimerEvent: {}
+[4.032905] (-) TimerEvent: {}
+[4.133704] (-) TimerEvent: {}
+[4.234515] (-) TimerEvent: {}
+[4.335288] (-) TimerEvent: {}
+[4.436014] (-) TimerEvent: {}
+[4.536775] (-) TimerEvent: {}
+[4.637507] (-) TimerEvent: {}
+[4.738191] (-) TimerEvent: {}
+[4.838917] (-) TimerEvent: {}
+[4.939755] (-) TimerEvent: {}
+[5.040511] (-) TimerEvent: {}
+[5.141215] (-) TimerEvent: {}
+[5.241913] (-) TimerEvent: {}
+[5.342597] (-) TimerEvent: {}
+[5.443317] (-) TimerEvent: {}
+[5.544111] (-) TimerEvent: {}
+[5.642633] (diffdrive_arduino) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[5.644237] (-) TimerEvent: {}
+[5.688252] (diffdrive_arduino) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.8 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[5.744422] (-) TimerEvent: {}
+[5.845143] (-) TimerEvent: {}
+[5.945819] (-) TimerEvent: {}
+[5.951448] (diffdrive_arduino) StdoutLine: {'line': b'-- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND\n'}
+[6.046141] (-) TimerEvent: {}
+[6.147052] (-) TimerEvent: {}
+[6.247924] (-) TimerEvent: {}
+[6.251021] (diffdrive_arduino) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[6.262222] (diffdrive_arduino) StdoutLine: {'line': b'-- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND\n'}
+[6.348121] (-) TimerEvent: {}
+[6.360355] (diffdrive_arduino) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[6.372582] (diffdrive_arduino) StdoutLine: {'line': b'-- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND\n'}
+[6.406926] (diffdrive_arduino) StdoutLine: {'line': b'-- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND\n'}
+[6.448317] (-) TimerEvent: {}
+[6.449112] (diffdrive_arduino) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[6.548488] (-) TimerEvent: {}
+[6.592875] (diffdrive_arduino) StdoutLine: {'line': b'-- Looking for C++ include pthread.h\n'}
+[6.648688] (-) TimerEvent: {}
+[6.749486] (-) TimerEvent: {}
+[6.850376] (-) TimerEvent: {}
+[6.951186] (-) TimerEvent: {}
+[7.009547] (diffdrive_arduino) StdoutLine: {'line': b'-- Looking for C++ include pthread.h - found\n'}
+[7.010805] (diffdrive_arduino) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[7.051392] (-) TimerEvent: {}
+[7.152221] (-) TimerEvent: {}
+[7.254180] (-) TimerEvent: {}
+[7.355282] (-) TimerEvent: {}
+[7.438605] (diffdrive_arduino) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[7.442750] (diffdrive_arduino) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[7.455448] (-) TimerEvent: {}
+[7.556206] (-) TimerEvent: {}
+[7.656995] (-) TimerEvent: {}
+[7.757798] (-) TimerEvent: {}
+[7.825627] (diffdrive_arduino) StdoutLine: {'line': b'-- Found ament_cmake_gtest: 1.3.12 (/opt/ros/humble/share/ament_cmake_gtest/cmake)\n'}
+[7.857968] (-) TimerEvent: {}
+[7.958661] (-) TimerEvent: {}
+[8.059394] (-) TimerEvent: {}
+[8.153046] (diffdrive_arduino) StdoutLine: {'line': b'-- Configuring done\n'}
+[8.159568] (-) TimerEvent: {}
+[8.260206] (-) TimerEvent: {}
+[8.309034] (diffdrive_arduino) StdoutLine: {'line': b'-- Generating done\n'}
+[8.328960] (diffdrive_arduino) StdoutLine: {'line': b'-- Build files have been written to: /home/ubuntu/denem/build/diffdrive_arduino\n'}
+[8.360415] (-) TimerEvent: {}
+[8.367512] (diffdrive_arduino) CommandEnded: {'returncode': 0}
+[8.369775] (diffdrive_arduino) JobProgress: {'identifier': 'diffdrive_arduino', 'progress': 'build'}
+[8.373331] (diffdrive_arduino) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/ubuntu/denem/build/diffdrive_arduino', '--', '-j4', '-l4'], 'cwd': '/home/ubuntu/denem/build/diffdrive_arduino', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'tr:en'), ('USER', 'ubuntu'), ('SSH_CLIENT', '10.123.250.91 45770 22'), ('LC_TIME', 'tr_TR.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs/lib:/home/ubuntu/denem/install/diffdrive_arduino/lib:/home/ubuntu/vizanti/install/vizanti_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/ubuntu'), ('TERM_PROGRAM_VERSION', '1.102.3'), ('NVM_BIN', '/home/ubuntu/.nvm/versions/node/v16.20.2/bin'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-c3590277-eb73-4c22-af08-de24725f3432.sock'), ('NVM_INC', '/home/ubuntu/.nvm/versions/node/v16.20.2/include/node'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('BUNDLED_DEBUGPY_PATH', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('NVM_DIR', '/home/ubuntu/.nvm'), ('COLCON_PREFIX_PATH', '/home/ubuntu/vizanti/install:/home/ubuntu/denem/install:/home/ubuntu/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'ubuntu'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '4'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/bin/remote-cli:/home/ubuntu/.local/bin:/home/ubuntu/.nvm/versions/node/v16.20.2/bin:/opt/ros/humble/bin:/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts'), ('PAPERSIZE', 'a4'), ('LC_ADDRESS', 'tr_TR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-00e9a689a7012013.txt'), ('LANG', 'tr_TR.UTF-8'), ('LC_TELEPHONE', 'tr_TR.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-3f824b2362.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo:/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'tr_TR.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'tr_TR.UTF-8'), ('LC_IDENTIFICATION', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/ubuntu/denem/build/diffdrive_arduino'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '10.123.250.91 45770 10.123.250.65 22'), ('NVM_CD_FLAGS', ''), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/ubuntu/denem/install/serial_motor_demo/lib/python3.10/site-packages:/home/ubuntu/denem/install/serial_motor_demo_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/vizanti/install/vizanti_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/ros2_ws/install/robot_lidar_mapper/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'tr_TR.UTF-8'), ('LC_PAPER', 'tr_TR.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble')]), 'shell': False}
+[8.460620] (-) TimerEvent: {}
+[8.561464] (-) TimerEvent: {}
+[8.618757] (diffdrive_arduino) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/diffdrive_arduino.dir/hardware/diffbot_system.cpp.o\x1b[0m\n'}
+[8.661728] (-) TimerEvent: {}
+[8.762652] (-) TimerEvent: {}
+[8.863498] (-) TimerEvent: {}
+[8.964203] (-) TimerEvent: {}
+[9.064956] (-) TimerEvent: {}
+[9.165756] (-) TimerEvent: {}
+[9.266579] (-) TimerEvent: {}
+[9.367339] (-) TimerEvent: {}
+[9.468050] (-) TimerEvent: {}
+[9.568753] (-) TimerEvent: {}
+[9.669472] (-) TimerEvent: {}
+[9.770219] (-) TimerEvent: {}
+[9.871006] (-) TimerEvent: {}
+[9.971719] (-) TimerEvent: {}
+[10.072581] (-) TimerEvent: {}
+[10.173365] (-) TimerEvent: {}
+[10.274214] (-) TimerEvent: {}
+[10.375370] (-) TimerEvent: {}
+[10.476113] (-) TimerEvent: {}
+[10.576801] (-) TimerEvent: {}
+[10.677504] (-) TimerEvent: {}
+[10.778325] (-) TimerEvent: {}
+[10.879139] (-) TimerEvent: {}
+[10.979986] (-) TimerEvent: {}
+[11.080781] (-) TimerEvent: {}
+[11.181589] (-) TimerEvent: {}
+[11.282490] (-) TimerEvent: {}
+[11.383419] (-) TimerEvent: {}
+[11.484420] (-) TimerEvent: {}
+[11.585262] (-) TimerEvent: {}
+[11.686099] (-) TimerEvent: {}
+[11.786909] (-) TimerEvent: {}
+[11.887712] (-) TimerEvent: {}
+[11.988537] (-) TimerEvent: {}
+[12.089294] (-) TimerEvent: {}
+[12.190166] (-) TimerEvent: {}
+[12.291047] (-) TimerEvent: {}
+[12.391862] (-) TimerEvent: {}
+[12.492711] (-) TimerEvent: {}
+[12.593526] (-) TimerEvent: {}
+[12.694331] (-) TimerEvent: {}
+[12.795272] (-) TimerEvent: {}
+[12.896115] (-) TimerEvent: {}
+[12.996897] (-) TimerEvent: {}
+[13.097880] (-) TimerEvent: {}
+[13.198780] (-) TimerEvent: {}
+[13.299650] (-) TimerEvent: {}
+[13.400492] (-) TimerEvent: {}
+[13.501380] (-) TimerEvent: {}
+[13.602187] (-) TimerEvent: {}
+[13.702951] (-) TimerEvent: {}
+[13.803697] (-) TimerEvent: {}
+[13.904574] (-) TimerEvent: {}
+[14.005539] (-) TimerEvent: {}
+[14.106395] (-) TimerEvent: {}
+[14.207211] (-) TimerEvent: {}
+[14.308001] (-) TimerEvent: {}
+[14.408922] (-) TimerEvent: {}
+[14.509714] (-) TimerEvent: {}
+[14.610492] (-) TimerEvent: {}
+[14.711355] (-) TimerEvent: {}
+[14.812121] (-) TimerEvent: {}
+[14.912972] (-) TimerEvent: {}
+[15.013883] (-) TimerEvent: {}
+[15.114724] (-) TimerEvent: {}
+[15.215659] (-) TimerEvent: {}
+[15.316501] (-) TimerEvent: {}
+[15.417311] (-) TimerEvent: {}
+[15.518160] (-) TimerEvent: {}
+[15.618993] (-) TimerEvent: {}
+[15.719891] (-) TimerEvent: {}
+[15.820671] (-) TimerEvent: {}
+[15.921480] (-) TimerEvent: {}
+[16.022263] (-) TimerEvent: {}
+[16.123051] (-) TimerEvent: {}
+[16.223836] (-) TimerEvent: {}
+[16.324631] (-) TimerEvent: {}
+[16.425436] (-) TimerEvent: {}
+[16.526252] (-) TimerEvent: {}
+[16.627090] (-) TimerEvent: {}
+[16.727950] (-) TimerEvent: {}
+[16.828742] (-) TimerEvent: {}
+[16.929527] (-) TimerEvent: {}
+[17.030297] (-) TimerEvent: {}
+[17.131124] (-) TimerEvent: {}
+[17.231988] (-) TimerEvent: {}
+[17.332774] (-) TimerEvent: {}
+[17.433553] (-) TimerEvent: {}
+[17.534336] (-) TimerEvent: {}
+[17.635156] (-) TimerEvent: {}
+[17.736026] (-) TimerEvent: {}
+[17.836923] (-) TimerEvent: {}
+[17.937866] (-) TimerEvent: {}
+[18.038796] (-) TimerEvent: {}
+[18.139845] (-) TimerEvent: {}
+[18.240724] (-) TimerEvent: {}
+[18.341512] (-) TimerEvent: {}
+[18.442453] (-) TimerEvent: {}
+[18.543422] (-) TimerEvent: {}
+[18.644283] (-) TimerEvent: {}
+[18.745058] (-) TimerEvent: {}
+[18.845955] (-) TimerEvent: {}
+[18.946795] (-) TimerEvent: {}
+[19.047797] (-) TimerEvent: {}
+[19.148598] (-) TimerEvent: {}
+[19.249467] (-) TimerEvent: {}
+[19.350260] (-) TimerEvent: {}
+[19.451115] (-) TimerEvent: {}
+[19.551935] (-) TimerEvent: {}
+[19.652748] (-) TimerEvent: {}
+[19.753542] (-) TimerEvent: {}
+[19.854332] (-) TimerEvent: {}
+[19.955135] (-) TimerEvent: {}
+[20.055931] (-) TimerEvent: {}
+[20.156770] (-) TimerEvent: {}
+[20.257545] (-) TimerEvent: {}
+[20.358316] (-) TimerEvent: {}
+[20.459155] (-) TimerEvent: {}
+[20.559944] (-) TimerEvent: {}
+[20.660810] (-) TimerEvent: {}
+[20.761571] (-) TimerEvent: {}
+[20.862310] (-) TimerEvent: {}
+[20.963093] (-) TimerEvent: {}
+[21.064053] (-) TimerEvent: {}
+[21.165300] (-) TimerEvent: {}
+[21.266080] (-) TimerEvent: {}
+[21.366903] (-) TimerEvent: {}
+[21.467783] (-) TimerEvent: {}
+[21.568558] (-) TimerEvent: {}
+[21.669314] (-) TimerEvent: {}
+[21.770096] (-) TimerEvent: {}
+[21.870974] (-) TimerEvent: {}
+[21.971750] (-) TimerEvent: {}
+[22.072501] (-) TimerEvent: {}
+[22.173260] (-) TimerEvent: {}
+[22.274037] (-) TimerEvent: {}
+[22.374902] (-) TimerEvent: {}
+[22.475742] (-) TimerEvent: {}
+[22.576532] (-) TimerEvent: {}
+[22.677298] (-) TimerEvent: {}
+[22.778130] (-) TimerEvent: {}
+[22.879013] (-) TimerEvent: {}
+[22.979839] (-) TimerEvent: {}
+[23.080682] (-) TimerEvent: {}
+[23.181465] (-) TimerEvent: {}
+[23.282307] (-) TimerEvent: {}
+[23.383142] (-) TimerEvent: {}
+[23.432491] (diffdrive_arduino) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX shared library libdiffdrive_arduino.so\x1b[0m\n'}
+[23.483327] (-) TimerEvent: {}
+[23.584059] (-) TimerEvent: {}
+[23.684995] (-) TimerEvent: {}
+[23.786008] (-) TimerEvent: {}
+[23.887134] (-) TimerEvent: {}
+[23.988301] (-) TimerEvent: {}
+[24.089211] (-) TimerEvent: {}
+[24.190156] (-) TimerEvent: {}
+[24.291039] (-) TimerEvent: {}
+[24.392007] (-) TimerEvent: {}
+[24.423255] (diffdrive_arduino) StdoutLine: {'line': b'[100%] Built target diffdrive_arduino\n'}
+[24.465114] (diffdrive_arduino) CommandEnded: {'returncode': 0}
+[24.467762] (diffdrive_arduino) JobProgress: {'identifier': 'diffdrive_arduino', 'progress': 'install'}
+[24.468940] (diffdrive_arduino) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/ubuntu/denem/build/diffdrive_arduino'], 'cwd': '/home/ubuntu/denem/build/diffdrive_arduino', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'tr:en'), ('USER', 'ubuntu'), ('SSH_CLIENT', '10.123.250.91 45770 22'), ('LC_TIME', 'tr_TR.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs/lib:/home/ubuntu/denem/install/diffdrive_arduino/lib:/home/ubuntu/vizanti/install/vizanti_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/ubuntu'), ('TERM_PROGRAM_VERSION', '1.102.3'), ('NVM_BIN', '/home/ubuntu/.nvm/versions/node/v16.20.2/bin'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-c3590277-eb73-4c22-af08-de24725f3432.sock'), ('NVM_INC', '/home/ubuntu/.nvm/versions/node/v16.20.2/include/node'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('BUNDLED_DEBUGPY_PATH', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('NVM_DIR', '/home/ubuntu/.nvm'), ('COLCON_PREFIX_PATH', '/home/ubuntu/vizanti/install:/home/ubuntu/denem/install:/home/ubuntu/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'ubuntu'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '4'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/bin/remote-cli:/home/ubuntu/.local/bin:/home/ubuntu/.nvm/versions/node/v16.20.2/bin:/opt/ros/humble/bin:/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts'), ('PAPERSIZE', 'a4'), ('LC_ADDRESS', 'tr_TR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-00e9a689a7012013.txt'), ('LANG', 'tr_TR.UTF-8'), ('LC_TELEPHONE', 'tr_TR.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-3f824b2362.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo:/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'tr_TR.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'tr_TR.UTF-8'), ('LC_IDENTIFICATION', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/ubuntu/denem/build/diffdrive_arduino'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '10.123.250.91 45770 10.123.250.65 22'), ('NVM_CD_FLAGS', ''), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/ubuntu/denem/install/serial_motor_demo/lib/python3.10/site-packages:/home/ubuntu/denem/install/serial_motor_demo_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/vizanti/install/vizanti_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/ros2_ws/install/robot_lidar_mapper/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'tr_TR.UTF-8'), ('LC_PAPER', 'tr_TR.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble')]), 'shell': False}
+[24.492209] (-) TimerEvent: {}
+[24.507914] (diffdrive_arduino) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[24.508654] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/diffdrive_arduino.xml\n'}
+[24.509822] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/include/diffdrive_arduino\n'}
+[24.510515] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/include/diffdrive_arduino/diffdrive_arduino\n'}
+[24.511107] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/include/diffdrive_arduino/diffdrive_arduino/wheel.hpp\n'}
+[24.512157] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/include/diffdrive_arduino/diffdrive_arduino/diffbot_system.hpp\n'}
+[24.513168] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/include/diffdrive_arduino/diffdrive_arduino/visibility_control.h\n'}
+[24.514165] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/include/diffdrive_arduino/diffdrive_arduino/arduino_comms.hpp\n'}
+[24.515833] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch\n'}
+[24.516468] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/view_robot.launch.py\n'}
+[24.517325] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log\n'}
+[24.517955] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-05-30_20-05-45\n'}
+[24.518571] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-05-30_20-05-45/logger_all.log\n'}
+[24.521019] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-05-30_20-05-45/events.log\n'}
+[24.522452] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-05-30_20-05-52\n'}
+[24.523180] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-05-30_20-05-52/logger_all.log\n'}
+[24.525098] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-05-30_20-05-52/events.log\n'}
+[24.526641] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/COLCON_IGNORE\n'}
+[24.527614] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest\n'}
+[24.528355] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest_build\n'}
+[24.528827] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/build\n'}
+[24.529499] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/build/COLCON_IGNORE\n'}
+[24.530052] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/build/.built_by\n'}
+[24.531557] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install\n'}
+[24.532328] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.ps1\n'}
+[24.533941] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.sh\n'}
+[24.535579] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/_local_setup_util_ps1.py\n'}
+[24.536808] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/COLCON_IGNORE\n'}
+[24.537901] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.bash\n'}
+[24.539656] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.sh\n'}
+[24.541437] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/_local_setup_util_sh.py\n'}
+[24.542615] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/.colcon_install_layout\n'}
+[24.544501] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.zsh\n'}
+[24.545988] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.ps1\n'}
+[24.547619] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.zsh\n'}
+[24.549302] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.bash\n'}
+[24.551104] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/ros2_control\n'}
+[24.552272] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/ros2_control/diffbot.ros2_control.xacro\n'}
+[24.553168] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/urdf\n'}
+[24.553912] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/urdf/diffbot_description.urdf.xacro\n'}
+[24.555429] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/urdf/diffbot.urdf.xacro\n'}
+[24.556580] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/urdf/diffbot.materials.xacro\n'}
+[24.557700] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/rviz\n'}
+[24.558332] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/rviz/diffbot.rviz\n'}
+[24.560300] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/rviz/diffbot_view.rviz\n'}
+[24.562342] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch\n'}
+[24.563587] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/diffbot.launch.py\n'}
+[24.564819] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/localization.launch.py\n'}
+[24.568016] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/slam.launch.py\n'}
+[24.568661] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/rplidar.launch.py\n'}
+[24.569189] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/ekf.launch.py\n'}
+[24.570278] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/joystick.launch.py\n'}
+[24.570797] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/mapping.launch.py\n'}
+[24.571913] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log\n'}
+[24.572402] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/COLCON_IGNORE\n'}
+[24.573476] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest\n'}
+[24.574086] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-02-48\n'}
+[24.574590] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-02-48/logger_all.log\n'}
+[24.575245] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-02-48/events.log\n'}
+[24.576786] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-39-42\n'}
+[24.577502] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-39-42/logger_all.log\n'}
+[24.579648] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-39-42/events.log\n'}
+[24.581191] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest_build\n'}
+[24.582109] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-03-22\n'}
+[24.582711] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-03-22/logger_all.log\n'}
+[24.584514] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-03-22/events.log\n'}
+[24.586091] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/build\n'}
+[24.587052] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/build/COLCON_IGNORE\n'}
+[24.588002] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/build/.built_by\n'}
+[24.589342] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install\n'}
+[24.590394] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.ps1\n'}
+[24.591760] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.sh\n'}
+[24.592363] (-) TimerEvent: {}
+[24.593676] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/_local_setup_util_ps1.py\n'}
+[24.595287] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/COLCON_IGNORE\n'}
+[24.596441] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.bash\n'}
+[24.598214] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.sh\n'}
+[24.600521] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/_local_setup_util_sh.py\n'}
+[24.602192] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/.colcon_install_layout\n'}
+[24.604069] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.zsh\n'}
+[24.605769] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.ps1\n'}
+[24.607472] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.zsh\n'}
+[24.609297] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.bash\n'}
+[24.611105] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/fullnav.launch.py\n'}
+[24.612265] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/navigation.launch.py\n'}
+[24.613424] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/config\n'}
+[24.614153] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/config/ekf.yaml\n'}
+[24.615847] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/config/joystick.yaml\n'}
+[24.616942] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/config/diffbot_controllers.yaml\n'}
+[24.618094] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/config/nav2_params.yaml\n'}
+[24.619319] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/config/navigate_w_replanning_and_recovery.xml\n'}
+[24.621209] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/lib/libdiffdrive_arduino.so\n'}
+[24.629063] (diffdrive_arduino) StdoutLine: {'line': b'-- Set runtime path of "/home/ubuntu/denem/install/diffdrive_arduino/lib/libdiffdrive_arduino.so" to ""\n'}
+[24.629753] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/environment/library_path.sh\n'}
+[24.631012] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/environment/library_path.dsv\n'}
+[24.632891] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/ament_index/resource_index/package_run_dependencies/diffdrive_arduino\n'}
+[24.634487] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/ament_index/resource_index/parent_prefix_path/diffdrive_arduino\n'}
+[24.635845] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/environment/ament_prefix_path.sh\n'}
+[24.637043] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/environment/ament_prefix_path.dsv\n'}
+[24.638302] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/environment/path.sh\n'}
+[24.639545] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/environment/path.dsv\n'}
+[24.640758] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/local_setup.bash\n'}
+[24.641907] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/local_setup.sh\n'}
+[24.643322] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/local_setup.zsh\n'}
+[24.644478] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/local_setup.dsv\n'}
+[24.645650] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/package.dsv\n'}
+[24.647162] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/ament_index/resource_index/packages/diffdrive_arduino\n'}
+[24.648801] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/ament_index/resource_index/hardware_interface__pluginlib__plugin/diffdrive_arduino\n'}
+[24.650495] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/export_diffdrive_arduinoExport.cmake\n'}
+[24.652010] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/export_diffdrive_arduinoExport-noconfig.cmake\n'}
+[24.653396] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[24.654700] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[24.656030] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/diffdrive_arduinoConfig.cmake\n'}
+[24.657130] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/diffdrive_arduinoConfig-version.cmake\n'}
+[24.658275] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/package.xml\n'}
+[24.664170] (diffdrive_arduino) CommandEnded: {'returncode': 0}
+[24.692938] (-) TimerEvent: {}
+[24.751761] (diffdrive_arduino) JobEnded: {'identifier': 'diffdrive_arduino', 'rc': 0}
+[24.754550] (-) EventReactorShutdown: {}
