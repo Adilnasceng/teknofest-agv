@@ -1,0 +1,201 @@
+[0.612s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.612s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=4, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0xffff8f8c7be0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0xffff8fb84ee0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0xffff8fb84ee0>>, mixin_verb=('build',))
+[1.653s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[1.653s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[1.653s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[1.654s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[1.654s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[1.654s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[1.654s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/ubuntu/denem'
+[1.655s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[1.655s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[1.655s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[1.656s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[1.656s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[1.656s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[1.656s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[1.656s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[1.656s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[1.703s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[1.704s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[1.704s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[1.704s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[1.704s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[1.705s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[1.705s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[1.706s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[1.706s] Level 1:colcon.colcon_core.package_identification:_identify(diffdrive_arduino) by extensions ['ignore', 'ignore_ament_install']
+[1.707s] Level 1:colcon.colcon_core.package_identification:_identify(diffdrive_arduino) by extension 'ignore'
+[1.707s] Level 1:colcon.colcon_core.package_identification:_identify(diffdrive_arduino) by extension 'ignore_ament_install'
+[1.707s] Level 1:colcon.colcon_core.package_identification:_identify(diffdrive_arduino) by extensions ['colcon_pkg']
+[1.707s] Level 1:colcon.colcon_core.package_identification:_identify(diffdrive_arduino) by extension 'colcon_pkg'
+[1.707s] Level 1:colcon.colcon_core.package_identification:_identify(diffdrive_arduino) by extensions ['colcon_meta']
+[1.708s] Level 1:colcon.colcon_core.package_identification:_identify(diffdrive_arduino) by extension 'colcon_meta'
+[1.708s] Level 1:colcon.colcon_core.package_identification:_identify(diffdrive_arduino) by extensions ['ros']
+[1.708s] Level 1:colcon.colcon_core.package_identification:_identify(diffdrive_arduino) by extension 'ros'
+[1.720s] DEBUG:colcon.colcon_core.package_identification:Package 'diffdrive_arduino' with type 'ros.ament_cmake' and name 'diffdrive_arduino'
+[1.721s] Level 1:colcon.colcon_core.package_identification:_identify(imu) by extensions ['ignore', 'ignore_ament_install']
+[1.721s] Level 1:colcon.colcon_core.package_identification:_identify(imu) by extension 'ignore'
+[1.721s] Level 1:colcon.colcon_core.package_identification:_identify(imu) by extension 'ignore_ament_install'
+[1.722s] Level 1:colcon.colcon_core.package_identification:_identify(imu) by extensions ['colcon_pkg']
+[1.722s] Level 1:colcon.colcon_core.package_identification:_identify(imu) by extension 'colcon_pkg'
+[1.722s] Level 1:colcon.colcon_core.package_identification:_identify(imu) by extensions ['colcon_meta']
+[1.722s] Level 1:colcon.colcon_core.package_identification:_identify(imu) by extension 'colcon_meta'
+[1.722s] Level 1:colcon.colcon_core.package_identification:_identify(imu) by extensions ['ros']
+[1.722s] Level 1:colcon.colcon_core.package_identification:_identify(imu) by extension 'ros'
+[1.725s] DEBUG:colcon.colcon_core.package_identification:Package 'imu' with type 'ros.ament_cmake' and name 'ros2_mpu6050'
+[1.726s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[1.726s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[1.726s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[1.728s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[1.728s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[1.728s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[1.729s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[1.729s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[1.730s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[1.730s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[1.730s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[1.833s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[1.834s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[1.856s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 5 installed packages in /home/ubuntu/vizanti/install
+[1.860s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 4 installed packages in /home/ubuntu/denem/install
+[1.864s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 3 installed packages in /home/ubuntu/ros2_ws/install
+[1.879s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 400 installed packages in /opt/ros/humble
+[1.888s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[2.157s] Level 5:colcon.colcon_core.verb:set package 'diffdrive_arduino' build argument 'cmake_args' from command line to 'None'
+[2.157s] Level 5:colcon.colcon_core.verb:set package 'diffdrive_arduino' build argument 'cmake_target' from command line to 'None'
+[2.157s] Level 5:colcon.colcon_core.verb:set package 'diffdrive_arduino' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[2.157s] Level 5:colcon.colcon_core.verb:set package 'diffdrive_arduino' build argument 'cmake_clean_cache' from command line to 'False'
+[2.158s] Level 5:colcon.colcon_core.verb:set package 'diffdrive_arduino' build argument 'cmake_clean_first' from command line to 'False'
+[2.158s] Level 5:colcon.colcon_core.verb:set package 'diffdrive_arduino' build argument 'cmake_force_configure' from command line to 'False'
+[2.158s] Level 5:colcon.colcon_core.verb:set package 'diffdrive_arduino' build argument 'ament_cmake_args' from command line to 'None'
+[2.158s] Level 5:colcon.colcon_core.verb:set package 'diffdrive_arduino' build argument 'catkin_cmake_args' from command line to 'None'
+[2.158s] Level 5:colcon.colcon_core.verb:set package 'diffdrive_arduino' build argument 'catkin_skip_building_tests' from command line to 'False'
+[2.158s] DEBUG:colcon.colcon_core.verb:Building package 'diffdrive_arduino' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ubuntu/denem/build/diffdrive_arduino', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ubuntu/denem/install/diffdrive_arduino', 'merge_install': False, 'path': '/home/ubuntu/denem/diffdrive_arduino', 'symlink_install': False, 'test_result_base': None}
+[2.160s] Level 5:colcon.colcon_core.verb:set package 'ros2_mpu6050' build argument 'cmake_args' from command line to 'None'
+[2.160s] Level 5:colcon.colcon_core.verb:set package 'ros2_mpu6050' build argument 'cmake_target' from command line to 'None'
+[2.160s] Level 5:colcon.colcon_core.verb:set package 'ros2_mpu6050' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[2.160s] Level 5:colcon.colcon_core.verb:set package 'ros2_mpu6050' build argument 'cmake_clean_cache' from command line to 'False'
+[2.160s] Level 5:colcon.colcon_core.verb:set package 'ros2_mpu6050' build argument 'cmake_clean_first' from command line to 'False'
+[2.160s] Level 5:colcon.colcon_core.verb:set package 'ros2_mpu6050' build argument 'cmake_force_configure' from command line to 'False'
+[2.160s] Level 5:colcon.colcon_core.verb:set package 'ros2_mpu6050' build argument 'ament_cmake_args' from command line to 'None'
+[2.161s] Level 5:colcon.colcon_core.verb:set package 'ros2_mpu6050' build argument 'catkin_cmake_args' from command line to 'None'
+[2.161s] Level 5:colcon.colcon_core.verb:set package 'ros2_mpu6050' build argument 'catkin_skip_building_tests' from command line to 'False'
+[2.161s] DEBUG:colcon.colcon_core.verb:Building package 'ros2_mpu6050' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ubuntu/denem/build/ros2_mpu6050', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ubuntu/denem/install/ros2_mpu6050', 'merge_install': False, 'path': '/home/ubuntu/denem/imu', 'symlink_install': False, 'test_result_base': None}
+[2.161s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[2.165s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[2.166s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/ubuntu/denem/diffdrive_arduino' with build type 'ament_cmake'
+[2.166s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/ubuntu/denem/diffdrive_arduino'
+[2.182s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[2.183s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.183s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.217s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/ubuntu/denem/imu' with build type 'ament_cmake'
+[2.217s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/ubuntu/denem/imu'
+[2.219s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.219s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.269s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ubuntu/denem/build/diffdrive_arduino': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble /usr/bin/cmake --build /home/ubuntu/denem/build/diffdrive_arduino -- -j4 -l4
+[2.306s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ubuntu/denem/build/ros2_mpu6050': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble /usr/bin/cmake --build /home/ubuntu/denem/build/ros2_mpu6050 -- -j4 -l4
+[2.805s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ubuntu/denem/build/ros2_mpu6050' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble /usr/bin/cmake --build /home/ubuntu/denem/build/ros2_mpu6050 -- -j4 -l4
+[2.856s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ubuntu/denem/build/ros2_mpu6050': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble /usr/bin/cmake --install /home/ubuntu/denem/build/ros2_mpu6050
+[2.962s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(ros2_mpu6050)
+[2.964s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ubuntu/denem/build/ros2_mpu6050' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble /usr/bin/cmake --install /home/ubuntu/denem/build/ros2_mpu6050
+[2.983s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/ros2_mpu6050' for CMake module files
+[2.987s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/ros2_mpu6050' for CMake config files
+[2.991s] Level 1:colcon.colcon_core.shell:create_environment_hook('ros2_mpu6050', 'cmake_prefix_path')
+[2.992s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/hook/cmake_prefix_path.ps1'
+[2.996s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/hook/cmake_prefix_path.dsv'
+[3.000s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/hook/cmake_prefix_path.sh'
+[3.005s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/ros2_mpu6050/lib'
+[3.007s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/ros2_mpu6050/bin'
+[3.007s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/ros2_mpu6050/lib/pkgconfig/ros2_mpu6050.pc'
+[3.008s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/ros2_mpu6050/lib/python3.10/site-packages'
+[3.009s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/ros2_mpu6050/bin'
+[3.011s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/package.ps1'
+[3.015s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/package.dsv'
+[3.020s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/package.sh'
+[3.024s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/package.bash'
+[3.030s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/package.zsh'
+[3.035s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ubuntu/denem/install/ros2_mpu6050/share/colcon-core/packages/ros2_mpu6050)
+[3.038s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(ros2_mpu6050)
+[3.039s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/ros2_mpu6050' for CMake module files
+[3.043s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/ros2_mpu6050' for CMake config files
+[3.046s] Level 1:colcon.colcon_core.shell:create_environment_hook('ros2_mpu6050', 'cmake_prefix_path')
+[3.047s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/hook/cmake_prefix_path.ps1'
+[3.049s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/hook/cmake_prefix_path.dsv'
+[3.052s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/hook/cmake_prefix_path.sh'
+[3.055s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/ros2_mpu6050/lib'
+[3.056s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/ros2_mpu6050/bin'
+[3.057s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/ros2_mpu6050/lib/pkgconfig/ros2_mpu6050.pc'
+[3.058s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/ros2_mpu6050/lib/python3.10/site-packages'
+[3.059s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/ros2_mpu6050/bin'
+[3.061s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/package.ps1'
+[3.064s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/package.dsv'
+[3.067s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/package.sh'
+[3.072s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/package.bash'
+[3.077s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/package.zsh'
+[3.082s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ubuntu/denem/install/ros2_mpu6050/share/colcon-core/packages/ros2_mpu6050)
+[6.387s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ubuntu/denem/build/diffdrive_arduino' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble /usr/bin/cmake --build /home/ubuntu/denem/build/diffdrive_arduino -- -j4 -l4
+[6.396s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ubuntu/denem/build/diffdrive_arduino': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble /usr/bin/cmake --install /home/ubuntu/denem/build/diffdrive_arduino
+[6.528s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(diffdrive_arduino)
+[6.529s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/diffdrive_arduino' for CMake module files
+[6.532s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ubuntu/denem/build/diffdrive_arduino' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble /usr/bin/cmake --install /home/ubuntu/denem/build/diffdrive_arduino
+[6.535s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/diffdrive_arduino' for CMake config files
+[6.542s] Level 1:colcon.colcon_core.shell:create_environment_hook('diffdrive_arduino', 'cmake_prefix_path')
+[6.543s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/hook/cmake_prefix_path.ps1'
+[6.546s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/hook/cmake_prefix_path.dsv'
+[6.549s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/hook/cmake_prefix_path.sh'
+[6.553s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/diffdrive_arduino/lib'
+[6.554s] Level 1:colcon.colcon_core.shell:create_environment_hook('diffdrive_arduino', 'ld_library_path_lib')
+[6.555s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/hook/ld_library_path_lib.ps1'
+[6.558s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/hook/ld_library_path_lib.dsv'
+[6.562s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/hook/ld_library_path_lib.sh'
+[6.565s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/diffdrive_arduino/bin'
+[6.566s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/diffdrive_arduino/lib/pkgconfig/diffdrive_arduino.pc'
+[6.567s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/diffdrive_arduino/lib/python3.10/site-packages'
+[6.569s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/diffdrive_arduino/bin'
+[6.570s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/package.ps1'
+[6.573s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/package.dsv'
+[6.576s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/package.sh'
+[6.579s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/package.bash'
+[6.581s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/package.zsh'
+[6.584s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ubuntu/denem/install/diffdrive_arduino/share/colcon-core/packages/diffdrive_arduino)
+[6.587s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(diffdrive_arduino)
+[6.589s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/diffdrive_arduino' for CMake module files
+[6.592s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/diffdrive_arduino' for CMake config files
+[6.599s] Level 1:colcon.colcon_core.shell:create_environment_hook('diffdrive_arduino', 'cmake_prefix_path')
+[6.600s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/hook/cmake_prefix_path.ps1'
+[6.602s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/hook/cmake_prefix_path.dsv'
+[6.605s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/hook/cmake_prefix_path.sh'
+[6.609s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/diffdrive_arduino/lib'
+[6.609s] Level 1:colcon.colcon_core.shell:create_environment_hook('diffdrive_arduino', 'ld_library_path_lib')
+[6.610s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/hook/ld_library_path_lib.ps1'
+[6.613s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/hook/ld_library_path_lib.dsv'
+[6.615s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/hook/ld_library_path_lib.sh'
+[6.618s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/diffdrive_arduino/bin'
+[6.618s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/diffdrive_arduino/lib/pkgconfig/diffdrive_arduino.pc'
+[6.620s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/diffdrive_arduino/lib/python3.10/site-packages'
+[6.621s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/denem/install/diffdrive_arduino/bin'
+[6.622s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/package.ps1'
+[6.625s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/package.dsv'
+[6.628s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/package.sh'
+[6.631s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/package.bash'
+[6.634s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/package.zsh'
+[6.637s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ubuntu/denem/install/diffdrive_arduino/share/colcon-core/packages/diffdrive_arduino)
+[6.639s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[6.641s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[6.641s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[6.642s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[6.669s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[6.670s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[6.670s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[6.736s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[6.737s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ubuntu/denem/install/local_setup.ps1'
+[6.741s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/ubuntu/denem/install/_local_setup_util_ps1.py'
+[6.749s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ubuntu/denem/install/setup.ps1'
+[6.760s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ubuntu/denem/install/local_setup.sh'
+[6.764s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/ubuntu/denem/install/_local_setup_util_sh.py'
+[6.767s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ubuntu/denem/install/setup.sh'
+[6.777s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ubuntu/denem/install/local_setup.bash'
+[6.781s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ubuntu/denem/install/setup.bash'
+[6.791s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ubuntu/denem/install/local_setup.zsh'
+[6.795s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ubuntu/denem/install/setup.zsh'
