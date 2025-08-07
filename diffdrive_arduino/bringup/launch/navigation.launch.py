@@ -39,7 +39,7 @@ def generate_launch_description():
     container_name_full = (namespace, '/', container_name)
     use_respawn = LaunchConfiguration('use_respawn')
     log_level = LaunchConfiguration('log_level')
-
+    bt_xml_path = os.path.join(bringup_dir, 'config', 'navigate_w_replanning_and_recovery.xml')
     lifecycle_nodes = ['controller_server',
                        'smoother_server',
                        'planner_server',
@@ -227,7 +227,7 @@ def generate_launch_description():
                 package='nav2_bt_navigator',
                 plugin='nav2_bt_navigator::BtNavigator',
                 name='bt_navigator',
-                parameters=[configured_params],
+                parameters=[configured_params, {'bt_xml_filename': bt_xml_path}],
                 remappings=remappings),
             ComposableNode(
                 package='nav2_waypoint_follower',
@@ -242,6 +242,13 @@ def generate_launch_description():
                 parameters=[configured_params],
                 remappings=remappings +
                            [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel')]),
+            ComposableNode(
+                        package='nav2_collision_monitor',
+                        plugin='nav2_collision_monitor::CollisionMonitor',
+                        name='collision_monitor',
+                        parameters=[configured_params],
+                        remappings=remappings,
+                    ),
             ComposableNode(
                 package='nav2_lifecycle_manager',
                 plugin='nav2_lifecycle_manager::LifecycleManager',

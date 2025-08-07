@@ -1,17 +1,1 @@
-from launch import LaunchDescription
-from launch_ros.actions import Node
-
-def generate_launch_description():
-    return LaunchDescription([
-        Node(
-            package='robot_localization',
-            executable='ekf_node',
-            name='ekf_filter_node',
-            output='screen',
-            parameters=[
-                '/home/ubuntu/denem/diffdrive_arduino/bringup/config/ekf.yaml',
-                {"use_sim_time": False}  # gerçek robot için False olmalı
-            ]
-        )
-    ])
-
+/home/ubuntu/denem/diffdrive_arduino/bringup/launch/ekf.launch.py
