@@ -1,1 +1,1 @@
-hardware_interface;pluginlib;rclcpp;rclcpp_lifecycle;libserial-dev;std_srvs;std_msgs;behaviortree_cpp_v3;nav2_behavior_tree;nav2_util;sensor_msgs;rclpy;geometry_msgs;ros2_controllers_test_nodes;joint_state_broadcaster;diff_drive_controller;ros2controlcli;controller_manager;rviz2;robot_state_publisher;ament_cmake_gtest
+/home/ubuntu/denem/build/diffdrive_arduino/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/diffdrive_arduino
