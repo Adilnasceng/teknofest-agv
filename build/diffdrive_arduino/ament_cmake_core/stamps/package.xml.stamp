@@ -3,7 +3,7 @@
 <package format="3">
   <name>diffdrive_arduino</name>
   <version>0.0.0</version>
-  <description>Demo package of `ros2_control` hardware for DiffBot.</description>
+  <description>Demo package of `ros2_control` hardware for DiffBot with custom BT plugins.</description>
 
   <maintainer email="denis.stogl@stoglrobotics.de">Dr.-Ing. Denis Štogl</maintainer>
   <maintainer email="bence.magyar.robotics@gmail.com">Bence Magyar</maintainer>
@@ -15,12 +15,21 @@
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
+  <!-- Hardware interface dependencies -->
   <depend>hardware_interface</depend>
   <depend>pluginlib</depend>
   <depend>rclcpp</depend>
   <depend>rclcpp_lifecycle</depend>
   <depend>libserial-dev</depend>
 
+  <!-- BT Plugin dependencies -->
+  <depend>behaviortree_cpp_v3</depend>
+  <depend>nav2_behavior_tree</depend>
+  <depend>nav2_util</depend>
+  <depend>sensor_msgs</depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
   <exec_depend>ros2_controllers_test_nodes</exec_depend>
   <exec_depend>joint_state_broadcaster</exec_depend>
   <exec_depend>diff_drive_controller</exec_depend>
@@ -33,5 +42,6 @@
 
   <export>
     <build_type>ament_cmake</build_type>
+    <nav2_behavior_tree plugin="${prefix}/bt_plugins.xml" />
   </export>
 </package>

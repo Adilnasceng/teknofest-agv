@@ -64,6 +64,11 @@ install(TARGETS diffdrive_arduino
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
 )
+# Python scripts install
+install(PROGRAMS
+  scripts/obstacle_wait_node.py
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)

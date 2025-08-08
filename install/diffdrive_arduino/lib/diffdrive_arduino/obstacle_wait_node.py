@@ -1,0 +1,1 @@
+/home/ubuntu/denem/diffdrive_arduino/scripts/obstacle_wait_node.py

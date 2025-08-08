@@ -1,0 +1,1 @@
+/home/ubuntu/denem/diffdrive_arduino/include/diffdrive_arduino/bt_plugins/obstacle_detector_condition.hpp

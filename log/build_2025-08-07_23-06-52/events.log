@@ -1,0 +1,824 @@
+[0.000000] (-) TimerEvent: {}
+[0.001611] (-) JobUnselected: {'identifier': 'ros2_mpu6050'}
+[0.002187] (diffdrive_arduino) JobQueued: {'identifier': 'diffdrive_arduino', 'dependencies': OrderedDict()}
+[0.002712] (diffdrive_arduino) JobStarted: {'identifier': 'diffdrive_arduino'}
+[0.055802] (diffdrive_arduino) JobProgress: {'identifier': 'diffdrive_arduino', 'progress': 'cmake'}
+[0.058931] (diffdrive_arduino) JobProgress: {'identifier': 'diffdrive_arduino', 'progress': 'build'}
+[0.062009] (diffdrive_arduino) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/ubuntu/denem/build/diffdrive_arduino', '--', '-j4', '-l4'], 'cwd': '/home/ubuntu/denem/build/diffdrive_arduino', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'tr:en'), ('USER', 'ubuntu'), ('SSH_CLIENT', '10.123.250.91 43254 22'), ('LC_TIME', 'tr_TR.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs/lib:/home/ubuntu/denem/install/diffdrive_arduino/lib:/home/ubuntu/vizanti/install/vizanti_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/ubuntu'), ('TERM_PROGRAM_VERSION', '1.102.3'), ('NVM_BIN', '/home/ubuntu/.nvm/versions/node/v16.20.2/bin'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-c7b1d7c9-1cf8-4896-9f7b-b66fc7833bec.sock'), ('NVM_INC', '/home/ubuntu/.nvm/versions/node/v16.20.2/include/node'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('BUNDLED_DEBUGPY_PATH', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('NVM_DIR', '/home/ubuntu/.nvm'), ('COLCON_PREFIX_PATH', '/home/ubuntu/vizanti/install:/home/ubuntu/denem/install:/home/ubuntu/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'ubuntu'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '4'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/ubuntu/.nvm/versions/node/v16.20.2/bin:/opt/ros/humble/bin:/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/bin/remote-cli:/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/ubuntu/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand:/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts'), ('PAPERSIZE', 'a4'), ('LC_ADDRESS', 'tr_TR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-00e9a689a7012013.txt'), ('LANG', 'tr_TR.UTF-8'), ('LC_TELEPHONE', 'tr_TR.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-3866691245.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo:/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'tr_TR.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'tr_TR.UTF-8'), ('LC_IDENTIFICATION', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/ubuntu/denem/build/diffdrive_arduino'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '10.123.250.91 43254 10.123.250.65 22'), ('NVM_CD_FLAGS', ''), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/ubuntu/denem/install/serial_motor_demo/lib/python3.10/site-packages:/home/ubuntu/denem/install/serial_motor_demo_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/vizanti/install/vizanti_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/ros2_ws/install/robot_lidar_mapper/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'tr_TR.UTF-8'), ('LC_PAPER', 'tr_TR.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble')]), 'shell': False}
+[0.099035] (-) TimerEvent: {}
+[0.199800] (-) TimerEvent: {}
+[0.206551] (diffdrive_arduino) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.299955] (-) TimerEvent: {}
+[0.400737] (-) TimerEvent: {}
+[0.502182] (-) TimerEvent: {}
+[0.603259] (-) TimerEvent: {}
+[0.703990] (-) TimerEvent: {}
+[0.805250] (-) TimerEvent: {}
+[0.896112] (diffdrive_arduino) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[0.905495] (-) TimerEvent: {}
+[0.969962] (diffdrive_arduino) StdoutLine: {'line': b'-- Found hardware_interface: 2.51.0 (/opt/ros/humble/share/hardware_interface/cmake)\n'}
+[1.005678] (-) TimerEvent: {}
+[1.106446] (-) TimerEvent: {}
+[1.207234] (diffdrive_arduino) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[1.207949] (-) TimerEvent: {}
+[1.222375] (diffdrive_arduino) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[1.264337] (diffdrive_arduino) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[1.308150] (-) TimerEvent: {}
+[1.322352] (diffdrive_arduino) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.394924] (diffdrive_arduino) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.408320] (-) TimerEvent: {}
+[1.509048] (-) TimerEvent: {}
+[1.609918] (-) TimerEvent: {}
+[1.710719] (-) TimerEvent: {}
+[1.811493] (-) TimerEvent: {}
+[1.912256] (-) TimerEvent: {}
+[2.013018] (-) TimerEvent: {}
+[2.113788] (-) TimerEvent: {}
+[2.214516] (-) TimerEvent: {}
+[2.315262] (-) TimerEvent: {}
+[2.415978] (-) TimerEvent: {}
+[2.504667] (diffdrive_arduino) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[2.516189] (-) TimerEvent: {}
+[2.517963] (diffdrive_arduino) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.8 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[2.616434] (-) TimerEvent: {}
+[2.717215] (-) TimerEvent: {}
+[2.810634] (diffdrive_arduino) StdoutLine: {'line': b'-- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND\n'}
+[2.817405] (-) TimerEvent: {}
+[2.899556] (diffdrive_arduino) StdoutLine: {'line': b'-- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND\n'}
+[2.917644] (-) TimerEvent: {}
+[2.997621] (diffdrive_arduino) StdoutLine: {'line': b'-- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND\n'}
+[3.017847] (-) TimerEvent: {}
+[3.031100] (diffdrive_arduino) StdoutLine: {'line': b'-- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND\n'}
+[3.072435] (diffdrive_arduino) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[3.118038] (-) TimerEvent: {}
+[3.218834] (-) TimerEvent: {}
+[3.319615] (-) TimerEvent: {}
+[3.377086] (diffdrive_arduino) StdoutLine: {'line': b'-- Found nav2_behavior_tree: 1.1.18 (/opt/ros/humble/share/nav2_behavior_tree/cmake)\n'}
+[3.419785] (-) TimerEvent: {}
+[3.520536] (-) TimerEvent: {}
+[3.621432] (-) TimerEvent: {}
+[3.722407] (-) TimerEvent: {}
+[3.823545] (-) TimerEvent: {}
+[3.924332] (-) TimerEvent: {}
+[4.025231] (-) TimerEvent: {}
+[4.126051] (-) TimerEvent: {}
+[4.226911] (-) TimerEvent: {}
+[4.327775] (-) TimerEvent: {}
+[4.428773] (-) TimerEvent: {}
+[4.529563] (-) TimerEvent: {}
+[4.630332] (-) TimerEvent: {}
+[4.731199] (-) TimerEvent: {}
+[4.745108] (diffdrive_arduino) StdoutLine: {'line': b'-- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)\n'}
+[4.753722] (diffdrive_arduino) StdoutLine: {'line': b'-- Found Eigen3: TRUE (found version "3.4.0") \n'}
+[4.754968] (diffdrive_arduino) StdoutLine: {'line': b'-- Ensuring Eigen3 include directory is part of orocos-kdl CMake target\n'}
+[4.831402] (-) TimerEvent: {}
+[4.932306] (-) TimerEvent: {}
+[5.033141] (-) TimerEvent: {}
+[5.133888] (-) TimerEvent: {}
+[5.234724] (-) TimerEvent: {}
+[5.335647] (-) TimerEvent: {}
+[5.436881] (-) TimerEvent: {}
+[5.538144] (-) TimerEvent: {}
+[5.639687] (-) TimerEvent: {}
+[5.740983] (-) TimerEvent: {}
+[5.842439] (-) TimerEvent: {}
+[5.943885] (-) TimerEvent: {}
+[6.045085] (-) TimerEvent: {}
+[6.146009] (-) TimerEvent: {}
+[6.247419] (-) TimerEvent: {}
+[6.348923] (-) TimerEvent: {}
+[6.365586] (diffdrive_arduino) StdoutLine: {'line': b'-- Found ament_cmake_gtest: 1.3.12 (/opt/ros/humble/share/ament_cmake_gtest/cmake)\n'}
+[6.449107] (-) TimerEvent: {}
+[6.549972] (-) TimerEvent: {}
+[6.650876] (-) TimerEvent: {}
+[6.751684] (-) TimerEvent: {}
+[6.800095] (diffdrive_arduino) StdoutLine: {'line': b'-- Configuring done\n'}
+[6.851884] (-) TimerEvent: {}
+[6.952680] (-) TimerEvent: {}
+[7.053603] (-) TimerEvent: {}
+[7.154461] (-) TimerEvent: {}
+[7.255253] (-) TimerEvent: {}
+[7.356027] (-) TimerEvent: {}
+[7.456814] (-) TimerEvent: {}
+[7.550541] (diffdrive_arduino) StdoutLine: {'line': b'-- Generating done\n'}
+[7.557010] (-) TimerEvent: {}
+[7.601162] (diffdrive_arduino) StdoutLine: {'line': b'-- Build files have been written to: /home/ubuntu/denem/build/diffdrive_arduino\n'}
+[7.657225] (-) TimerEvent: {}
+[7.758152] (-) TimerEvent: {}
+[7.790925] (diffdrive_arduino) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target diffdrive_arduino\x1b[0m\n'}
+[7.841188] (diffdrive_arduino) StdoutLine: {'line': b'[ 20%] \x1b[32mBuilding CXX object CMakeFiles/diffdrive_arduino_bt_plugins.dir/src/bt_plugins/obstacle_detector_condition.cpp.o\x1b[0m\n'}
+[7.858463] (-) TimerEvent: {}
+[7.876032] (diffdrive_arduino) StdoutLine: {'line': b'[ 40%] \x1b[32mBuilding CXX object CMakeFiles/diffdrive_arduino_bt_plugins.dir/src/bt_plugins/wait_for_clear_action.cpp.o\x1b[0m\n'}
+[7.944035] (diffdrive_arduino) StdoutLine: {'line': b'[ 60%] \x1b[32mBuilding CXX object CMakeFiles/diffdrive_arduino.dir/hardware/diffbot_system.cpp.o\x1b[0m\n'}
+[7.958668] (-) TimerEvent: {}
+[8.059520] (-) TimerEvent: {}
+[8.160362] (-) TimerEvent: {}
+[8.261282] (-) TimerEvent: {}
+[8.363611] (-) TimerEvent: {}
+[8.464385] (-) TimerEvent: {}
+[8.565186] (-) TimerEvent: {}
+[8.665989] (-) TimerEvent: {}
+[8.766983] (-) TimerEvent: {}
+[8.867940] (-) TimerEvent: {}
+[8.968754] (-) TimerEvent: {}
+[9.069554] (-) TimerEvent: {}
+[9.170346] (-) TimerEvent: {}
+[9.271579] (-) TimerEvent: {}
+[9.372815] (-) TimerEvent: {}
+[9.474044] (-) TimerEvent: {}
+[9.575279] (-) TimerEvent: {}
+[9.676616] (-) TimerEvent: {}
+[9.777885] (-) TimerEvent: {}
+[9.879572] (-) TimerEvent: {}
+[9.980962] (-) TimerEvent: {}
+[10.082144] (-) TimerEvent: {}
+[10.183396] (-) TimerEvent: {}
+[10.284656] (-) TimerEvent: {}
+[10.386083] (-) TimerEvent: {}
+[10.487284] (-) TimerEvent: {}
+[10.589306] (-) TimerEvent: {}
+[10.691350] (-) TimerEvent: {}
+[10.793108] (-) TimerEvent: {}
+[10.893905] (-) TimerEvent: {}
+[10.994967] (-) TimerEvent: {}
+[11.095765] (-) TimerEvent: {}
+[11.196509] (-) TimerEvent: {}
+[11.297298] (-) TimerEvent: {}
+[11.398106] (-) TimerEvent: {}
+[11.498998] (-) TimerEvent: {}
+[11.599907] (-) TimerEvent: {}
+[11.700737] (-) TimerEvent: {}
+[11.803193] (-) TimerEvent: {}
+[11.904543] (-) TimerEvent: {}
+[12.005684] (-) TimerEvent: {}
+[12.107845] (-) TimerEvent: {}
+[12.209266] (-) TimerEvent: {}
+[12.311359] (-) TimerEvent: {}
+[12.413972] (-) TimerEvent: {}
+[12.516274] (-) TimerEvent: {}
+[12.617845] (-) TimerEvent: {}
+[12.719677] (-) TimerEvent: {}
+[12.820550] (-) TimerEvent: {}
+[12.921327] (-) TimerEvent: {}
+[13.022246] (-) TimerEvent: {}
+[13.122916] (-) TimerEvent: {}
+[13.223798] (-) TimerEvent: {}
+[13.324961] (-) TimerEvent: {}
+[13.426237] (-) TimerEvent: {}
+[13.527269] (-) TimerEvent: {}
+[13.628057] (-) TimerEvent: {}
+[13.729094] (-) TimerEvent: {}
+[13.830065] (-) TimerEvent: {}
+[13.931968] (-) TimerEvent: {}
+[14.034803] (-) TimerEvent: {}
+[14.137336] (-) TimerEvent: {}
+[14.238402] (-) TimerEvent: {}
+[14.340617] (-) TimerEvent: {}
+[14.441941] (-) TimerEvent: {}
+[14.544456] (-) TimerEvent: {}
+[14.645869] (-) TimerEvent: {}
+[14.748861] (-) TimerEvent: {}
+[14.850174] (-) TimerEvent: {}
+[14.952991] (-) TimerEvent: {}
+[15.059137] (-) TimerEvent: {}
+[15.160381] (-) TimerEvent: {}
+[15.261830] (-) TimerEvent: {}
+[15.364113] (-) TimerEvent: {}
+[15.466082] (-) TimerEvent: {}
+[15.568383] (-) TimerEvent: {}
+[15.673714] (-) TimerEvent: {}
+[15.774912] (-) TimerEvent: {}
+[15.876214] (-) TimerEvent: {}
+[15.977869] (-) TimerEvent: {}
+[16.080364] (-) TimerEvent: {}
+[16.181669] (-) TimerEvent: {}
+[16.282883] (-) TimerEvent: {}
+[16.384988] (-) TimerEvent: {}
+[16.486548] (-) TimerEvent: {}
+[16.588374] (-) TimerEvent: {}
+[16.689273] (-) TimerEvent: {}
+[16.790327] (-) TimerEvent: {}
+[16.891777] (-) TimerEvent: {}
+[16.993498] (-) TimerEvent: {}
+[17.094807] (-) TimerEvent: {}
+[17.196580] (-) TimerEvent: {}
+[17.301527] (-) TimerEvent: {}
+[17.403181] (-) TimerEvent: {}
+[17.508456] (-) TimerEvent: {}
+[17.609651] (-) TimerEvent: {}
+[17.711959] (-) TimerEvent: {}
+[18.942189] (-) TimerEvent: {}
+[19.043719] (-) TimerEvent: {}
+[19.145101] (-) TimerEvent: {}
+[19.251027] (-) TimerEvent: {}
+[19.353827] (-) TimerEvent: {}
+[19.456089] (-) TimerEvent: {}
+[19.557193] (-) TimerEvent: {}
+[19.658458] (-) TimerEvent: {}
+[19.759595] (-) TimerEvent: {}
+[19.860800] (-) TimerEvent: {}
+[19.962147] (-) TimerEvent: {}
+[20.063658] (-) TimerEvent: {}
+[20.164935] (-) TimerEvent: {}
+[20.266268] (-) TimerEvent: {}
+[20.367775] (-) TimerEvent: {}
+[20.469144] (-) TimerEvent: {}
+[20.570517] (-) TimerEvent: {}
+[20.671907] (-) TimerEvent: {}
+[20.773182] (-) TimerEvent: {}
+[20.874620] (-) TimerEvent: {}
+[20.975899] (-) TimerEvent: {}
+[21.077121] (-) TimerEvent: {}
+[21.181755] (-) TimerEvent: {}
+[21.283133] (-) TimerEvent: {}
+[21.384415] (-) TimerEvent: {}
+[21.485685] (-) TimerEvent: {}
+[21.587022] (-) TimerEvent: {}
+[21.688295] (-) TimerEvent: {}
+[21.789535] (-) TimerEvent: {}
+[21.890935] (-) TimerEvent: {}
+[21.992386] (-) TimerEvent: {}
+[22.098727] (-) TimerEvent: {}
+[22.200476] (-) TimerEvent: {}
+[22.301804] (-) TimerEvent: {}
+[22.403252] (-) TimerEvent: {}
+[22.504537] (-) TimerEvent: {}
+[22.605664] (-) TimerEvent: {}
+[22.706562] (-) TimerEvent: {}
+[22.807629] (-) TimerEvent: {}
+[22.909405] (-) TimerEvent: {}
+[23.010200] (-) TimerEvent: {}
+[23.111042] (-) TimerEvent: {}
+[23.211888] (-) TimerEvent: {}
+[23.312662] (-) TimerEvent: {}
+[23.413451] (-) TimerEvent: {}
+[23.514308] (-) TimerEvent: {}
+[23.615569] (-) TimerEvent: {}
+[23.716784] (-) TimerEvent: {}
+[23.818137] (-) TimerEvent: {}
+[23.927527] (-) TimerEvent: {}
+[24.028504] (-) TimerEvent: {}
+[24.129314] (-) TimerEvent: {}
+[24.230188] (-) TimerEvent: {}
+[24.331007] (-) TimerEvent: {}
+[24.431809] (-) TimerEvent: {}
+[24.532650] (-) TimerEvent: {}
+[24.633465] (-) TimerEvent: {}
+[24.734272] (-) TimerEvent: {}
+[24.835156] (-) TimerEvent: {}
+[24.936037] (-) TimerEvent: {}
+[25.037121] (-) TimerEvent: {}
+[25.138154] (-) TimerEvent: {}
+[25.239165] (-) TimerEvent: {}
+[25.340159] (-) TimerEvent: {}
+[25.441135] (-) TimerEvent: {}
+[25.542046] (-) TimerEvent: {}
+[25.642885] (-) TimerEvent: {}
+[25.747016] (-) TimerEvent: {}
+[25.850969] (-) TimerEvent: {}
+[25.955013] (-) TimerEvent: {}
+[26.059026] (-) TimerEvent: {}
+[26.166360] (-) TimerEvent: {}
+[26.267727] (-) TimerEvent: {}
+[26.368800] (-) TimerEvent: {}
+[26.469841] (-) TimerEvent: {}
+[26.570916] (-) TimerEvent: {}
+[26.672052] (-) TimerEvent: {}
+[26.773179] (-) TimerEvent: {}
+[26.874309] (-) TimerEvent: {}
+[26.975558] (-) TimerEvent: {}
+[27.076716] (-) TimerEvent: {}
+[27.177854] (-) TimerEvent: {}
+[27.279587] (-) TimerEvent: {}
+[27.380856] (-) TimerEvent: {}
+[27.481852] (-) TimerEvent: {}
+[27.586977] (-) TimerEvent: {}
+[27.689738] (-) TimerEvent: {}
+[27.790925] (-) TimerEvent: {}
+[27.893383] (-) TimerEvent: {}
+[27.995714] (-) TimerEvent: {}
+[28.096964] (-) TimerEvent: {}
+[28.198341] (-) TimerEvent: {}
+[28.300881] (-) TimerEvent: {}
+[28.402852] (-) TimerEvent: {}
+[28.504127] (-) TimerEvent: {}
+[28.606407] (-) TimerEvent: {}
+[28.708921] (-) TimerEvent: {}
+[28.810987] (-) TimerEvent: {}
+[28.913065] (-) TimerEvent: {}
+[29.015750] (-) TimerEvent: {}
+[29.119268] (-) TimerEvent: {}
+[29.224651] (-) TimerEvent: {}
+[29.325743] (-) TimerEvent: {}
+[29.427369] (-) TimerEvent: {}
+[29.528329] (-) TimerEvent: {}
+[29.629396] (-) TimerEvent: {}
+[29.732037] (-) TimerEvent: {}
+[29.833229] (-) TimerEvent: {}
+[29.935234] (-) TimerEvent: {}
+[30.036426] (-) TimerEvent: {}
+[30.137662] (-) TimerEvent: {}
+[30.240128] (-) TimerEvent: {}
+[30.341347] (-) TimerEvent: {}
+[30.442514] (-) TimerEvent: {}
+[30.543525] (-) TimerEvent: {}
+[30.645615] (-) TimerEvent: {}
+[30.748348] (-) TimerEvent: {}
+[30.851743] (-) TimerEvent: {}
+[30.953576] (-) TimerEvent: {}
+[31.055148] (-) TimerEvent: {}
+[31.156302] (-) TimerEvent: {}
+[31.257462] (-) TimerEvent: {}
+[31.358617] (-) TimerEvent: {}
+[31.459755] (-) TimerEvent: {}
+[31.560946] (-) TimerEvent: {}
+[31.662021] (-) TimerEvent: {}
+[31.763066] (-) TimerEvent: {}
+[31.864037] (-) TimerEvent: {}
+[31.965048] (-) TimerEvent: {}
+[32.066317] (-) TimerEvent: {}
+[32.167736] (-) TimerEvent: {}
+[32.274280] (-) TimerEvent: {}
+[32.375769] (-) TimerEvent: {}
+[32.477175] (-) TimerEvent: {}
+[32.578795] (-) TimerEvent: {}
+[32.680362] (-) TimerEvent: {}
+[32.781793] (-) TimerEvent: {}
+[32.882989] (-) TimerEvent: {}
+[32.984019] (-) TimerEvent: {}
+[33.085053] (-) TimerEvent: {}
+[33.187293] (-) TimerEvent: {}
+[33.288514] (-) TimerEvent: {}
+[33.389973] (-) TimerEvent: {}
+[33.491360] (-) TimerEvent: {}
+[33.593628] (-) TimerEvent: {}
+[33.695815] (-) TimerEvent: {}
+[33.797855] (-) TimerEvent: {}
+[33.900006] (-) TimerEvent: {}
+[33.971312] (diffdrive_arduino) StdoutLine: {'line': b'[ 80%] \x1b[32m\x1b[1mLinking CXX shared library libdiffdrive_arduino.so\x1b[0m\n'}
+[34.000230] (-) TimerEvent: {}
+[34.102455] (-) TimerEvent: {}
+[34.204497] (-) TimerEvent: {}
+[34.306625] (-) TimerEvent: {}
+[34.408699] (-) TimerEvent: {}
+[34.509883] (-) TimerEvent: {}
+[34.610900] (-) TimerEvent: {}
+[34.712277] (-) TimerEvent: {}
+[34.814661] (-) TimerEvent: {}
+[34.918118] (-) TimerEvent: {}
+[35.020019] (-) TimerEvent: {}
+[35.121270] (-) TimerEvent: {}
+[35.223416] (-) TimerEvent: {}
+[35.325288] (-) TimerEvent: {}
+[35.430031] (-) TimerEvent: {}
+[35.531765] (-) TimerEvent: {}
+[35.634977] (-) TimerEvent: {}
+[35.736404] (-) TimerEvent: {}
+[35.840022] (-) TimerEvent: {}
+[35.943051] (-) TimerEvent: {}
+[36.041676] (diffdrive_arduino) StdoutLine: {'line': b'[ 80%] Built target diffdrive_arduino\n'}
+[36.045085] (-) TimerEvent: {}
+[36.146469] (-) TimerEvent: {}
+[36.248012] (-) TimerEvent: {}
+[36.348868] (-) TimerEvent: {}
+[36.449726] (-) TimerEvent: {}
+[36.550684] (-) TimerEvent: {}
+[36.651669] (-) TimerEvent: {}
+[36.752708] (-) TimerEvent: {}
+[36.853716] (-) TimerEvent: {}
+[36.954589] (-) TimerEvent: {}
+[37.055461] (-) TimerEvent: {}
+[37.156338] (-) TimerEvent: {}
+[37.257246] (-) TimerEvent: {}
+[37.358183] (-) TimerEvent: {}
+[37.459111] (-) TimerEvent: {}
+[37.559993] (-) TimerEvent: {}
+[37.660913] (-) TimerEvent: {}
+[37.762958] (-) TimerEvent: {}
+[37.863907] (-) TimerEvent: {}
+[37.964875] (-) TimerEvent: {}
+[38.065770] (-) TimerEvent: {}
+[38.166814] (-) TimerEvent: {}
+[38.267714] (-) TimerEvent: {}
+[38.368586] (-) TimerEvent: {}
+[38.469472] (-) TimerEvent: {}
+[38.570318] (-) TimerEvent: {}
+[38.671246] (-) TimerEvent: {}
+[38.772297] (-) TimerEvent: {}
+[38.873263] (-) TimerEvent: {}
+[38.974172] (-) TimerEvent: {}
+[39.075154] (-) TimerEvent: {}
+[39.176056] (-) TimerEvent: {}
+[39.276964] (-) TimerEvent: {}
+[39.377825] (-) TimerEvent: {}
+[39.478698] (-) TimerEvent: {}
+[39.579694] (-) TimerEvent: {}
+[39.680692] (-) TimerEvent: {}
+[39.781645] (-) TimerEvent: {}
+[39.882715] (-) TimerEvent: {}
+[39.983656] (-) TimerEvent: {}
+[40.084569] (-) TimerEvent: {}
+[40.185499] (-) TimerEvent: {}
+[40.286405] (-) TimerEvent: {}
+[40.387327] (-) TimerEvent: {}
+[40.488204] (-) TimerEvent: {}
+[40.589107] (-) TimerEvent: {}
+[40.689953] (-) TimerEvent: {}
+[40.790708] (-) TimerEvent: {}
+[40.891508] (-) TimerEvent: {}
+[40.992265] (-) TimerEvent: {}
+[41.093059] (-) TimerEvent: {}
+[41.193962] (-) TimerEvent: {}
+[41.294894] (-) TimerEvent: {}
+[41.395825] (-) TimerEvent: {}
+[41.496830] (-) TimerEvent: {}
+[41.597804] (-) TimerEvent: {}
+[41.698729] (-) TimerEvent: {}
+[41.799677] (-) TimerEvent: {}
+[41.900604] (-) TimerEvent: {}
+[42.001724] (-) TimerEvent: {}
+[42.103609] (-) TimerEvent: {}
+[42.205081] (-) TimerEvent: {}
+[42.305999] (-) TimerEvent: {}
+[42.406993] (-) TimerEvent: {}
+[42.508247] (-) TimerEvent: {}
+[42.609201] (-) TimerEvent: {}
+[42.712972] (-) TimerEvent: {}
+[42.814666] (-) TimerEvent: {}
+[42.916633] (-) TimerEvent: {}
+[43.018972] (-) TimerEvent: {}
+[43.120941] (-) TimerEvent: {}
+[43.222949] (-) TimerEvent: {}
+[43.323856] (-) TimerEvent: {}
+[43.424742] (-) TimerEvent: {}
+[43.525731] (-) TimerEvent: {}
+[43.626664] (-) TimerEvent: {}
+[43.727594] (-) TimerEvent: {}
+[43.828530] (-) TimerEvent: {}
+[43.929515] (-) TimerEvent: {}
+[44.030426] (-) TimerEvent: {}
+[44.131362] (-) TimerEvent: {}
+[44.232299] (-) TimerEvent: {}
+[44.333234] (-) TimerEvent: {}
+[44.434131] (-) TimerEvent: {}
+[44.535088] (-) TimerEvent: {}
+[44.635928] (-) TimerEvent: {}
+[44.736885] (-) TimerEvent: {}
+[44.837826] (-) TimerEvent: {}
+[44.938812] (-) TimerEvent: {}
+[45.039724] (-) TimerEvent: {}
+[45.140752] (-) TimerEvent: {}
+[45.241692] (-) TimerEvent: {}
+[45.342558] (-) TimerEvent: {}
+[45.443523] (-) TimerEvent: {}
+[45.544631] (-) TimerEvent: {}
+[45.645666] (-) TimerEvent: {}
+[45.746670] (-) TimerEvent: {}
+[45.847667] (-) TimerEvent: {}
+[45.948586] (-) TimerEvent: {}
+[46.049476] (-) TimerEvent: {}
+[46.150397] (-) TimerEvent: {}
+[46.251415] (-) TimerEvent: {}
+[46.352312] (-) TimerEvent: {}
+[46.453104] (-) TimerEvent: {}
+[46.553888] (-) TimerEvent: {}
+[46.654724] (-) TimerEvent: {}
+[46.755675] (-) TimerEvent: {}
+[46.856537] (-) TimerEvent: {}
+[46.957540] (-) TimerEvent: {}
+[47.058496] (-) TimerEvent: {}
+[47.159375] (-) TimerEvent: {}
+[47.260217] (-) TimerEvent: {}
+[47.361113] (-) TimerEvent: {}
+[47.462000] (-) TimerEvent: {}
+[47.562899] (-) TimerEvent: {}
+[47.663691] (-) TimerEvent: {}
+[47.764530] (-) TimerEvent: {}
+[47.865519] (-) TimerEvent: {}
+[47.966559] (-) TimerEvent: {}
+[48.067470] (-) TimerEvent: {}
+[48.168388] (-) TimerEvent: {}
+[48.269517] (-) TimerEvent: {}
+[48.370496] (-) TimerEvent: {}
+[48.471530] (-) TimerEvent: {}
+[48.572505] (-) TimerEvent: {}
+[48.673444] (-) TimerEvent: {}
+[48.774514] (-) TimerEvent: {}
+[48.875613] (-) TimerEvent: {}
+[48.976728] (-) TimerEvent: {}
+[49.077830] (-) TimerEvent: {}
+[49.178923] (-) TimerEvent: {}
+[49.279947] (-) TimerEvent: {}
+[49.381065] (-) TimerEvent: {}
+[49.482209] (-) TimerEvent: {}
+[49.583324] (-) TimerEvent: {}
+[49.684396] (-) TimerEvent: {}
+[49.785386] (-) TimerEvent: {}
+[49.886272] (-) TimerEvent: {}
+[49.987758] (-) TimerEvent: {}
+[50.088653] (-) TimerEvent: {}
+[50.189530] (-) TimerEvent: {}
+[50.290451] (-) TimerEvent: {}
+[50.391302] (-) TimerEvent: {}
+[50.492175] (-) TimerEvent: {}
+[50.593061] (-) TimerEvent: {}
+[50.693935] (-) TimerEvent: {}
+[50.794899] (-) TimerEvent: {}
+[50.895766] (-) TimerEvent: {}
+[50.996619] (-) TimerEvent: {}
+[51.097554] (-) TimerEvent: {}
+[51.198474] (-) TimerEvent: {}
+[51.299379] (-) TimerEvent: {}
+[51.400259] (-) TimerEvent: {}
+[51.501183] (-) TimerEvent: {}
+[51.602146] (-) TimerEvent: {}
+[51.703090] (-) TimerEvent: {}
+[51.804031] (-) TimerEvent: {}
+[51.904889] (-) TimerEvent: {}
+[52.005780] (-) TimerEvent: {}
+[52.106686] (-) TimerEvent: {}
+[52.207577] (-) TimerEvent: {}
+[52.308454] (-) TimerEvent: {}
+[52.409351] (-) TimerEvent: {}
+[52.510373] (-) TimerEvent: {}
+[52.611310] (-) TimerEvent: {}
+[52.712262] (-) TimerEvent: {}
+[52.813143] (-) TimerEvent: {}
+[52.914003] (-) TimerEvent: {}
+[53.014925] (-) TimerEvent: {}
+[53.115844] (-) TimerEvent: {}
+[53.216805] (-) TimerEvent: {}
+[53.317637] (-) TimerEvent: {}
+[53.418539] (-) TimerEvent: {}
+[53.519437] (-) TimerEvent: {}
+[53.620371] (-) TimerEvent: {}
+[53.721255] (-) TimerEvent: {}
+[53.822159] (-) TimerEvent: {}
+[53.923150] (-) TimerEvent: {}
+[54.024118] (-) TimerEvent: {}
+[54.124975] (-) TimerEvent: {}
+[54.225791] (-) TimerEvent: {}
+[54.326690] (-) TimerEvent: {}
+[54.427742] (-) TimerEvent: {}
+[54.528557] (-) TimerEvent: {}
+[54.629577] (-) TimerEvent: {}
+[54.730395] (-) TimerEvent: {}
+[54.831389] (-) TimerEvent: {}
+[54.932310] (-) TimerEvent: {}
+[55.033177] (-) TimerEvent: {}
+[55.134044] (-) TimerEvent: {}
+[55.234958] (-) TimerEvent: {}
+[55.335859] (-) TimerEvent: {}
+[55.436749] (-) TimerEvent: {}
+[55.537637] (-) TimerEvent: {}
+[55.638526] (-) TimerEvent: {}
+[55.739716] (-) TimerEvent: {}
+[55.840752] (-) TimerEvent: {}
+[55.941540] (-) TimerEvent: {}
+[56.045767] (-) TimerEvent: {}
+[56.146617] (-) TimerEvent: {}
+[56.247533] (-) TimerEvent: {}
+[56.348446] (-) TimerEvent: {}
+[56.449331] (-) TimerEvent: {}
+[56.550210] (-) TimerEvent: {}
+[56.651190] (-) TimerEvent: {}
+[56.752239] (-) TimerEvent: {}
+[56.853465] (-) TimerEvent: {}
+[56.954592] (-) TimerEvent: {}
+[57.055757] (-) TimerEvent: {}
+[57.157059] (-) TimerEvent: {}
+[57.258175] (-) TimerEvent: {}
+[57.359507] (-) TimerEvent: {}
+[57.460333] (-) TimerEvent: {}
+[57.561125] (-) TimerEvent: {}
+[57.661934] (-) TimerEvent: {}
+[57.762899] (-) TimerEvent: {}
+[57.863738] (-) TimerEvent: {}
+[57.964546] (-) TimerEvent: {}
+[58.065397] (-) TimerEvent: {}
+[58.168574] (-) TimerEvent: {}
+[58.999681] (-) TimerEvent: {}
+[59.100506] (-) TimerEvent: {}
+[59.201388] (-) TimerEvent: {}
+[59.302179] (-) TimerEvent: {}
+[59.403139] (-) TimerEvent: {}
+[59.503970] (-) TimerEvent: {}
+[59.604836] (-) TimerEvent: {}
+[59.705670] (-) TimerEvent: {}
+[59.806581] (-) TimerEvent: {}
+[59.907676] (-) TimerEvent: {}
+[60.009136] (-) TimerEvent: {}
+[60.110256] (-) TimerEvent: {}
+[60.212944] (-) TimerEvent: {}
+[60.314629] (-) TimerEvent: {}
+[60.416029] (-) TimerEvent: {}
+[60.517071] (-) TimerEvent: {}
+[60.618439] (-) TimerEvent: {}
+[60.719850] (-) TimerEvent: {}
+[60.821197] (-) TimerEvent: {}
+[60.922138] (-) TimerEvent: {}
+[60.927780] (diffdrive_arduino) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX shared library libdiffdrive_arduino_bt_plugins.so\x1b[0m\n'}
+[61.022315] (-) TimerEvent: {}
+[61.123074] (-) TimerEvent: {}
+[61.223929] (-) TimerEvent: {}
+[61.324891] (-) TimerEvent: {}
+[61.425768] (-) TimerEvent: {}
+[61.527022] (-) TimerEvent: {}
+[61.628527] (-) TimerEvent: {}
+[61.730107] (-) TimerEvent: {}
+[61.831465] (-) TimerEvent: {}
+[61.932369] (-) TimerEvent: {}
+[62.033500] (-) TimerEvent: {}
+[62.135273] (-) TimerEvent: {}
+[62.236590] (-) TimerEvent: {}
+[62.337707] (-) TimerEvent: {}
+[62.438844] (-) TimerEvent: {}
+[62.540076] (-) TimerEvent: {}
+[62.640967] (-) TimerEvent: {}
+[62.742344] (-) TimerEvent: {}
+[62.843674] (-) TimerEvent: {}
+[62.945183] (-) TimerEvent: {}
+[63.046515] (-) TimerEvent: {}
+[63.147626] (-) TimerEvent: {}
+[63.248778] (-) TimerEvent: {}
+[63.350287] (-) TimerEvent: {}
+[63.451694] (-) TimerEvent: {}
+[63.552776] (-) TimerEvent: {}
+[63.654038] (-) TimerEvent: {}
+[63.755543] (-) TimerEvent: {}
+[63.856528] (-) TimerEvent: {}
+[63.957699] (-) TimerEvent: {}
+[64.058884] (-) TimerEvent: {}
+[64.159979] (-) TimerEvent: {}
+[64.261316] (-) TimerEvent: {}
+[64.362328] (-) TimerEvent: {}
+[64.463327] (-) TimerEvent: {}
+[64.564419] (-) TimerEvent: {}
+[64.665292] (-) TimerEvent: {}
+[64.766014] (-) TimerEvent: {}
+[64.866696] (-) TimerEvent: {}
+[64.967596] (-) TimerEvent: {}
+[65.068908] (-) TimerEvent: {}
+[65.169599] (-) TimerEvent: {}
+[65.270365] (-) TimerEvent: {}
+[65.371146] (-) TimerEvent: {}
+[65.471911] (-) TimerEvent: {}
+[65.572651] (-) TimerEvent: {}
+[65.673617] (-) TimerEvent: {}
+[65.774699] (-) TimerEvent: {}
+[65.875463] (-) TimerEvent: {}
+[65.976345] (-) TimerEvent: {}
+[66.007619] (diffdrive_arduino) StdoutLine: {'line': b'[100%] Built target diffdrive_arduino_bt_plugins\n'}
+[66.051517] (diffdrive_arduino) CommandEnded: {'returncode': 0}
+[66.053865] (diffdrive_arduino) JobProgress: {'identifier': 'diffdrive_arduino', 'progress': 'install'}
+[66.076548] (-) TimerEvent: {}
+[66.095440] (diffdrive_arduino) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/ubuntu/denem/build/diffdrive_arduino'], 'cwd': '/home/ubuntu/denem/build/diffdrive_arduino', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'tr:en'), ('USER', 'ubuntu'), ('SSH_CLIENT', '10.123.250.91 43254 22'), ('LC_TIME', 'tr_TR.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs/lib:/home/ubuntu/denem/install/diffdrive_arduino/lib:/home/ubuntu/vizanti/install/vizanti_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/ubuntu'), ('TERM_PROGRAM_VERSION', '1.102.3'), ('NVM_BIN', '/home/ubuntu/.nvm/versions/node/v16.20.2/bin'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-c7b1d7c9-1cf8-4896-9f7b-b66fc7833bec.sock'), ('NVM_INC', '/home/ubuntu/.nvm/versions/node/v16.20.2/include/node'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('BUNDLED_DEBUGPY_PATH', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('NVM_DIR', '/home/ubuntu/.nvm'), ('COLCON_PREFIX_PATH', '/home/ubuntu/vizanti/install:/home/ubuntu/denem/install:/home/ubuntu/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'ubuntu'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '4'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/ubuntu/.nvm/versions/node/v16.20.2/bin:/opt/ros/humble/bin:/home/ubuntu/.vscode-server/cli/servers/Stable-488a1f239235055e34e673291fb8d8c810886f81/server/bin/remote-cli:/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/ubuntu/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand:/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts'), ('PAPERSIZE', 'a4'), ('LC_ADDRESS', 'tr_TR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/ubuntu/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-00e9a689a7012013.txt'), ('LANG', 'tr_TR.UTF-8'), ('LC_TELEPHONE', 'tr_TR.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-3866691245.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo:/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'tr_TR.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'tr_TR.UTF-8'), ('LC_IDENTIFICATION', 'tr_TR.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/ubuntu/denem/build/diffdrive_arduino'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '10.123.250.91 43254 10.123.250.65 22'), ('NVM_CD_FLAGS', ''), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/ubuntu/denem/install/serial_motor_demo/lib/python3.10/site-packages:/home/ubuntu/denem/install/serial_motor_demo_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/vizanti/install/vizanti_msgs/local/lib/python3.10/dist-packages:/home/ubuntu/ros2_ws/install/robot_lidar_mapper/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'tr_TR.UTF-8'), ('LC_PAPER', 'tr_TR.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/ubuntu/denem/install/serial_motor_demo_msgs:/home/ubuntu/denem/install/ros2_mpu6050:/home/ubuntu/denem/install/diffdrive_arduino:/home/ubuntu/vizanti/install/vizanti:/home/ubuntu/vizanti/install/vizanti_server:/home/ubuntu/vizanti/install/vizanti_demos:/home/ubuntu/vizanti/install/vizanti_msgs:/home/ubuntu/vizanti/install/vizanti_cpp:/home/ubuntu/ros2_ws/install/ros2_mpu6050:/home/ubuntu/ros2_ws/install/robot_lidar_mapper:/home/ubuntu/ros2_ws/install/mpu9250driver:/home/ubuntu/denem/install/serial_motor_demo:/opt/ros/humble')]), 'shell': False}
+[66.132354] (diffdrive_arduino) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[66.134086] (diffdrive_arduino) StdoutLine: {'line': b'-- Execute custom install script\n'}
+[66.135132] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino//diffdrive_arduino.xml\n'}
+[66.135777] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino//bt_plugins.xml\n'}
+[66.171938] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/include/diffdrive_arduino/diffdrive_arduino/arduino_comms.hpp\n'}
+[66.172830] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/include/diffdrive_arduino/diffdrive_arduino/diffbot_system.hpp\n'}
+[66.173664] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/include/diffdrive_arduino/diffdrive_arduino/visibility_control.h\n'}
+[66.174733] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/include/diffdrive_arduino/diffdrive_arduino/wheel.hpp\n'}
+[66.176667] (-) TimerEvent: {}
+[66.178045] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/include/diffdrive_arduino/diffdrive_arduino/bt_plugins/obstacle_detector_condition.hpp\n'}
+[66.215303] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/include/diffdrive_arduino/diffdrive_arduino/bt_plugins/wait_for_clear_action.hpp\n'}
+[66.253761] (diffdrive_arduino) StderrLine: {'line': b'\x1b[33mCMake Warning (dev) at ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:62 (file):\n'}
+[66.254386] (diffdrive_arduino) StderrLine: {'line': b'  Policy CMP0009 is not set: FILE GLOB_RECURSE calls should not follow\n'}
+[66.255116] (diffdrive_arduino) StderrLine: {'line': b'  symlinks by default.  Run "cmake --help-policy CMP0009" for policy details.\n'}
+[66.255778] (diffdrive_arduino) StderrLine: {'line': b'  Use the cmake_policy command to set the policy and suppress this warning.\n'}
+[66.256265] (diffdrive_arduino) StderrLine: {'line': b'Call Stack (most recent call first):\n'}
+[66.256718] (diffdrive_arduino) StderrLine: {'line': b'  ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:326 (ament_cmake_symlink_install_directory)\n'}
+[66.257093] (diffdrive_arduino) StderrLine: {'line': b'  cmake_install.cmake:46 (include)\n'}
+[66.257440] (diffdrive_arduino) StderrLine: {'line': b'This warning is for project developers.  Use -Wno-dev to suppress it.\n'}
+[66.257838] (diffdrive_arduino) StderrLine: {'line': b'\x1b[0m\n'}
+[66.258181] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/build/.built_by\n'}
+[66.276887] (-) TimerEvent: {}
+[66.294106] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/build/COLCON_IGNORE\n'}
+[66.331482] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/.colcon_install_layout\n'}
+[66.369465] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/COLCON_IGNORE\n'}
+[66.377096] (-) TimerEvent: {}
+[66.408220] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/_local_setup_util_ps1.py\n'}
+[66.445391] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/_local_setup_util_sh.py\n'}
+[66.477304] (-) TimerEvent: {}
+[66.484186] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.bash\n'}
+[66.524591] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.ps1\n'}
+[66.569057] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.sh\n'}
+[66.577513] (-) TimerEvent: {}
+[66.608291] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.zsh\n'}
+[66.647836] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.bash\n'}
+[66.677740] (-) TimerEvent: {}
+[66.687701] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.ps1\n'}
+[66.728177] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.sh\n'}
+[66.768709] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.zsh\n'}
+[66.777960] (-) TimerEvent: {}
+[66.808285] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/COLCON_IGNORE\n'}
+[66.846532] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-05-30_20-05-45/events.log\n'}
+[66.847736] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-05-30_20-05-45/logger_all.log\n'}
+[66.848779] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-05-30_20-05-52/events.log\n'}
+[66.849832] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-05-30_20-05-52/logger_all.log\n'}
+[66.850975] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest/events.log\n'}
+[66.878165] (-) TimerEvent: {}
+[66.890539] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest/logger_all.log\n'}
+[66.928537] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest_build/events.log\n'}
+[66.929654] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest_build/logger_all.log\n'}
+[66.930715] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/view_robot.launch.py\n'}
+[66.932304] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/ros2_control/diffbot.ros2_control.xacro\n'}
+[66.933879] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/urdf/diffbot.materials.xacro\n'}
+[66.934936] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/urdf/diffbot.urdf.xacro\n'}
+[66.935863] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/urdf/diffbot_description.urdf.xacro\n'}
+[66.937307] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/rviz/diffbot.rviz\n'}
+[66.938287] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/rviz/diffbot_view.rviz\n'}
+[66.942406] (diffdrive_arduino) StderrLine: {'line': b'\x1b[33mCMake Warning (dev) at ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:62 (file):\n'}
+[66.943297] (diffdrive_arduino) StderrLine: {'line': b'  Policy CMP0009 is not set: FILE GLOB_RECURSE calls should not follow\n'}
+[66.943824] (diffdrive_arduino) StderrLine: {'line': b'  symlinks by default.  Run "cmake --help-policy CMP0009" for policy details.\n'}
+[66.944634] (diffdrive_arduino) StderrLine: {'line': b'  Use the cmake_policy command to set the policy and suppress this warning.\n'}
+[66.945221] (diffdrive_arduino) StderrLine: {'line': b'Call Stack (most recent call first):\n'}
+[66.945766] (diffdrive_arduino) StderrLine: {'line': b'  ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:329 (ament_cmake_symlink_install_directory)\n'}
+[66.946149] (diffdrive_arduino) StderrLine: {'line': b'  cmake_install.cmake:46 (include)\n'}
+[66.946456] (diffdrive_arduino) StderrLine: {'line': b'This warning is for project developers.  Use -Wno-dev to suppress it.\n'}
+[66.946909] (diffdrive_arduino) StderrLine: {'line': b'\x1b[0m\n'}
+[66.947371] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/build/.built_by\n'}
+[66.978422] (-) TimerEvent: {}
+[66.986827] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/build/COLCON_IGNORE\n'}
+[67.026812] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/diffbot.launch.py\n'}
+[67.028200] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/ekf.launch.py\n'}
+[67.029313] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/fullnav.launch.py\n'}
+[67.030509] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/.colcon_install_layout\n'}
+[67.069095] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/COLCON_IGNORE\n'}
+[67.078621] (-) TimerEvent: {}
+[67.106963] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/_local_setup_util_ps1.py\n'}
+[67.145357] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/_local_setup_util_sh.py\n'}
+[67.178882] (-) TimerEvent: {}
+[67.185965] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.bash\n'}
+[67.225077] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.ps1\n'}
+[67.268176] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.sh\n'}
+[67.279082] (-) TimerEvent: {}
+[67.314081] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.zsh\n'}
+[67.364241] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.bash\n'}
+[67.379310] (-) TimerEvent: {}
+[67.421078] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.ps1\n'}
+[67.469313] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.sh\n'}
+[67.479503] (-) TimerEvent: {}
+[67.506842] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.zsh\n'}
+[67.551405] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/joystick.launch.py\n'}
+[67.552363] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/localization.launch.py\n'}
+[67.553358] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/COLCON_IGNORE\n'}
+[67.579764] (-) TimerEvent: {}
+[67.603573] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-02-48/events.log\n'}
+[67.606416] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-02-48/logger_all.log\n'}
+[67.609320] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-03-22/events.log\n'}
+[67.610282] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-03-22/logger_all.log\n'}
+[67.613259] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-39-42/events.log\n'}
+[67.652821] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-39-42/logger_all.log\n'}
+[67.680133] (-) TimerEvent: {}
+[67.698507] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest/events.log\n'}
+[67.700341] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest/logger_all.log\n'}
+[67.703875] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest_build/events.log\n'}
+[67.705134] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest_build/logger_all.log\n'}
+[67.705713] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/mapping.launch.py\n'}
+[67.706640] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/navigation.launch.py\n'}
+[67.707271] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/rplidar.launch.py\n'}
+[67.708804] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/slam.launch.py\n'}
+[67.710888] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/config/diffbot_controllers.yaml\n'}
+[67.712004] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/config/ekf.yaml\n'}
+[67.714513] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/config/joystick.yaml\n'}
+[67.715674] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/config/mybehaviortree.xml\n'}
+[67.716273] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/config/nav2_params.yaml\n'}
+[67.718952] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/bt_plugins.xml\n'}
+[67.720080] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/environment/library_path.sh\n'}
+[67.722488] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/environment/library_path.dsv\n'}
+[67.723523] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/ament_index/resource_index/package_run_dependencies/diffdrive_arduino\n'}
+[67.725480] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/ament_index/resource_index/parent_prefix_path/diffdrive_arduino\n'}
+[67.726631] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/environment/ament_prefix_path.sh\n'}
+[67.727642] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/environment/ament_prefix_path.dsv\n'}
+[67.734006] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/environment/path.sh\n'}
+[67.734675] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/environment/path.dsv\n'}
+[67.735328] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/local_setup.bash\n'}
+[67.735823] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/local_setup.sh\n'}
+[67.736277] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/local_setup.zsh\n'}
+[67.736777] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/local_setup.dsv\n'}
+[67.738367] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/package.dsv\n'}
+[67.773735] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/ament_index/resource_index/packages/diffdrive_arduino\n'}
+[67.774563] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/ament_index/resource_index/hardware_interface__pluginlib__plugin/diffdrive_arduino\n'}
+[67.775327] (diffdrive_arduino) StdoutLine: {'line': b'-- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/ament_index/resource_index/nav2_behavior_tree__pluginlib__plugin/diffdrive_arduino\n'}
+[67.780980] (-) TimerEvent: {}
+[67.822244] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[67.823855] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[67.825527] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/diffdrive_arduinoConfig.cmake\n'}
+[67.827077] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/diffdrive_arduinoConfig-version.cmake\n'}
+[67.828593] (diffdrive_arduino) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/package.xml\n'}
+[67.830724] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/lib/libdiffdrive_arduino.so\n'}
+[67.840311] (diffdrive_arduino) StdoutLine: {'line': b'-- Set runtime path of "/home/ubuntu/denem/install/diffdrive_arduino/lib/libdiffdrive_arduino.so" to ""\n'}
+[67.841271] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/lib/libdiffdrive_arduino_bt_plugins.so\n'}
+[67.881220] (-) TimerEvent: {}
+[67.899967] (diffdrive_arduino) StdoutLine: {'line': b'-- Set runtime path of "/home/ubuntu/denem/install/diffdrive_arduino/lib/libdiffdrive_arduino_bt_plugins.so" to ""\n'}
+[67.900887] (diffdrive_arduino) StdoutLine: {'line': b'-- Old export file "/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/export_diffdrive_arduinoExport.cmake" will be replaced.  Removing files [/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/export_diffdrive_arduinoExport-noconfig.cmake].\n'}
+[67.901755] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/export_diffdrive_arduinoExport.cmake\n'}
+[67.904012] (diffdrive_arduino) StdoutLine: {'line': b'-- Installing: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/export_diffdrive_arduinoExport-noconfig.cmake\n'}
+[67.914914] (diffdrive_arduino) CommandEnded: {'returncode': 0}
+[67.981964] (-) TimerEvent: {}
+[68.082951] (-) TimerEvent: {}
+[68.157821] (diffdrive_arduino) JobEnded: {'identifier': 'diffdrive_arduino', 'rc': 0}
+[68.161995] (-) EventReactorShutdown: {}
