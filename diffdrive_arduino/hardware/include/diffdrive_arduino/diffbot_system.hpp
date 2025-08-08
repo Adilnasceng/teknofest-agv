@@ -17,6 +17,11 @@
 #include "rclcpp_lifecycle/state.hpp"
 #include "diffdrive_arduino/visibility_control.h"
 
+// Service için eklemeler
+#include "rclcpp/rclcpp.hpp"
+#include "std_srvs/srv/set_bool.hpp"
+#include "std_msgs/msg/bool.hpp"
+
 #include "diffdrive_arduino/arduino_comms.hpp"
 #include "diffdrive_arduino/wheel.hpp"
 
@@ -97,13 +102,29 @@ private:
   Wheel wheel_l_;
   Wheel wheel_r_;
   
+  // ROS node için
+  rclcpp::Node::SharedPtr node_;
+  
+  // Service ve Publisher
+  rclcpp::Service<std_srvs::srv::SetBool>::SharedPtr buzzer_service_;
+  rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr buzzer_status_publisher_;
+  
   // Basit buzzer durumu yönetimi
   bool buzzer_reverse_active_ = false;  // Geri gitme buzzer durumu
   bool buzzer_manual_active_ = false;   // Manuel buzzer durumu
+  bool buzzer_obstacle_active_ = false; // Engel buzzer durumu
   bool buzzer_active_ = false;          // Genel buzzer durumu
   
   void update_buzzer_state();
   void check_reverse_condition();
+  
+  // Service callback
+  void buzzer_service_callback(
+    const std::shared_ptr<std_srvs::srv::SetBool::Request> request,
+    std::shared_ptr<std_srvs::srv::SetBool::Response> response);
+  
+  void setup_ros_interfaces();
+  void publish_buzzer_status();
 };
 
 }  // namespace diffdrive_arduino

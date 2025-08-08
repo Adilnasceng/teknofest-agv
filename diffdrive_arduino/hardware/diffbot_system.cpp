@@ -89,7 +89,11 @@ hardware_interface::CallbackReturn DiffDriveArduinoHardware::on_init(
   // Buzzer durumunu başlat
   buzzer_reverse_active_ = false;
   buzzer_manual_active_ = false;
+  buzzer_obstacle_active_ = false;
   buzzer_active_ = false;
+
+  // ROS interfaces kurulumu
+  setup_ros_interfaces();
 
   for (const hardware_interface::ComponentInfo & joint : info_.joints)
   {
@@ -141,6 +145,46 @@ hardware_interface::CallbackReturn DiffDriveArduinoHardware::on_init(
   }
 
   return hardware_interface::CallbackReturn::SUCCESS;
+}
+
+void DiffDriveArduinoHardware::setup_ros_interfaces()
+{
+  // ROS node oluştur
+  node_ = rclcpp::Node::make_shared("diffbot_hardware_interface");
+  
+  // Buzzer control service
+  buzzer_service_ = node_->create_service<std_srvs::srv::SetBool>(
+    "set_buzzer_state",
+    std::bind(&DiffDriveArduinoHardware::buzzer_service_callback, this,
+              std::placeholders::_1, std::placeholders::_2));
+
+  // Buzzer status publisher
+  buzzer_status_publisher_ = node_->create_publisher<std_msgs::msg::Bool>(
+    "buzzer_status", 10);
+
+  RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+              "ROS interfaces setup complete - Service: /set_buzzer_state, Topic: /buzzer_status");
+}
+
+void DiffDriveArduinoHardware::buzzer_service_callback(
+  const std::shared_ptr<std_srvs::srv::SetBool::Request> request,
+  std::shared_ptr<std_srvs::srv::SetBool::Response> response)
+{
+  buzzer_obstacle_active_ = request->data;
+  update_buzzer_state();
+  
+  response->success = true;
+  response->message = request->data ? "Buzzer activated for obstacle" : "Buzzer deactivated";
+  
+  RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+              "Buzzer service called: %s", response->message.c_str());
+}
+
+void DiffDriveArduinoHardware::publish_buzzer_status()
+{
+  auto msg = std_msgs::msg::Bool();
+  msg.data = buzzer_active_;
+  buzzer_status_publisher_->publish(msg);
 }
 
 ::std::vector<hardware_interface::StateInterface> DiffDriveArduinoHardware::export_state_interfaces()
@@ -221,6 +265,9 @@ hardware_interface::CallbackReturn DiffDriveArduinoHardware::on_deactivate(
   const rclcpp_lifecycle::State & /*previous_state*/)
 {
   RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), "Deactivating ...please wait...");
+  // Buzzer'ı kapat
+  buzzer_active_ = false;
+  comms_.set_buzzer_state(false);
   RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), "Successfully deactivated!");
 
   return hardware_interface::CallbackReturn::SUCCESS;
@@ -246,6 +293,12 @@ hardware_interface::return_type DiffDriveArduinoHardware::read(
   wheel_r_.pos = wheel_r_.calc_enc_angle();
   wheel_r_.vel = (wheel_r_.pos - pos_prev) / delta_seconds;
 
+  // ROS spin for service calls
+  if (node_)
+  {
+    rclcpp::spin_some(node_);
+  }
+
   return hardware_interface::return_type::OK;
 }
 
@@ -267,6 +320,10 @@ hardware_interface::return_type DiffDriveArduinoHardware::write(
   }
   
   comms_.set_motor_values(motor_l_counts_per_loop, motor_r_counts_per_loop);
+  
+  // Buzzer status publish et
+  publish_buzzer_status();
+  
   return hardware_interface::return_type::OK;
 }
 
@@ -304,7 +361,7 @@ bool DiffDriveArduinoHardware::is_buzzer_active() const
 
 void DiffDriveArduinoHardware::update_buzzer_state()
 {
-  bool should_be_active = (buzzer_reverse_active_ || buzzer_manual_active_);
+  bool should_be_active = (buzzer_reverse_active_ || buzzer_manual_active_ || buzzer_obstacle_active_);
   
   if (should_be_active != buzzer_active_)
   {
@@ -314,9 +371,10 @@ void DiffDriveArduinoHardware::update_buzzer_state()
     if (buzzer_active_)
     {
       RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
-                  "Buzzer ON - Reverse: %s, Manual: %s", 
+                  "Buzzer ON - Reverse: %s, Manual: %s, Obstacle: %s", 
                   buzzer_reverse_active_ ? "ON" : "OFF",
-                  buzzer_manual_active_ ? "ON" : "OFF");
+                  buzzer_manual_active_ ? "ON" : "OFF",
+                  buzzer_obstacle_active_ ? "ON" : "OFF");
     }
     else
     {

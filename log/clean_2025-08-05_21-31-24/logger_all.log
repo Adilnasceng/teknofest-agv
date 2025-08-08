@@ -1,2 +1,0 @@
-[0.595s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'clean']
-[0.595s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='clean', subverb_name=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0xffffb0bd7ca0>, verb_extension=<colcon_clean.verb.clean.CleanVerb object at 0xffffb0e94e80>, main=<bound method CleanVerb.main of <colcon_clean.verb.clean.CleanVerb object at 0xffffb0e94e80>>)

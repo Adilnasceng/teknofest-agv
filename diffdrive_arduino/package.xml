@@ -21,6 +21,10 @@
   <depend>rclcpp</depend>
   <depend>rclcpp_lifecycle</depend>
   <depend>libserial-dev</depend>
+  
+  <!-- Service dependencies -->
+  <depend>std_srvs</depend>
+  <depend>std_msgs</depend>
 
   <!-- BT Plugin dependencies -->
   <depend>behaviortree_cpp_v3</depend>
@@ -29,7 +33,6 @@
   <depend>sensor_msgs</depend>
   <exec_depend>rclpy</exec_depend>
   <exec_depend>geometry_msgs</exec_depend>
-  <exec_depend>std_msgs</exec_depend>
   <exec_depend>ros2_controllers_test_nodes</exec_depend>
   <exec_depend>joint_state_broadcaster</exec_depend>
   <exec_depend>diff_drive_controller</exec_depend>

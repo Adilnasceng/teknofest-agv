@@ -11,6 +11,8 @@ set(THIS_PACKAGE_INCLUDE_DEPENDS
   pluginlib
   rclcpp
   rclcpp_lifecycle
+  std_srvs
+  std_msgs
 )
 
 # find dependencies
@@ -67,6 +69,7 @@ install(TARGETS diffdrive_arduino
 # Python scripts install
 install(PROGRAMS
   scripts/obstacle_wait_node.py
+  scripts/buzzer_control_node.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

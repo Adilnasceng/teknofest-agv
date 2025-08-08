@@ -93,6 +93,12 @@ diffdrive_arduino_EXTERNAL_OBJECTS =
 libdiffdrive_arduino.so: CMakeFiles/diffdrive_arduino.dir/hardware/diffbot_system.cpp.o
 libdiffdrive_arduino.so: CMakeFiles/diffdrive_arduino.dir/build.make
 libdiffdrive_arduino.so: /opt/ros/humble/lib/librclcpp_lifecycle.so
+libdiffdrive_arduino.so: /opt/ros/humble/lib/libstd_srvs__rosidl_typesupport_fastrtps_c.so
+libdiffdrive_arduino.so: /opt/ros/humble/lib/libstd_srvs__rosidl_typesupport_introspection_c.so
+libdiffdrive_arduino.so: /opt/ros/humble/lib/libstd_srvs__rosidl_typesupport_fastrtps_cpp.so
+libdiffdrive_arduino.so: /opt/ros/humble/lib/libstd_srvs__rosidl_typesupport_introspection_cpp.so
+libdiffdrive_arduino.so: /opt/ros/humble/lib/libstd_srvs__rosidl_typesupport_cpp.so
+libdiffdrive_arduino.so: /opt/ros/humble/lib/libstd_srvs__rosidl_generator_py.so
 libdiffdrive_arduino.so: /opt/ros/humble/lib/libfake_components.so
 libdiffdrive_arduino.so: /opt/ros/humble/lib/libmock_components.so
 libdiffdrive_arduino.so: /opt/ros/humble/lib/libhardware_interface.so
@@ -240,6 +246,8 @@ libdiffdrive_arduino.so: /opt/ros/humble/lib/librcl_logging_interface.so
 libdiffdrive_arduino.so: /opt/ros/humble/lib/libtracetools.so
 libdiffdrive_arduino.so: /opt/ros/humble/lib/liblifecycle_msgs__rosidl_typesupport_c.so
 libdiffdrive_arduino.so: /opt/ros/humble/lib/liblifecycle_msgs__rosidl_generator_c.so
+libdiffdrive_arduino.so: /opt/ros/humble/lib/libstd_srvs__rosidl_typesupport_c.so
+libdiffdrive_arduino.so: /opt/ros/humble/lib/libstd_srvs__rosidl_generator_c.so
 libdiffdrive_arduino.so: /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_fastrtps_c.so
 libdiffdrive_arduino.so: /opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_fastrtps_c.so
 libdiffdrive_arduino.so: /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_fastrtps_c.so
@@ -272,10 +280,10 @@ libdiffdrive_arduino.so: /opt/ros/humble/lib/libsensor_msgs__rosidl_generator_c.
 libdiffdrive_arduino.so: /opt/ros/humble/lib/libtrajectory_msgs__rosidl_typesupport_c.so
 libdiffdrive_arduino.so: /opt/ros/humble/lib/libtrajectory_msgs__rosidl_generator_c.so
 libdiffdrive_arduino.so: /opt/ros/humble/lib/libgeometry_msgs__rosidl_generator_py.so
-libdiffdrive_arduino.so: /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_c.so
-libdiffdrive_arduino.so: /opt/ros/humble/lib/libgeometry_msgs__rosidl_generator_c.so
 libdiffdrive_arduino.so: /opt/ros/humble/lib/libstd_msgs__rosidl_generator_py.so
+libdiffdrive_arduino.so: /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_c.so
 libdiffdrive_arduino.so: /opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_c.so
+libdiffdrive_arduino.so: /opt/ros/humble/lib/libgeometry_msgs__rosidl_generator_c.so
 libdiffdrive_arduino.so: /opt/ros/humble/lib/libstd_msgs__rosidl_generator_c.so
 libdiffdrive_arduino.so: /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_generator_py.so
 libdiffdrive_arduino.so: /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_c.so
