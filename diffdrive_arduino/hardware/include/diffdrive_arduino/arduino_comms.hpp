@@ -114,6 +114,32 @@ public:
     send_msg(ss.str());
   }
 
+  // DFPlayer ses komutları için yeni fonksiyonlar
+  void play_sound_1()
+  {
+    ::std::stringstream ss;
+    ss << "s 1\r";  // Arduino'ya "s 1" komutu gönder (ses 1'i çal)
+    send_msg(ss.str());
+  }
+
+  void play_sound_2()
+  {
+    ::std::stringstream ss;
+    ss << "s 2\r";  // Arduino'ya "s 2" komutu gönder (ses 2'yi çal)
+    send_msg(ss.str());
+  }
+
+  // Genel ses çalma fonksiyonu (1-2 arası)
+  void play_sound(int sound_number)
+  {
+    if (sound_number >= 1 && sound_number <= 2)
+    {
+      ::std::stringstream ss;
+      ss << "s " << sound_number << "\r";
+      send_msg(ss.str());
+    }
+  }
+
 private:
     LibSerial::SerialPort serial_conn_;
     int timeout_ms_;

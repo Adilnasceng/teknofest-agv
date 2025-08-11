@@ -152,18 +152,29 @@ void DiffDriveArduinoHardware::setup_ros_interfaces()
   // ROS node oluştur
   node_ = rclcpp::Node::make_shared("diffbot_hardware_interface");
   
-  // Buzzer control service
+  // Buzzer control service (mevcut)
   buzzer_service_ = node_->create_service<std_srvs::srv::SetBool>(
     "set_buzzer_state",
     std::bind(&DiffDriveArduinoHardware::buzzer_service_callback, this,
               std::placeholders::_1, std::placeholders::_2));
 
-  // Buzzer status publisher
+  // Buzzer status publisher (mevcut)
   buzzer_status_publisher_ = node_->create_publisher<std_msgs::msg::Bool>(
     "buzzer_status", 10);
 
+  // YENİ: Ses kontrolü servisleri
+  sound1_service_ = node_->create_service<std_srvs::srv::SetBool>(
+    "play_sound_1",
+    std::bind(&DiffDriveArduinoHardware::sound1_service_callback, this,
+              std::placeholders::_1, std::placeholders::_2));
+
+  sound2_service_ = node_->create_service<std_srvs::srv::SetBool>(
+    "play_sound_2",
+    std::bind(&DiffDriveArduinoHardware::sound2_service_callback, this,
+              std::placeholders::_1, std::placeholders::_2));
+
   RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
-              "ROS interfaces setup complete - Service: /set_buzzer_state, Topic: /buzzer_status");
+              "ROS interfaces setup complete - Services: /set_buzzer_state, /play_sound_1, /play_sound_2, Topic: /buzzer_status");
 }
 
 void DiffDriveArduinoHardware::buzzer_service_callback(
@@ -178,6 +189,45 @@ void DiffDriveArduinoHardware::buzzer_service_callback(
   
   RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
               "Buzzer service called: %s", response->message.c_str());
+}
+void DiffDriveArduinoHardware::sound1_service_callback(
+  const std::shared_ptr<std_srvs::srv::SetBool::Request> request,
+  std::shared_ptr<std_srvs::srv::SetBool::Response> response)
+{
+  if (request->data) // True ise sesi çal
+  {
+    play_sound_1();
+    response->success = true;
+    response->message = "Sound 1 played successfully";
+  }
+  else
+  {
+    response->success = true;
+    response->message = "Sound 1 service called but not played (data=false)";
+  }
+  
+  RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+              "Sound 1 service called: %s", response->message.c_str());
+}
+
+void DiffDriveArduinoHardware::sound2_service_callback(
+  const std::shared_ptr<std_srvs::srv::SetBool::Request> request,
+  std::shared_ptr<std_srvs::srv::SetBool::Response> response)
+{
+  if (request->data) // True ise sesi çal
+  {
+    play_sound_2();
+    response->success = true;
+    response->message = "Sound 2 played successfully";
+  }
+  else
+  {
+    response->success = true;
+    response->message = "Sound 2 service called but not played (data=false)";
+  }
+  
+  RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+              "Sound 2 service called: %s", response->message.c_str());
 }
 
 void DiffDriveArduinoHardware::publish_buzzer_status()
@@ -392,6 +442,51 @@ void DiffDriveArduinoHardware::check_reverse_condition()
   {
     buzzer_reverse_active_ = is_reversing;
     update_buzzer_state();
+  }
+}
+void DiffDriveArduinoHardware::play_sound_1()
+{
+  if (comms_.connected())
+  {
+    comms_.play_sound_1();
+    RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), "Playing sound 1");
+  }
+  else
+  {
+    RCLCPP_WARN(rclcpp::get_logger("DiffDriveArduinoHardware"), "Cannot play sound 1 - not connected");
+  }
+}
+
+void DiffDriveArduinoHardware::play_sound_2()
+{
+  if (comms_.connected())
+  {
+    comms_.play_sound_2();
+    RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), "Playing sound 2");
+  }
+  else
+  {
+    RCLCPP_WARN(rclcpp::get_logger("DiffDriveArduinoHardware"), "Cannot play sound 2 - not connected");
+  }
+}
+
+void DiffDriveArduinoHardware::play_sound(int sound_number)
+{
+  if (comms_.connected())
+  {
+    if (sound_number >= 1 && sound_number <= 2)
+    {
+      comms_.play_sound(sound_number);
+      RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), "Playing sound %d", sound_number);
+    }
+    else
+    {
+      RCLCPP_WARN(rclcpp::get_logger("DiffDriveArduinoHardware"), "Invalid sound number: %d (valid range: 1-2)", sound_number);
+    }
+  }
+  else
+  {
+    RCLCPP_WARN(rclcpp::get_logger("DiffDriveArduinoHardware"), "Cannot play sound %d - not connected", sound_number);
   }
 }
 

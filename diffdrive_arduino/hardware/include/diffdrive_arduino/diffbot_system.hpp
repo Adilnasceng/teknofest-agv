@@ -95,6 +95,15 @@ public:
 
   DIFFDRIVE_ARDUINO_PUBLIC
   bool is_buzzer_active() const;
+  // DFPlayer ses kontrolü için fonksiyonlar
+  DIFFDRIVE_ARDUINO_PUBLIC
+  void play_sound_1();
+
+  DIFFDRIVE_ARDUINO_PUBLIC
+  void play_sound_2();
+
+  DIFFDRIVE_ARDUINO_PUBLIC
+  void play_sound(int sound_number);
 
 private:
   ArduinoComms comms_;
@@ -125,6 +134,19 @@ private:
   
   void setup_ros_interfaces();
   void publish_buzzer_status();
+   // Ses kontrolü için service
+  rclcpp::Service<std_srvs::srv::SetBool>::SharedPtr sound1_service_;
+  rclcpp::Service<std_srvs::srv::SetBool>::SharedPtr sound2_service_;
+
+  // Service callback fonksiyonları
+  void sound1_service_callback(
+    const std::shared_ptr<std_srvs::srv::SetBool::Request> request,
+    std::shared_ptr<std_srvs::srv::SetBool::Response> response);
+  
+  void sound2_service_callback(
+    const std::shared_ptr<std_srvs::srv::SetBool::Request> request,
+    std::shared_ptr<std_srvs::srv::SetBool::Response> response);
+
 };
 
 }  // namespace diffdrive_arduino
