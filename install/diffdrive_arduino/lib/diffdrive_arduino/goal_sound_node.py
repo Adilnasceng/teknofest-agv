@@ -1,0 +1,1 @@
+/home/ubuntu/denem/diffdrive_arduino/scripts/goal_sound_node.py

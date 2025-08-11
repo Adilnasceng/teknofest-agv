@@ -70,6 +70,7 @@ install(TARGETS diffdrive_arduino
 install(PROGRAMS
   scripts/obstacle_wait_node.py
   scripts/buzzer_control_node.py
+  scripts/goal_sound_node.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
