@@ -52,6 +52,7 @@
 /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.sh
 /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.zsh
 /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/joystick.launch.py
+/home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/keepout.launch.py
 /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/localization.launch.py
 /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/COLCON_IGNORE
 /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-02-48/events.log
