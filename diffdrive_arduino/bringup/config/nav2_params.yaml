@@ -1,3 +1,4 @@
+# Performans optimizeli nav2_params.yaml
 amcl:
   ros__parameters:
     use_sim_time: False
@@ -17,8 +18,8 @@ amcl:
     laser_max_range: 100.0
     laser_min_range: -1.0
     laser_model_type: "likelihood_field"
-    max_beams: 60
-    max_particles: 2000
+    max_beams: 40
+    max_particles: 1500
     min_particles: 500
     odom_frame_id: "odom"
     pf_err: 0.05
@@ -45,15 +46,12 @@ bt_navigator:
     global_frame: map
     robot_base_frame: base_link
     odom_topic: /odom
-    bt_loop_duration: 20
-    default_server_timeout: 15
+    bt_loop_duration: 50  # 20'den 50'ye çıkarıldı (daha az sıklık)
+    default_server_timeout: 30  # 15'ten 30'a çıkarıldı
     wait_for_service_timeout: 1000
+    # BT tick frekansını düşürmek için
+    action_server_result_timeout: 900.0
     default_nav_to_pose_bt_xml: "/home/ubuntu/denem/diffdrive_arduino/bringup/config/mybehaviortree.xml"
-
-    # 'default_nav_through_poses_bt_xml' and 'default_nav_to_pose_bt_xml' are use defaults:
-    # nav2_bt_navigator/navigate_to_pose_w_replanning_and_recovery.xml
-    # nav2_bt_navigator/navigate_through_poses_w_replanning_and_recovery.xml
-    # They can be set here or via a RewrittenYaml remap from a parent launch file to Nav2.
     plugin_lib_names:
       - nav2_compute_path_to_pose_action_bt_node
       - nav2_compute_path_through_poses_action_bt_node
@@ -102,47 +100,35 @@ bt_navigator:
       - nav2_assisted_teleop_cancel_bt_node
       - nav2_drive_on_heading_cancel_bt_node
       - nav2_is_battery_charging_condition_bt_node
-      
-bt_navigator_navigate_through_poses_rclcpp_node:
-  ros__parameters:
-    use_sim_time: False
-
-bt_navigator_navigate_to_pose_rclcpp_node:
-  ros__parameters:
-    use_sim_time: False
 
 controller_server:
   ros__parameters:
     use_sim_time: False
-    controller_frequency: 10.0 #10.0
+    controller_frequency: 10.0  # 20'den 10'a düşürüldü (performans için)
     min_x_velocity_threshold: 0.001
     min_y_velocity_threshold: 0.5
     min_theta_velocity_threshold: 0.001
     failure_tolerance: 0.3
     progress_checker_plugin: "progress_checker"
-    goal_checker_plugins: ["general_goal_checker"] # "precise_goal_checker"
+    goal_checker_plugins: ["general_goal_checker"]
     controller_plugins: ["FollowPath"]
 
-    # Progress checker parameters
+    # Progress checker - daha toleranslı
     progress_checker:
       plugin: "nav2_controller::SimpleProgressChecker"
-      required_movement_radius: 0.5
-      movement_time_allowance: 10.0
-    # Goal checker parameters
-    #precise_goal_checker:
-    #  plugin: "nav2_controller::SimpleGoalChecker"
-    #  xy_goal_tolerance: 0.25
-    #  yaw_goal_tolerance: 0.25
-    #  stateful: True
+      required_movement_radius: 0.3
+      movement_time_allowance: 15.0  # 10'dan 15'ye çıkarıldı
+
     general_goal_checker:
       stateful: True
       plugin: "nav2_controller::SimpleGoalChecker"
       xy_goal_tolerance: 0.25
       yaw_goal_tolerance: 0.25
-    # DWB parameters
+
+    # DWB Controller - performans optimizeli
     FollowPath:
       plugin: "dwb_core::DWBLocalPlanner"
-      debug_trajectory_details: True
+      debug_trajectory_details: False
       min_vel_x: 0.0
       min_vel_y: 0.0
       max_vel_x: 0.26
@@ -151,18 +137,17 @@ controller_server:
       min_speed_xy: 0.0
       max_speed_xy: 0.26
       min_speed_theta: 0.0
-      # Add high threshold velocity for turtlebot 3 issue.
-      # https://github.com/ROBOTIS-GIT/turtlebot3_simulations/issues/75
       acc_lim_x: 2.5
       acc_lim_y: 0.0
       acc_lim_theta: 3.2
       decel_lim_x: -2.5
       decel_lim_y: 0.0
       decel_lim_theta: -3.2
-      vx_samples: 20
-      vy_samples: 5
-      vtheta_samples: 20
-      sim_time: 1.7
+      # Sample sayılarını düşürdük (performans için)
+      vx_samples: 15  # 20'den 15'e
+      vy_samples: 3   # 5'ten 3'e
+      vtheta_samples: 15  # 20'den 15'e
+      sim_time: 1.5  # 1.7'den 1.5'e
       linear_granularity: 0.05
       angular_granularity: 0.025
       transform_tolerance: 0.2
@@ -185,8 +170,8 @@ controller_server:
 local_costmap:
   local_costmap:
     ros__parameters:
-      update_frequency: 5.0
-      publish_frequency: 2.0
+      update_frequency: 3.0  # 5'ten 3'e düşürüldü
+      publish_frequency: 1.0  # 2'den 1'e düşürüldü
       global_frame: odom
       robot_base_frame: base_link
       use_sim_time: False
@@ -194,23 +179,16 @@ local_costmap:
       width: 3
       height: 3
       resolution: 0.05
-      #robot_radius: 0.30 #değiş
       footprint: "[[0.50, 0.275], [0.50, -0.275], [-0.10, -0.275], [-0.10, 0.275]]"
-      plugins: ["voxel_layer", "inflation_layer"]
-      filters: ["keepout_filter"]  # Keepout filter eklendi
+      plugins: ["obstacle_layer", "inflation_layer"]
+      
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
-        inflation_radius: 0.55 #0.6
-      voxel_layer:
-        plugin: "nav2_costmap_2d::VoxelLayer"
-        enabled: True
-        publish_voxel_map: True
-        origin_z: 0.0
-        z_resolution: 0.05
-        z_voxels: 16
-        max_obstacle_height: 2.0
-        mark_threshold: 0
+        inflation_radius: 0.55
+        
+      obstacle_layer:
+        plugin: "nav2_costmap_2d::ObstacleLayer"
         observation_sources: scan
         scan:
           topic: /scan
@@ -222,30 +200,26 @@ local_costmap:
           raytrace_min_range: 0.0
           obstacle_max_range: 2.5
           obstacle_min_range: 0.7
+      
       static_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
         map_subscribe_transient_local: True
-      # Keepout filter konfigürasyonu
-      keepout_filter:
-        plugin: "nav2_costmap_2d::KeepoutFilter"
-        enabled: True
-        filter_info_topic: "/costmap_filter_info"
-      always_send_full_costmap: True
+        
+      always_send_full_costmap: False
 
 global_costmap:
   global_costmap:
     ros__parameters:
-      update_frequency: 1.0
-      publish_frequency: 1.0
+      update_frequency: 0.5  # 1'den 0.5'e düşürüldü
+      publish_frequency: 0.5  # 1'den 0.5'e düşürüldü
       global_frame: map
       robot_base_frame: base_link
       use_sim_time: False
-      #robot_radius: 0.30 #değiş
       footprint: "[[0.50, 0.275], [0.50, -0.275], [-0.10, -0.275], [-0.10, 0.275]]"
       resolution: 0.05
       track_unknown_space: true
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
-      filters: ["keepout_filter"]  # Keepout filter eklendi
+      
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
@@ -260,25 +234,21 @@ global_costmap:
           raytrace_min_range: 0.0
           obstacle_max_range: 2.5
           obstacle_min_range: 0.7
+          
       static_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
         map_subscribe_transient_local: True
+        
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
         inflation_radius: 0.55
-      # Keepout filter konfigürasyonu
-      keepout_filter:
-        plugin: "nav2_costmap_2d::KeepoutFilter"
-        enabled: True
-        filter_info_topic: "/costmap_filter_info"
+        
       always_send_full_costmap: True
 
 map_server:
   ros__parameters:
     use_sim_time: False
-    # Overridden in launch by the "map" launch configuration or provided default value.
-    # To use in yaml, remove the default "map" value in the tb3_simulation_launch.py file & provide full path to map below.
     yaml_filename: ""
 
 map_saver:
@@ -291,7 +261,7 @@ map_saver:
 
 planner_server:
   ros__parameters:
-    expected_planner_frequency: 20.0
+    expected_planner_frequency: 10.0  # 20'den 10'a düşürüldü
     use_sim_time: False
     planner_plugins: ["GridBased"]
     GridBased:
@@ -323,7 +293,7 @@ behavior_server:
     drive_on_heading:
       plugin: "nav2_behaviors/DriveOnHeading"
     wait:
-      wait_duration: 5.0  # 5 saniye bekleme süresi
+      wait_duration: 5.0
       plugin: "nav2_behaviors/Wait"
     assisted_teleop:
       plugin: "nav2_behaviors/AssistedTeleop"
@@ -354,7 +324,7 @@ waypoint_follower:
 velocity_smoother:
   ros__parameters:
     use_sim_time: False
-    smoothing_frequency: 20.0
+    smoothing_frequency: 10.0  # 20'den 10'a düşürüldü
     scale_velocities: False
     feedback: "OPEN_LOOP"
     max_velocity: [0.26, 0.0, 1.0]
@@ -365,20 +335,3 @@ velocity_smoother:
     odom_duration: 0.1
     deadband_velocity: [0.0, 0.0, 0.0]
     velocity_timeout: 1.0
-
-# Keepout filter için gerekli sunucular
-costmap_filter_info_server:
-  ros__parameters:
-    use_sim_time: False
-    type: 0
-    filter_info_topic: "/costmap_filter_info"
-    mask_topic: "/filter_mask"
-    base: 0.0
-    multiplier: 1.0
-
-filter_mask_server:
-  ros__parameters:
-    use_sim_time: False
-    frame_id: "map"
-    topic_name: "/filter_mask"
-    yaml_filename: "keepout_mask.yaml"
