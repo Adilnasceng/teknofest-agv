@@ -261,14 +261,19 @@ map_saver:
 
 planner_server:
   ros__parameters:
-    expected_planner_frequency: 10.0  # 20'den 10'a düşürüldü
+    expected_planner_frequency: 10.0
     use_sim_time: False
     planner_plugins: ["GridBased"]
     GridBased:
-      plugin: "nav2_navfn_planner/NavfnPlanner"
+      plugin: "nav2_smac_planner/SmacPlanner2D"
       tolerance: 0.5
-      use_astar: false
+      downsample_costmap: false
       allow_unknown: true
+      max_iterations: 1000000
+      max_on_approach_iterations: 1000
+      smooth_path: false     # Yol yumuşatma kapalı = köşeli yollar
+      allow_reverse_expansion: false
+      allow_diagonal: false  # 🔥 çapraz hareketi kapat
 
 smoother_server:
   ros__parameters:

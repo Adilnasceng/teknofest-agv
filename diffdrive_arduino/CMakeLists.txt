@@ -71,6 +71,7 @@ install(PROGRAMS
   scripts/obstacle_wait_node.py
   scripts/buzzer_control_node.py
   scripts/goal_sound_node.py
+  scripts/expo.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
