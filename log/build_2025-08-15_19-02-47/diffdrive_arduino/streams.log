@@ -1,0 +1,130 @@
+[0.098s] Invoking command in '/home/ubuntu/denem/build/diffdrive_arduino': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/ubuntu/denem/build/diffdrive_arduino -- -j4 -l4
+[0.571s] [100%] Built target diffdrive_arduino
+[0.619s] Invoked command in '/home/ubuntu/denem/build/diffdrive_arduino' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/ubuntu/denem/build/diffdrive_arduino -- -j4 -l4
+[0.667s] Invoking command in '/home/ubuntu/denem/build/diffdrive_arduino': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/ubuntu/denem/build/diffdrive_arduino
+[0.702s] -- Install configuration: ""
+[0.709s] -- Execute custom install script
+[0.709s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino//diffdrive_arduino.xml
+[0.712s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/include/diffdrive_arduino/diffdrive_arduino/arduino_comms.hpp
+[0.713s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/include/diffdrive_arduino/diffdrive_arduino/diffbot_system.hpp
+[0.714s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/include/diffdrive_arduino/diffdrive_arduino/visibility_control.h
+[0.715s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/include/diffdrive_arduino/diffdrive_arduino/wheel.hpp
+[0.720s] [33mCMake Warning (dev) at ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:62 (file):
+[0.721s]   Policy CMP0009 is not set: FILE GLOB_RECURSE calls should not follow
+[0.721s]   symlinks by default.  Run "cmake --help-policy CMP0009" for policy details.
+[0.722s]   Use the cmake_policy command to set the policy and suppress this warning.
+[0.722s] Call Stack (most recent call first):
+[0.723s]   ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:320 (ament_cmake_symlink_install_directory)
+[0.723s]   cmake_install.cmake:46 (include)
+[0.724s] This warning is for project developers.  Use -Wno-dev to suppress it.
+[0.724s] [0m
+[0.725s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/build/.built_by
+[0.760s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/build/COLCON_IGNORE
+[0.800s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/.colcon_install_layout
+[0.837s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/COLCON_IGNORE
+[0.878s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/_local_setup_util_ps1.py
+[0.916s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/_local_setup_util_sh.py
+[0.960s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.bash
+[0.999s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.ps1
+[1.036s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.sh
+[1.071s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.zsh
+[1.106s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.bash
+[1.143s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.ps1
+[1.178s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.sh
+[1.218s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.zsh
+[1.259s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/COLCON_IGNORE
+[1.296s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-05-30_20-05-45/events.log
+[1.297s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-05-30_20-05-45/logger_all.log
+[1.298s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-05-30_20-05-52/events.log
+[1.300s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-05-30_20-05-52/logger_all.log
+[1.301s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest/events.log
+[1.337s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest/logger_all.log
+[1.373s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest_build/events.log
+[1.375s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest_build/logger_all.log
+[1.376s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/view_robot.launch.py
+[1.377s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/ros2_control/diffbot.ros2_control.xacro
+[1.379s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/urdf/diffbot.materials.xacro
+[1.380s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/urdf/diffbot.urdf.xacro
+[1.382s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/urdf/diffbot_description.urdf.xacro
+[1.382s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/rviz/diffbot.rviz
+[1.383s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/rviz/diffbot_view.rviz
+[1.388s] [33mCMake Warning (dev) at ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:62 (file):
+[1.388s]   Policy CMP0009 is not set: FILE GLOB_RECURSE calls should not follow
+[1.389s]   symlinks by default.  Run "cmake --help-policy CMP0009" for policy details.
+[1.390s]   Use the cmake_policy command to set the policy and suppress this warning.
+[1.390s] Call Stack (most recent call first):
+[1.391s]   ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:323 (ament_cmake_symlink_install_directory)
+[1.391s]   cmake_install.cmake:46 (include)
+[1.391s] This warning is for project developers.  Use -Wno-dev to suppress it.
+[1.392s] [0m
+[1.393s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/build/.built_by
+[1.424s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/build/COLCON_IGNORE
+[1.458s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/diffbot.launch.py
+[1.460s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/ekf.launch.py
+[1.462s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/fullnav.launch.py
+[1.463s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/goalsound.launch.py
+[1.464s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/.colcon_install_layout
+[1.504s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/COLCON_IGNORE
+[1.550s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/_local_setup_util_ps1.py
+[1.606s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/_local_setup_util_sh.py
+[1.661s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.bash
+[1.703s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.ps1
+[1.750s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.sh
+[1.803s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/local_setup.zsh
+[1.842s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.bash
+[1.878s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.ps1
+[1.913s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.sh
+[1.949s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/install/setup.zsh
+[1.992s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/joystick.launch.py
+[1.993s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/keepout.launch.py
+[1.996s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/localization.launch.py
+[1.997s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/COLCON_IGNORE
+[2.056s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-02-48/events.log
+[2.056s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-02-48/logger_all.log
+[2.057s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-03-22/events.log
+[2.057s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-03-22/logger_all.log
+[2.058s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-39-42/events.log
+[2.102s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/build_2025-08-04_17-39-42/logger_all.log
+[2.147s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest/events.log
+[2.150s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest/logger_all.log
+[2.157s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest_build/events.log
+[2.160s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/log/latest_build/logger_all.log
+[2.162s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/mapping.launch.py
+[2.164s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/navigation.launch.py
+[2.166s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/navigationjust.launch.py
+[2.169s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/obstacle_wait.launch.py
+[2.172s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/rplidar.launch.py
+[2.174s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/slam.launch.py
+[2.177s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/launch/speedfilter.launch.py
+[2.181s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/config/diffbot_controllers.yaml
+[2.184s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/config/ekf.yaml
+[2.187s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/config/joystick.yaml
+[2.189s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/config/mybehaviortree.xml
+[2.192s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/config/nav2_params.yaml
+[2.195s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/lib/diffdrive_arduino/obstacle_wait_node.py
+[2.198s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/lib/diffdrive_arduino/buzzer_control_node.py
+[2.202s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/lib/diffdrive_arduino/goal_sound_node.py
+[2.206s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/environment/library_path.sh
+[2.211s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/environment/library_path.dsv
+[2.213s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/ament_index/resource_index/package_run_dependencies/diffdrive_arduino
+[2.217s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/ament_index/resource_index/parent_prefix_path/diffdrive_arduino
+[2.219s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/environment/ament_prefix_path.sh
+[2.221s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/environment/ament_prefix_path.dsv
+[2.223s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/environment/path.sh
+[2.228s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/environment/path.dsv
+[2.232s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/local_setup.bash
+[2.235s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/local_setup.sh
+[2.237s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/local_setup.zsh
+[2.242s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/local_setup.dsv
+[2.243s] -- Symlinking: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/package.dsv
+[2.286s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/ament_index/resource_index/packages/diffdrive_arduino
+[2.287s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/ament_index/resource_index/hardware_interface__pluginlib__plugin/diffdrive_arduino
+[2.288s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/ament_cmake_export_targets-extras.cmake
+[2.289s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/ament_cmake_export_dependencies-extras.cmake
+[2.290s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/diffdrive_arduinoConfig.cmake
+[2.290s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/diffdrive_arduinoConfig-version.cmake
+[2.291s] -- Up-to-date symlink: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/package.xml
+[2.294s] -- Up-to-date: /home/ubuntu/denem/install/diffdrive_arduino/lib/libdiffdrive_arduino.so
+[2.298s] -- Up-to-date: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/export_diffdrive_arduinoExport.cmake
+[2.298s] -- Up-to-date: /home/ubuntu/denem/install/diffdrive_arduino/share/diffdrive_arduino/cmake/export_diffdrive_arduinoExport-noconfig.cmake
+[2.308s] Invoked command in '/home/ubuntu/denem/build/diffdrive_arduino' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/ubuntu/denem/build/diffdrive_arduino

@@ -13,7 +13,7 @@ def generate_launch_description():
         output='screen',
         parameters=[{
             'enable_goal_sounds': True,      # Hedef seslerini aktif et
-            'sound_delay': 1.0,              # Ses çalmadan önce 1.5 saniye bekle
+            'sound_delay': 2.5,              # Ses çalmadan önce 2.5 saniye bekle
             'debug_mode': False,              # Debug logları pasif
         }]
     )
