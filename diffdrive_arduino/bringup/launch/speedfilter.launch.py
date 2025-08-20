@@ -18,83 +18,42 @@ def generate_launch_description():
         description='Use simulation time'
     )
 
-    # Keepout mask file argument
-    keepout_mask_file_arg = DeclareLaunchArgument(
-        'keepout_mask_file',
-        default_value='/home/ubuntu/denem/diffdrive_arduino/bringup/maps/keepout_mask.yaml',
-        description='Full path to keepout mask yaml file'
-    )
-
-    # Speed limit mask file argument
-    speed_limit_mask_file_arg = DeclareLaunchArgument(
-        'speed_limit_mask_file',
+    # Filter mask file argument
+    filter_mask_file_arg = DeclareLaunchArgument(
+        'filter_mask_file',
         default_value='/home/ubuntu/denem/diffdrive_arduino/bringup/maps/speed_mask.yaml',
-        description='Full path to speed limit mask yaml file'
+        description='Full path to filter mask yaml file'
     )
 
-    # Keepout Filter Info Server
-    keepout_filter_info_server = Node(
+    # Costmap Filter Info Server - Nav2 params'a uygun
+    costmap_filter_info_server = Node(
         package='nav2_map_server',
         executable='costmap_filter_info_server',
-        name='keepout_filter_info_server',
+        name='costmap_filter_info_server',
         output='screen',
         parameters=[
             {
                 'use_sim_time': LaunchConfiguration('use_sim_time'),
-                'type': 0,  # Keepout filter için type: 0
+                'type': 1,  # Speed filter type
                 'filter_info_topic': '/costmap_filter_info',
                 'mask_topic': '/filter_mask',
-                'base': 0.0,
-                'multiplier': 1.0
+                'base': 0.0,        # Base speed limit
+                'multiplier': 0.5   # Speed multiplier
             }
         ]
     )
 
-    # Keepout Filter Mask Server
-    keepout_filter_mask_server = Node(
+    # Filter Mask Server - Nav2 params'a uygun
+    filter_mask_server = Node(
         package='nav2_map_server',
         executable='map_server',
-        name='keepout_filter_mask_server',
+        name='filter_mask_server',
         output='screen',
         parameters=[
             {
                 'use_sim_time': LaunchConfiguration('use_sim_time'),
-                'yaml_filename': LaunchConfiguration('keepout_mask_file'),
+                'yaml_filename': LaunchConfiguration('filter_mask_file'),
                 'topic_name': '/filter_mask',
-                'frame_id': 'map'
-            }
-        ]
-    )
-
-    # Speed Limit Filter Info Server
-    speed_limit_filter_info_server = Node(
-        package='nav2_map_server',
-        executable='costmap_filter_info_server',
-        name='speed_limit_filter_info_server',
-        output='screen',
-        parameters=[
-            {
-                'use_sim_time': LaunchConfiguration('use_sim_time'),
-                'type': 1,  # Speed limit filter için type: 1
-                'filter_info_topic': '/speed_limit_filter_info',
-                'mask_topic': '/speed_limit_mask',
-                'base': 0.26,  # Temel hız limiti (m/s)
-                'multiplier': 1.0
-            }
-        ]
-    )
-
-    # Speed Limit Filter Mask Server
-    speed_limit_filter_mask_server = Node(
-        package='nav2_map_server',
-        executable='map_server',
-        name='speed_limit_filter_mask_server',
-        output='screen',
-        parameters=[
-            {
-                'use_sim_time': LaunchConfiguration('use_sim_time'),
-                'yaml_filename': LaunchConfiguration('speed_limit_mask_file'),
-                'topic_name': '/speed_limit_mask',
                 'frame_id': 'map'
             }
         ]
@@ -111,10 +70,8 @@ def generate_launch_description():
                 'use_sim_time': LaunchConfiguration('use_sim_time'),
                 'autostart': True,
                 'node_names': [
-                    'keepout_filter_info_server', 
-                    'keepout_filter_mask_server',
-                    'speed_limit_filter_info_server',
-                    'speed_limit_filter_mask_server'
+                    'costmap_filter_info_server',
+                    'filter_mask_server'
                 ]
             }
         ]
@@ -122,11 +79,8 @@ def generate_launch_description():
 
     return LaunchDescription([
         use_sim_time_arg,
-        keepout_mask_file_arg,
-        speed_limit_mask_file_arg,
-        keepout_filter_info_server,
-        keepout_filter_mask_server,
-        speed_limit_filter_info_server,
-        speed_limit_filter_mask_server,
+        filter_mask_file_arg,
+        costmap_filter_info_server,
+        filter_mask_server,
         lifecycle_manager_filters
     ])

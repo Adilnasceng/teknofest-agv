@@ -1,0 +1,30 @@
+[0.114s] Invoking command in '/home/ubuntu/denem/build/ros2_mpu6050': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/ubuntu/denem/build/ros2_mpu6050 -- -j4 -l4
+[0.601s] [ 50%] Built target ros2_mpu6050_calibrate
+[0.725s] [100%] Built target ros2_mpu6050
+[0.831s] Invoked command in '/home/ubuntu/denem/build/ros2_mpu6050' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/ubuntu/denem/build/ros2_mpu6050 -- -j4 -l4
+[0.896s] Invoking command in '/home/ubuntu/denem/build/ros2_mpu6050': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/ubuntu/denem/build/ros2_mpu6050
+[0.952s] -- Install configuration: ""
+[0.960s] -- Execute custom install script
+[0.965s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/include/include/ros2_mpu6050/mpu6050.h
+[0.970s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/include/include/ros2_mpu6050/mpu6050_hal.h
+[0.972s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/include/include/ros2_mpu6050/mpu6050_node.h
+[0.984s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/lib/ros2_mpu6050/ros2_mpu6050
+[0.985s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/lib/ros2_mpu6050/ros2_mpu6050_calibrate
+[0.989s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/config/params.yaml
+[0.997s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/launch/ros2_mpu6050.launch.py
+[0.998s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ament_index/resource_index/package_run_dependencies/ros2_mpu6050
+[0.999s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ament_index/resource_index/parent_prefix_path/ros2_mpu6050
+[1.008s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/environment/ament_prefix_path.sh
+[1.016s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/environment/ament_prefix_path.dsv
+[1.016s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/environment/path.sh
+[1.017s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/environment/path.dsv
+[1.022s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/local_setup.bash
+[1.022s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/local_setup.sh
+[1.023s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/local_setup.zsh
+[1.024s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/local_setup.dsv
+[1.030s] -- Symlinking: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/package.dsv
+[1.084s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ament_index/resource_index/packages/ros2_mpu6050
+[1.088s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/cmake/ros2_mpu6050Config.cmake
+[1.091s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/cmake/ros2_mpu6050Config-version.cmake
+[1.094s] -- Up-to-date symlink: /home/ubuntu/denem/install/ros2_mpu6050/share/ros2_mpu6050/package.xml
+[1.107s] Invoked command in '/home/ubuntu/denem/build/ros2_mpu6050' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/ubuntu/denem/build/ros2_mpu6050

@@ -1,4 +1,4 @@
-# Performans optimizeli nav2_params.yaml
+# Performans optimizeli nav2_params.yaml - Speed Filter Eklenmiş
 amcl:
   ros__parameters:
     use_sim_time: False
@@ -112,6 +112,7 @@ controller_server:
     progress_checker_plugin: "progress_checker"
     goal_checker_plugins: ["general_goal_checker"]
     controller_plugins: ["FollowPath"]
+    speed_limit_topic: "/speed_limit"
 
     # Progress checker - daha toleranslı
     progress_checker:
@@ -218,7 +219,9 @@ global_costmap:
       footprint: "[[0.50, 0.275], [0.50, -0.275], [-0.10, -0.275], [-0.10, 0.275]]"
       resolution: 0.05
       track_unknown_space: true
+      # Speed Filter için plugins ve filters eklendi
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
+      filters: ["speed_filter"]
       
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
@@ -243,6 +246,13 @@ global_costmap:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
         inflation_radius: 0.55
+      
+      # Speed Filter Konfigürasyonu
+      speed_filter:
+        plugin: "nav2_costmap_2d::SpeedFilter"
+        enabled: True
+        filter_info_topic: "/costmap_filter_info"
+        speed_limit_topic: "/speed_limit"
         
       always_send_full_costmap: True
 
@@ -340,3 +350,18 @@ velocity_smoother:
     odom_duration: 0.1
     deadband_velocity: [0.0, 0.0, 0.0]
     velocity_timeout: 1.0
+
+costmap_filter_info_server:
+  ros__parameters:
+    use_sim_time: true
+    type: 1
+    filter_info_topic: "/costmap_filter_info"
+    mask_topic: "/filter_mask"
+    base: 100.0
+    multiplier: -1.0
+
+filter_mask_server:
+  ros__parameters:
+    use_sim_time: true
+    frame_id: "map"
+    topic_name: "/filter_mask"
