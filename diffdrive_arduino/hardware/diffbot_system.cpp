@@ -323,6 +323,7 @@ hardware_interface::CallbackReturn DiffDriveArduinoHardware::on_deactivate(
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
+// diffbot_system.cpp read() fonksiyonunda
 hardware_interface::return_type DiffDriveArduinoHardware::read(
   const rclcpp::Time & /*time*/, const rclcpp::Duration & period)
 {
@@ -331,17 +332,25 @@ hardware_interface::return_type DiffDriveArduinoHardware::read(
     return hardware_interface::return_type::ERROR;
   }
 
-  comms_.read_encoder_values(wheel_l_.enc, wheel_r_.enc);
+  // Enkoder okumalarını aynı anda yap
+  int left_enc_temp, right_enc_temp;
+  comms_.read_encoder_values(left_enc_temp, right_enc_temp);
+  
+  // Değerleri aynı anda ata
+  wheel_l_.enc = left_enc_temp;
+  wheel_r_.enc = right_enc_temp;
 
   double delta_seconds = period.seconds();
 
-  double pos_prev = wheel_l_.pos;
+  // Sol tekerlek hesaplaması
+  double pos_prev_l = wheel_l_.pos;
   wheel_l_.pos = wheel_l_.calc_enc_angle();
-  wheel_l_.vel = (wheel_l_.pos - pos_prev) / delta_seconds;
+  wheel_l_.vel = (wheel_l_.pos - pos_prev_l) / delta_seconds;
 
-  pos_prev = wheel_r_.pos;
+  // Sağ tekerlek hesaplaması
+  double pos_prev_r = wheel_r_.pos;
   wheel_r_.pos = wheel_r_.calc_enc_angle();
-  wheel_r_.vel = (wheel_r_.pos - pos_prev) / delta_seconds;
+  wheel_r_.vel = (wheel_r_.pos - pos_prev_r) / delta_seconds;
 
   // ROS spin for service calls
   if (node_)
