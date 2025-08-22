@@ -18,69 +18,66 @@ def generate_launch_description():
         description='Use simulation time'
     )
 
-    # Filter mask file argument
-    filter_mask_file_arg = DeclareLaunchArgument(
-        'filter_mask_file',
-        default_value='/home/ubuntu/denem/diffdrive_arduino/bringup/maps/speed_mask.yaml',
-        description='Full path to filter mask yaml file'
+    # Speed mask file argument - mevcut haritanızı kullan
+    speed_mask_file_arg = DeclareLaunchArgument(
+        'speed_mask_file',
+        default_value='/home/ubuntu/denem/diffdrive_arduino/bringup/maps/speed_mask.yaml',  # Mevcut haritanızı kullan
+        description='Full path to speed mask yaml file'
     )
 
-    # Costmap Filter Info Server - Nav2 params'a uygun
-    costmap_filter_info_server = Node(
+    # Speed Filter Info Server
+    speed_filter_info_server = Node(
         package='nav2_map_server',
         executable='costmap_filter_info_server',
-        name='costmap_filter_info_server',
+        name='speed_filter_info_server',
         output='screen',
         parameters=[
             {
                 'use_sim_time': LaunchConfiguration('use_sim_time'),
                 'type': 1,  # Speed filter type
-                'filter_info_topic': '/costmap_filter_info',
-                'mask_topic': '/filter_mask',
-                'base': 0.0,        # Base speed limit
-                'multiplier': 0.5   # Speed multiplier
+                'filter_info_topic': '/speed_filter_info',
+                'mask_topic': '/speed_mask',
+                'base': 0.0,    # Base speed limit (%)
+                'multiplier': 0.9  # Speed multiplier
             }
         ]
     )
 
-    # Filter Mask Server - Nav2 params'a uygun
-    filter_mask_server = Node(
+    # Speed Mask Server
+    speed_mask_server = Node(
         package='nav2_map_server',
         executable='map_server',
-        name='filter_mask_server',
+        name='speed_mask_server',
         output='screen',
         parameters=[
             {
                 'use_sim_time': LaunchConfiguration('use_sim_time'),
-                'yaml_filename': LaunchConfiguration('filter_mask_file'),
-                'topic_name': '/filter_mask',
+                'yaml_filename': LaunchConfiguration('speed_mask_file'),
+                'topic_name': '/speed_mask',
                 'frame_id': 'map'
             }
         ]
     )
 
-    # Lifecycle Manager for Filter Servers
-    lifecycle_manager_filters = Node(
+    # Lifecycle Manager for Speed Filter Servers
+    lifecycle_manager_speed = Node(
         package='nav2_lifecycle_manager',
         executable='lifecycle_manager',
-        name='lifecycle_manager_filters',
+        name='lifecycle_manager_speed',
         output='screen',
         parameters=[
             {
                 'use_sim_time': LaunchConfiguration('use_sim_time'),
                 'autostart': True,
-                'node_names': [
-                    'costmap_filter_info_server',
-                    'filter_mask_server'
-                ]
+                'node_names': ['speed_filter_info_server', 'speed_mask_server']
             }
         ]
     )
 
     return LaunchDescription([
         use_sim_time_arg,
-        filter_mask_file_arg,
-        costmap_filter_info_server,
-        filter_mask_server,
-        lifecycle_manager_filters
+        speed_mask_file_arg,
+        speed_filter_info_server,
+        speed_mask_server,
+        lifecycle_manager_speed
     ])

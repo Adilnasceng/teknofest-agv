@@ -18,58 +18,58 @@ def generate_launch_description():
         description='Use simulation time'
     )
 
-# Launch dosyasında keepout_mask_file_arg kısmını şu şekilde değiştirin:
+    # Keepout mask file argument - mevcut haritanızı kullan
     keepout_mask_file_arg = DeclareLaunchArgument(
-    'keepout_mask_file',
+        'keepout_mask_file',
         default_value='/home/ubuntu/denem/diffdrive_arduino/bringup/maps/keepout_mask.yaml',
         description='Full path to keepout mask yaml file'
-)
+    )
 
-    # Costmap Filter Info Server
-    filter_info_server = Node(
+    # Keepout Filter Info Server
+    keepout_filter_info_server = Node(
         package='nav2_map_server',
         executable='costmap_filter_info_server',
-        name='filter_info_server',
+        name='keepout_filter_info_server',
         output='screen',
         parameters=[
             {
                 'use_sim_time': LaunchConfiguration('use_sim_time'),
-                'type': 0,
-                'filter_info_topic': '/costmap_filter_info',
-                'mask_topic': '/filter_mask',
+                'type': 0,  # Keepout filter type
+                'filter_info_topic': '/keepout_filter_info',
+                'mask_topic': '/keepout_mask',
                 'base': 0.0,
                 'multiplier': 1.0
             }
         ]
     )
 
-    # Filter Mask Server
-    filter_mask_server = Node(
+    # Keepout Mask Server
+    keepout_mask_server = Node(
         package='nav2_map_server',
         executable='map_server',
-        name='filter_mask_server',
+        name='keepout_mask_server',
         output='screen',
         parameters=[
             {
                 'use_sim_time': LaunchConfiguration('use_sim_time'),
                 'yaml_filename': LaunchConfiguration('keepout_mask_file'),
-                'topic_name': '/filter_mask',
+                'topic_name': '/keepout_mask',
                 'frame_id': 'map'
             }
         ]
     )
 
-    # Lifecycle Manager for Filter Servers
-    lifecycle_manager_filters = Node(
+    # Lifecycle Manager for Keepout Filter Servers
+    lifecycle_manager_keepout = Node(
         package='nav2_lifecycle_manager',
         executable='lifecycle_manager',
-        name='lifecycle_manager_filters',
+        name='lifecycle_manager_keepout',
         output='screen',
         parameters=[
             {
                 'use_sim_time': LaunchConfiguration('use_sim_time'),
                 'autostart': True,
-                'node_names': ['filter_info_server', 'filter_mask_server']
+                'node_names': ['keepout_filter_info_server', 'keepout_mask_server']
             }
         ]
     )
@@ -77,7 +77,7 @@ def generate_launch_description():
     return LaunchDescription([
         use_sim_time_arg,
         keepout_mask_file_arg,
-        filter_info_server,
-        filter_mask_server,
-        lifecycle_manager_filters
+        keepout_filter_info_server,
+        keepout_mask_server,
+        lifecycle_manager_keepout
     ])
