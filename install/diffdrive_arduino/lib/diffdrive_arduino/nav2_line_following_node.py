@@ -1,0 +1,1 @@
+/home/ubuntu/denem/diffdrive_arduino/scripts/nav2_line_following_node.py

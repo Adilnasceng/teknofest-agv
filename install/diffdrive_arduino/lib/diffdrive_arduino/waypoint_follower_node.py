@@ -1,0 +1,1 @@
+/home/ubuntu/denem/diffdrive_arduino/scripts/waypoint_follower_node.py

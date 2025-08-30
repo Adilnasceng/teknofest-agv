@@ -71,6 +71,8 @@ install(PROGRAMS
   scripts/obstacle_wait_node.py
   scripts/buzzer_control_node.py
   scripts/goal_sound_node.py
+  scripts/dynamic_goal_task_manager_node.py
+  scripts/line_follower_node.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

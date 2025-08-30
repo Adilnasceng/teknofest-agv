@@ -1,0 +1,1 @@
+/home/ubuntu/denem/diffdrive_arduino/scripts/dynamic_goal_task_manager_node.py

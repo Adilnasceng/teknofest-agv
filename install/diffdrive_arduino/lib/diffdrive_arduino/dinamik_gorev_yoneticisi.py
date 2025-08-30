@@ -1,0 +1,1 @@
+/home/ubuntu/denem/diffdrive_arduino/scripts/dinamik_gorev_yoneticisi.py

@@ -1,0 +1,50 @@
+[0.073s] Invoking command in '/home/ubuntu/denem/build/diffdrive_arduino': /usr/bin/cmake --build /home/ubuntu/denem/build/diffdrive_arduino -- -j4 -l4
+[0.337s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.966s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[1.038s] -- Found hardware_interface: 2.51.0 (/opt/ros/humble/share/hardware_interface/cmake)
+[1.273s] -- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.288s] -- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.325s] -- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.383s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.454s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[2.553s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[2.565s] -- Found rmw_fastrtps_cpp: 6.2.8 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[2.676s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[2.721s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[2.820s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[2.853s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[2.892s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[3.143s] -- Found std_srvs: 4.9.0 (/opt/ros/humble/share/std_srvs/cmake)
+[3.238s] -- Found cv_bridge: 3.2.1 (/opt/ros/humble/share/cv_bridge/cmake)
+[3.369s] -- Found image_transport: 3.1.12 (/opt/ros/humble/share/image_transport/cmake)
+[3.480s] -- Found nav2_msgs: 1.1.18 (/opt/ros/humble/share/nav2_msgs/cmake)
+[3.753s] -- Found ament_cmake_gtest: 1.3.12 (/opt/ros/humble/share/ament_cmake_gtest/cmake)
+[4.011s] Error parsing '/home/ubuntu/denem/diffdrive_arduino/package.xml':
+[4.213s] Traceback (most recent call last):
+[4.214s]   File "/opt/ros/humble/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py", line 150, in <module>
+[4.214s]     main()
+[4.215s]   File "/opt/ros/humble/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py", line 53, in main
+[4.215s]     raise e
+[4.215s]   File "/opt/ros/humble/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py", line 49, in main
+[4.216s]     package = parse_package_string(
+[4.217s]   File "/usr/lib/python3/dist-packages/catkin_pkg/package.py", line 786, in parse_package_string
+[4.219s]     raise InvalidPackage('Error(s):%s' % (''.join(['\n- %s' % e for e in errors])), filename)
+[4.220s] catkin_pkg.package.InvalidPackage: Error(s) in package '/home/ubuntu/denem/diffdrive_arduino/package.xml':
+[4.223s] Error(s):
+[4.224s] - The generic dependency on 'sensor_msgs' is redundant with: build_depend, build_export_depend, exec_depend
+[4.298s] [31mCMake Error at /opt/ros/humble/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:95 (message):
+[4.299s]   execute_process(/usr/bin/python3
+[4.300s]   /opt/ros/humble/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py
+[4.300s]   /home/ubuntu/denem/diffdrive_arduino/package.xml
+[4.300s]   /home/ubuntu/denem/build/diffdrive_arduino/ament_cmake_core/package.cmake)
+[4.301s]   returned error code 1
+[4.301s] Call Stack (most recent call first):
+[4.302s]   /opt/ros/humble/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:49 (_ament_package_xml)
+[4.302s]   /opt/ros/humble/share/ament_cmake_core/cmake/core/ament_package.cmake:63 (ament_package_xml)
+[4.303s]   CMakeLists.txt:92 (ament_package)
+[4.303s] 
+[4.304s] [0m
+[4.305s] -- Configuring incomplete, errors occurred!
+[4.305s] See also "/home/ubuntu/denem/build/diffdrive_arduino/CMakeFiles/CMakeOutput.log".
+[4.339s] gmake: *** [Makefile:267: cmake_check_build_system] Error 1
+[4.346s] Invoked command in '/home/ubuntu/denem/build/diffdrive_arduino' returned '2': /usr/bin/cmake --build /home/ubuntu/denem/build/diffdrive_arduino -- -j4 -l4
