@@ -20,17 +20,21 @@ class Durum(Enum):
     HEDEFE_GIT = 4
     HEDEF_KONTROL = 5
     EK_HAREKET_BASLAT = 6
-    EK_HAREKET_GECIKME = 7    # YENİ DURUM: Gecikme bekleniyor
-    EK_HAREKET_KONTROL = 8
-    GOREV_SONRASI_BEKLEME = 9  # YENİ DURUM: Görev sonrası bekleme
-    BASLANGIC_KONUMA_DON = 10  # YENİ DURUM: Başlangıç konumuna dön
-    BASLANGIC_KONUMA_DON_KONTROL = 11  # YENİ DURUM: Başlangıç konumu kontrolü
-    GOREV_BITTI = 12
-    HATA = 13
+    EK_HAREKET_GECIKME = 7    # Gecikme bekleniyor
+    CIZGI_TAKIP_KONTROL = 8   # Çizgi takibi aşaması
+    OZEL_HAREKET_BASLAT = 9   # Özel hareket aşaması (ileri/dönüş)
+    OZEL_HAREKET_KONTROL = 10 # Özel hareket kontrolü
+    GOREV_SONRASI_BEKLEME = 11 # Görev sonrası bekleme
+    BASLANGIC_KONUMA_DON = 12  # Başlangıç konumuna dön
+    BASLANGIC_KONUMA_DON_KONTROL = 13  # Başlangıç konumu kontrolü
+    GOREV_BITTI = 14
+    HATA = 15
 
 class GorevTipi(Enum):
-    KUTU_ALMA = "kutu_alma"      # 1, 3, 5 hedefleri için (ileri git)
-    KUTU_BIRAKMA = "kutu_birakma" # 2, 4, 6 hedefleri için (geri git)
+    CIZGI_TAKIP = "cizgi_takip"      # Çizgi takibi
+    KUTU_ALMA = "kutu_alma"          # Kutu alma (ileri hareket)  
+    KUTU_BIRAKMA = "kutu_birakma"    # Kutu bırakma (geri hareket)
+    # Gelecekte: KARGO_TASIMA = "kargo_tasima" gibi başka görevler eklenebilir
 
 class CokluGorevYoneticisi(Node):
     def __init__(self):
@@ -39,23 +43,37 @@ class CokluGorevYoneticisi(Node):
 
         # Parametreler
         self.declare_parameter('total_goals', 6)
-        self.declare_parameter('forward_speed', 0.2)
-        self.declare_parameter('backward_speed', -0.2)
-        self.declare_parameter('forward_duration', 3.0)
-        self.declare_parameter('backward_duration', 3.0)
+        
+        # Çizgi takibi parametreleri
+        self.declare_parameter('line_follow_duration', 10.0)  # Çizgi takibi süresi (saniye)
+        
+        # Özel hareket parametreleri
+        self.declare_parameter('forward_speed', 0.2)        # Kutu alma için ileri hız
+        self.declare_parameter('forward_duration', 3.0)     # Kutu alma için ileri süresi
+        self.declare_parameter('turn_speed', 0.5)           # Kutu bırakma için dönüş hızı  
+        self.declare_parameter('turn_duration', 3.14)       # Kutu bırakma için 180° dönüş süresi (pi saniye)
+        
+        # Genel parametreler
         self.declare_parameter('task_delay', 2.0)
-        self.declare_parameter('post_task_wait', 5.0)  # Görev sonrası bekleme süresi
-        self.declare_parameter('return_to_start', True)  # YENİ: Başlangıça dönüş
+        self.declare_parameter('post_task_wait', 5.0)
+        self.declare_parameter('return_to_start', True)
         self.declare_parameter('debug_mode', True)
 
         self.total_goals = self.get_parameter('total_goals').value
+        
+        # Çizgi takibi parametreleri
+        self.line_follow_duration = self.get_parameter('line_follow_duration').value
+        
+        # Özel hareket parametreleri
         self.forward_speed = self.get_parameter('forward_speed').value
-        self.backward_speed = self.get_parameter('backward_speed').value
         self.forward_duration = self.get_parameter('forward_duration').value
-        self.backward_duration = self.get_parameter('backward_duration').value
+        self.turn_speed = self.get_parameter('turn_speed').value
+        self.turn_duration = self.get_parameter('turn_duration').value
+        
+        # Genel parametreler
         self.task_delay = self.get_parameter('task_delay').value
         self.post_task_wait = self.get_parameter('post_task_wait').value
-        self.return_to_start = self.get_parameter('return_to_start').value  # YENİ
+        self.return_to_start = self.get_parameter('return_to_start').value
         self.debug_mode = self.get_parameter('debug_mode').value
 
         # Durum ve görev yönetimi değişkenleri
@@ -70,6 +88,7 @@ class CokluGorevYoneticisi(Node):
         # Görev çalıştırma için değişkenler
         self.is_executing_task = False
         self.current_task = None
+        self.current_phase = None  # "line_follow" veya "special_move"
         self.task_start_time = 0
         self.task_cmd_vel = Twist()
         
@@ -80,17 +99,19 @@ class CokluGorevYoneticisi(Node):
         # Thread safety
         self.lock = Lock()
 
-        # Service clients - ses için
-        self.sound1_client = self.create_client(SetBool, 'play_sound_1')
-        self.sound2_client = self.create_client(SetBool, 'play_sound_2')
-        self.services_ready = False
+        # Service clients - hem çizgi takibi hem de ses servisleri
+        self.line_follower_client = self.create_client(SetBool, 'line_follower_control')
+        self.sound1_client = self.create_client(SetBool, 'play_sound_1')  # Kutu alma sesi
+        self.sound2_client = self.create_client(SetBool, 'play_sound_2')  # Kutu bırakma sesi
+        self.line_services_ready = False
+        self.sound_services_ready = False
 
         # Subscriber'lar
         self.goal_sub = self.create_subscription(PoseStamped, '/goal_pose', self.goal_pose_callback, 10)
         self.pose_sub = self.create_subscription(PoseWithCovarianceStamped, '/amcl_pose', self.pose_callback, 10)
 
         # Publishers
-        self.cmd_vel_publisher = self.create_publisher(Twist, '/cmd_vel', 10)
+        self.cmd_vel_publisher = self.create_publisher(Twist, '/cmd_vel', 10)  # Kutu alma/bırakma için
         self.task_status_publisher = self.create_publisher(String, '/task_status', 10)
         self.goal_info_publisher = self.create_publisher(String, '/goal_info', 10)
 
@@ -98,23 +119,36 @@ class CokluGorevYoneticisi(Node):
         self.timer = self.create_timer(0.1, self.durum_makinesi_callback)
         self.service_check_timer = self.create_timer(2.0, self.check_services)
 
-        self.get_logger().info("🎯 Çoklu Görev Yöneticisi başlatıldı.")
-        self.get_logger().info("📋 Görev sistemi: 1,3,5 → İleri Git | 2,4,6 → Geri Git")
-        self.get_logger().info(f"⚡ İleri: {self.forward_speed} m/s ({self.forward_duration}s), Geri: {self.backward_speed} m/s ({self.backward_duration}s)")
-        self.get_logger().info(f"⏱️ Görev gecikmesi: {self.task_delay}s, Görev sonrası bekleme: {self.post_task_wait}s")
-        self.get_logger().info(f"🎯 Lütfen RViz üzerinden {self.hedef_tanimlama_asama}. hedefi belirleyin.")
+        self.get_logger().info("Çoklu Görev Yöneticisi başlatıldı.")
+        self.get_logger().info("Görev sistemi: İki aşamalı görev yönetimi")
+        self.get_logger().info("KUTU ALMA: Çizgi takibi + İleri hareket")
+        self.get_logger().info("KUTU BIRAKMA: Çizgi takibi + 180° dönüş")
+        self.get_logger().info(f"Çizgi takibi süresi: {self.line_follow_duration}s")
+        self.get_logger().info(f"İleri hareket: {self.forward_speed} m/s ({self.forward_duration}s)")
+        self.get_logger().info(f"180° dönüş: {self.turn_speed} rad/s ({self.turn_duration}s)")
+        self.get_logger().info(f"Görev gecikmesi: {self.task_delay}s, Görev sonrası bekleme: {self.post_task_wait}s")
+        self.get_logger().info(f"Lütfen RViz üzerinden {self.hedef_tanimlama_asama}. hedefi belirleyin.")
         self.publish_task_status(f"GOAL_DEFINITION - Waiting for goal {self.hedef_tanimlama_asama}/{self.total_goals}")
 
     def check_services(self):
         """Service'lerin hazır olup olmadığını kontrol et"""
+        line_ready = self.line_follower_client.service_is_ready()
         sound1_ready = self.sound1_client.service_is_ready()
         sound2_ready = self.sound2_client.service_is_ready()
         
-        new_status = sound1_ready and sound2_ready
+        # Çizgi takibi servisi kontrolü
+        if line_ready != self.line_services_ready:
+            self.line_services_ready = line_ready
+            if self.line_services_ready:
+                self.get_logger().info('✅ Çizgi takibi servisi hazır!')
+            else:
+                self.get_logger().warn('⚠️ Çizgi takibi servisi bağlantısı yok!')
         
-        if new_status != self.services_ready:
-            self.services_ready = new_status
-            if self.services_ready:
+        # Ses servisleri kontrolü
+        new_sound_status = sound1_ready and sound2_ready
+        if new_sound_status != self.sound_services_ready:
+            self.sound_services_ready = new_sound_status
+            if self.sound_services_ready:
                 self.get_logger().info('✅ Ses servisleri hazır!')
             else:
                 self.get_logger().warn('⚠️ Ses servisleri bağlantısı yok!')
@@ -131,7 +165,7 @@ class CokluGorevYoneticisi(Node):
 
     def goal_pose_callback(self, msg):
         if self.durum != Durum.HEDEF_TANIMLAMA:
-            self.get_logger().warn("❌ Sistem hedef tanımlama modunda değil, yeni hedef alınamıyor.")
+            self.get_logger().warn("Sistem hedef tanımlama modunda değil, yeni hedef alınamıyor.")
             return
 
         self.hedefler.append(msg)
@@ -139,18 +173,21 @@ class CokluGorevYoneticisi(Node):
         
         # Görev tipini belirle
         gorev_tipi = self.get_task_type_for_goal(self.hedef_tanimlama_asama)
-        gorev_adi = "KUTU ALMA (İleri Git)" if gorev_tipi == GorevTipi.KUTU_ALMA else "KUTU BIRAKMA (Geri Git)"
+        if gorev_tipi == GorevTipi.KUTU_ALMA:
+            gorev_adi = "KUTU ALMA (Çizgi takibi + İleri hareket)"
+        else:
+            gorev_adi = "KUTU BIRAKMA (Çizgi takibi + 180° dönüş)"
         
-        self.get_logger().info(f"✅ Hedef {self.hedef_tanimlama_asama} kaydedildi: ({x:.2f}, {y:.2f}) - {gorev_adi}")
+        self.get_logger().info(f"Hedef {self.hedef_tanimlama_asama} kaydedildi: ({x:.2f}, {y:.2f}) - {gorev_adi}")
         self.publish_goal_info(f"Goal {self.hedef_tanimlama_asama}: ({x:.2f}, {y:.2f}) - {gorev_adi}")
         
         self.hedef_tanimlama_asama += 1
 
         if self.hedef_tanimlama_asama > self.total_goals:
-            self.get_logger().info(f"🎉 Tüm {self.total_goals} hedef de tanımlandı.")
+            self.get_logger().info(f"Tüm {self.total_goals} hedef tanımlandı.")
             self.durum = Durum.NAVIGASYONU_BASLAT
         else:
-            self.get_logger().info(f"🎯 Lütfen RViz üzerinden {self.hedef_tanimlama_asama}. hedefi belirleyin.")
+            self.get_logger().info(f"Lütfen RViz üzerinden {self.hedef_tanimlama_asama}. hedefi belirleyin.")
             self.publish_task_status(f"GOAL_DEFINITION - Waiting for goal {self.hedef_tanimlama_asama}/{self.total_goals}")
 
     def get_task_type_for_goal(self, goal_number):
@@ -176,18 +213,19 @@ class CokluGorevYoneticisi(Node):
                 goal_number = i + 1
                 
                 # Görev tipini belirle
-                if goal_number % 2 != 0:  # Tek sayılı hedefler
-                    gorev_tipi = GorevTipi.KUTU_ALMA
-                    ek_hareket = self.forward_speed
+                gorev_tipi = self.get_task_type_for_goal(goal_number)
+                
+                if gorev_tipi == GorevTipi.CIZGI_TAKIP:
+                    gorev_adi = "ÇİZGİ TAKİBİ"
+                elif gorev_tipi == GorevTipi.KUTU_ALMA:
                     gorev_adi = "KUTU ALMA (İleri Git)"
-                else:  # Çift sayılı hedefler
-                    gorev_tipi = GorevTipi.KUTU_BIRAKMA
-                    ek_hareket = self.backward_speed
+                elif gorev_tipi == GorevTipi.KUTU_BIRAKMA:
                     gorev_adi = "KUTU BIRAKMA (Geri Git)"
+                else:
+                    gorev_adi = "BİLİNMEYEN GÖREV"
                 
                 self.gorev_listesi.append({
                     "hedef_pose": hedef, 
-                    "ek_hareket": ek_hareket,
                     "gorev_tipi": gorev_tipi,
                     "isim": f"Hedef {goal_number} ({gorev_adi})"
                 })
@@ -214,47 +252,61 @@ class CokluGorevYoneticisi(Node):
 
         elif self.durum == Durum.EK_HAREKET_BASLAT:
             gorev = self.gorev_listesi[self.aktif_gorev_index]
-            if gorev['ek_hareket'] is not None and self.current_pose is not None:
+            if self.current_pose is not None:
                 self.get_logger().info(f"⏱️ {self.task_delay} saniye gecikme başlıyor...")
                 self.delay_start_time = current_time
                 self.current_task = gorev['gorev_tipi']
-                self.publish_task_status(f"TASK_DELAY - Waiting {self.task_delay}s before task")
+                self.publish_task_status(f"TASK_DELAY - Waiting {self.task_delay}s before line following")
                 self.durum = Durum.EK_HAREKET_GECIKME
             else:
-                # Ek hareket yoksa veya pozisyon bilgisi yoksa bir sonraki göreve geç
+                # Pozisyon bilgisi yoksa bir sonraki göreve geç
                 self.sonraki_goreve_gec()
 
         elif self.durum == Durum.EK_HAREKET_GECIKME:
             # Gecikme süresi doldu mu kontrol et
             if current_time - self.delay_start_time >= self.task_delay:
-                self.start_task_execution()
-                self.durum = Durum.EK_HAREKET_KONTROL
+                self.start_line_following()
+                self.durum = Durum.CIZGI_TAKIP_KONTROL
 
-        elif self.durum == Durum.EK_HAREKET_KONTROL:
-            if self.is_executing_task:
-                # Görev sırasında hareket komutları gönder
-                self.cmd_vel_publisher.publish(self.task_cmd_vel)
-                
-                # Görev süresi doldu mu kontrol et
-                gorev = self.gorev_listesi[self.aktif_gorev_index]
-                task_duration = (self.forward_duration if self.current_task == GorevTipi.KUTU_ALMA 
-                               else self.backward_duration)
-                
+        elif self.durum == Durum.CIZGI_TAKIP_KONTROL:
+            if self.is_executing_task and self.current_phase == "line_follow":
+                # Çizgi takibi süresi doldu mu kontrol et
                 elapsed = current_time - self.task_start_time
-                if elapsed >= task_duration:
-                    self.finish_task_execution()
-                    
-                # Progress log
-                elif self.debug_mode and int(elapsed * 10) % 10 == 0:  # Her saniye log
-                    remaining = task_duration - elapsed
-                    task_name = "KUTU ALMA" if self.current_task == GorevTipi.KUTU_ALMA else "KUTU BIRAKMA"
-                    self.get_logger().info(f'🔄 {task_name} - Kalan: {remaining:.1f}s')
+                if elapsed >= self.line_follow_duration:
+                    self.finish_line_following()
+                    self.durum = Durum.OZEL_HAREKET_BASLAT
+                elif self.debug_mode and int(elapsed * 10) % 10 == 0:
+                    remaining = self.line_follow_duration - elapsed
+                    self.get_logger().info(f'Çizgi takibi - Kalan: {remaining:.1f}s')
+
+        elif self.durum == Durum.OZEL_HAREKET_BASLAT:
+            self.start_special_movement()
+            self.durum = Durum.OZEL_HAREKET_KONTROL
+
+        elif self.durum == Durum.OZEL_HAREKET_KONTROL:
+            if self.is_executing_task and self.current_phase == "special_move":
+                # Özel hareket kontrolü
+                elapsed = current_time - self.task_start_time
+                
+                if self.current_task == GorevTipi.KUTU_ALMA:
+                    # İleri hareket kontrolü
+                    self.cmd_vel_publisher.publish(self.task_cmd_vel)
+                    if elapsed >= self.forward_duration:
+                        self.finish_special_movement()
+                    elif self.debug_mode and int(elapsed * 10) % 10 == 0:
+                        remaining = self.forward_duration - elapsed
+                        self.get_logger().info(f'İleri hareket - Kalan: {remaining:.1f}s')
+                        
+                elif self.current_task == GorevTipi.KUTU_BIRAKMA:
+                    # 180° dönüş kontrolü
+                    self.cmd_vel_publisher.publish(self.task_cmd_vel)
+                    if elapsed >= self.turn_duration:
+                        self.finish_special_movement()
+                    elif self.debug_mode and int(elapsed * 10) % 10 == 0:
+                        remaining = self.turn_duration - elapsed
+                        self.get_logger().info(f'180° dönüş - Kalan: {remaining:.1f}s')
 
         elif self.durum == Durum.GOREV_SONRASI_BEKLEME:
-            # Robot durdur
-            stop_cmd = Twist()
-            self.cmd_vel_publisher.publish(stop_cmd)
-            
             # Bekleme süresi doldu mu kontrol et
             if current_time - self.wait_start_time >= self.post_task_wait:
                 self.get_logger().info('⏰ Görev sonrası bekleme tamamlandı!')
@@ -327,47 +379,90 @@ class CokluGorevYoneticisi(Node):
                 self.get_logger().info("✅ Tüm görevler tamamlandı!")
                 self.durum = Durum.GOREV_BITTI
 
-    def start_task_execution(self):
-        """Görev çalıştırma başlat"""
+    def start_line_following(self):
+        """Çizgi takibi aşamasını başlat"""
         with self.lock:
             if self.is_executing_task:
-                self.get_logger().warn('⚠️ Zaten bir görev çalışıyor!')
+                self.get_logger().warn('Zaten bir görev çalışıyor!')
                 return
             
-            gorev = self.gorev_listesi[self.aktif_gorev_index]
-            
-            # Görev parametrelerini ayarla
-            if gorev['gorev_tipi'] == GorevTipi.KUTU_ALMA:
-                task_duration = self.forward_duration
-                self.task_cmd_vel.linear.x = self.forward_speed
-                task_name = "KUTU ALMA (İLERİ GİT)"
-            else:
-                task_duration = self.backward_duration
-                self.task_cmd_vel.linear.x = self.backward_speed
-                task_name = "KUTU BIRAKMA (GERİ GİT)"
-            
-            # Diğer hareket bileşenlerini sıfırla
-            self.task_cmd_vel.linear.y = 0.0
-            self.task_cmd_vel.linear.z = 0.0
-            self.task_cmd_vel.angular.x = 0.0
-            self.task_cmd_vel.angular.y = 0.0
-            self.task_cmd_vel.angular.z = 0.0
+            if not self.line_services_ready:
+                self.get_logger().error('Çizgi takibi servisi hazır değil!')
+                return
             
             self.is_executing_task = True
+            self.current_phase = "line_follow"
             self.task_start_time = time.time()
             
-            self.get_logger().info(f'🚀 GÖREV BAŞLATILDI: {task_name}')
-            self.get_logger().info(f'⚡ Hız: {self.task_cmd_vel.linear.x} m/s, Süre: {task_duration}s')
+            task_name = "KUTU ALMA" if self.current_task == GorevTipi.KUTU_ALMA else "KUTU BIRAKMA"
+            self.get_logger().info(f'GÖREV BAŞLATILDI: {task_name} - Aşama 1: Çizgi takibi')
+            self.get_logger().info(f'Çizgi takibi süresi: {self.line_follow_duration}s')
             
-            self.publish_task_status(f"TASK_EXECUTING - {task_name} - Duration: {task_duration}s")
+            self.publish_task_status(f"LINE_FOLLOW_STARTED - {task_name} - Duration: {self.line_follow_duration}s")
             
-            # Göreve özel ses çal
-            self.play_task_sound()
+            # Çizgi takibini başlat
+            self.call_line_follower_service(True)
 
-    def finish_task_execution(self):
-        """Görev çalıştırma bitir"""
+    def finish_line_following(self):
+        """Çizgi takibi aşamasını bitir"""
         with self.lock:
-            if not self.is_executing_task:
+            if not self.is_executing_task or self.current_phase != "line_follow":
+                return
+            
+            # Çizgi takibini durdur
+            self.call_line_follower_service(False)
+            
+            task_name = "KUTU ALMA" if self.current_task == GorevTipi.KUTU_ALMA else "KUTU BIRAKMA"
+            self.get_logger().info(f'Aşama 1 tamamlandı: {task_name} - Çizgi takibi bitti')
+            
+            self.publish_task_status(f"LINE_FOLLOW_COMPLETED - {task_name} - Moving to special movement")
+
+    def start_special_movement(self):
+        """Özel hareket aşamasını başlat (İleri hareket veya 180° dönüş)"""
+        with self.lock:
+            self.current_phase = "special_move"
+            self.task_start_time = time.time()
+            
+            if self.current_task == GorevTipi.KUTU_ALMA:
+                # İleri hareket hazırla
+                self.task_cmd_vel.linear.x = self.forward_speed
+                self.task_cmd_vel.linear.y = 0.0
+                self.task_cmd_vel.linear.z = 0.0
+                self.task_cmd_vel.angular.x = 0.0
+                self.task_cmd_vel.angular.y = 0.0
+                self.task_cmd_vel.angular.z = 0.0
+                
+                task_name = "KUTU ALMA - Aşama 2: İleri hareket"
+                duration = self.forward_duration
+                self.get_logger().info(f'{task_name}')
+                self.get_logger().info(f'Hız: {self.forward_speed} m/s, Süre: {duration}s')
+                
+                # Ses çal
+                self.play_task_sound()
+                
+            elif self.current_task == GorevTipi.KUTU_BIRAKMA:
+                # 180° dönüş hazırla
+                self.task_cmd_vel.linear.x = 0.0
+                self.task_cmd_vel.linear.y = 0.0
+                self.task_cmd_vel.linear.z = 0.0
+                self.task_cmd_vel.angular.x = 0.0
+                self.task_cmd_vel.angular.y = 0.0
+                self.task_cmd_vel.angular.z = self.turn_speed  # Saat yönü tersi dönüş
+                
+                task_name = "KUTU BIRAKMA - Aşama 2: 180° dönüş"
+                duration = self.turn_duration
+                self.get_logger().info(f'{task_name}')
+                self.get_logger().info(f'Dönüş hızı: {self.turn_speed} rad/s, Süre: {duration}s')
+                
+                # Ses çal
+                self.play_task_sound()
+            
+            self.publish_task_status(f"SPECIAL_MOVEMENT_STARTED - {task_name} - Duration: {duration}s")
+
+    def finish_special_movement(self):
+        """Özel hareket aşamasını bitir"""
+        with self.lock:
+            if not self.is_executing_task or self.current_phase != "special_move":
                 return
             
             # Robot durdur
@@ -375,6 +470,49 @@ class CokluGorevYoneticisi(Node):
             self.cmd_vel_publisher.publish(stop_cmd)
             
             task_name = "KUTU ALMA" if self.current_task == GorevTipi.KUTU_ALMA else "KUTU BIRAKMA"
+            self.get_logger().info(f'Aşama 2 tamamlandı: {task_name} - Özel hareket bitti')
+            self.get_logger().info(f'GÖREV TAMAMLANDI: {task_name}')
+            self.get_logger().info(f'{self.post_task_wait} saniye bekleme başlıyor...')
+            
+            self.publish_task_status(f"TASK_COMPLETED - {task_name} - Waiting {self.post_task_wait}s")
+            
+            # Görev durumunu sıfırla
+            self.is_executing_task = False
+            self.current_task = None
+            self.current_phase = None
+            self.task_cmd_vel = Twist()
+            
+            # Post-task bekleme başlat
+            self.wait_start_time = time.time()
+            self.durum = Durum.GOREV_SONRASI_BEKLEME
+
+    def finish_task_execution(self):
+        """Görev tipine göre uygun şekilde görevi bitir"""
+        with self.lock:
+            if not self.is_executing_task:
+                return
+            
+            # Görev tipine göre durdurma işlemi yap
+            if self.current_task == GorevTipi.CIZGI_TAKIP:
+                # Çizgi takibini durdur
+                self.call_line_follower_service(False)
+                task_name = "ÇİZGİ TAKİBİ"
+                
+            elif self.current_task == GorevTipi.KUTU_ALMA:
+                # Robot durdur
+                stop_cmd = Twist()
+                self.cmd_vel_publisher.publish(stop_cmd)
+                task_name = "KUTU ALMA"
+                
+            elif self.current_task == GorevTipi.KUTU_BIRAKMA:
+                # Robot durdur
+                stop_cmd = Twist()
+                self.cmd_vel_publisher.publish(stop_cmd)
+                task_name = "KUTU BIRAKMA"
+            
+            else:
+                task_name = "BİLİNMEYEN GÖREV"
+            
             self.get_logger().info(f'✅ GÖREV TAMAMLANDI: {task_name}')
             self.get_logger().info(f'⏳ {self.post_task_wait} saniye bekleme başlıyor...')
             
@@ -389,9 +527,41 @@ class CokluGorevYoneticisi(Node):
             self.wait_start_time = time.time()
             self.durum = Durum.GOREV_SONRASI_BEKLEME
 
+    def call_line_follower_service(self, start_following):
+        """Çizgi takibi servisini çağır"""
+        if not self.line_services_ready:
+            self.get_logger().error('❌ Çizgi takibi servisi hazır değil!')
+            return
+        
+        try:
+            request = SetBool.Request()
+            request.data = start_following
+            
+            action_name = "başlatılıyor" if start_following else "durduruluyor"
+            self.get_logger().info(f'🔍 Çizgi takibi {action_name}...')
+            
+            future = self.line_follower_client.call_async(request)
+            future.add_done_callback(lambda f: self.line_follower_callback(f, start_following))
+                
+        except Exception as e:
+            self.get_logger().error(f'Çizgi takibi servis çağırma hatası: {e}')
+
+    def line_follower_callback(self, future, start_following):
+        """Çizgi takibi servis callback"""
+        try:
+            response = future.result()
+            if response.success:
+                action_name = "başlatıldı" if start_following else "durduruldu"
+                self.get_logger().info(f'🔍✅ Çizgi takibi {action_name}!')
+            else:
+                action_name = "başlatma" if start_following else "durdurma"
+                self.get_logger().error(f'❌ Çizgi takibi {action_name} başarısız: {response.message}')
+        except Exception as e:
+            self.get_logger().error(f'Çizgi takibi servis callback hatası: {e}')
+
     def play_task_sound(self):
-        """Görev tipine göre ses çal"""
-        if not self.services_ready:
+        """Görev tipine göre ses çal (sadece kutu alma/bırakma için)"""
+        if not self.sound_services_ready:
             return
         
         try:
@@ -402,7 +572,7 @@ class CokluGorevYoneticisi(Node):
                 # Kutu alma için ses 1
                 future = self.sound1_client.call_async(request)
                 future.add_done_callback(lambda f: self.sound_callback(f, "kutu_alma"))
-            else:
+            elif self.current_task == GorevTipi.KUTU_BIRAKMA:
                 # Kutu bırakma için ses 2
                 future = self.sound2_client.call_async(request)
                 future.add_done_callback(lambda f: self.sound_callback(f, "kutu_birakma"))
@@ -438,14 +608,19 @@ class CokluGorevYoneticisi(Node):
         """Acil durdurma"""
         with self.lock:
             if self.is_executing_task:
-                stop_cmd = Twist()
-                self.cmd_vel_publisher.publish(stop_cmd)
+                # Görev aşamasına göre durdurma
+                if self.current_phase == "line_follow":
+                    self.call_line_follower_service(False)
+                elif self.current_phase == "special_move":
+                    stop_cmd = Twist()
+                    self.cmd_vel_publisher.publish(stop_cmd)
                 
                 self.is_executing_task = False
                 self.current_task = None
+                self.current_phase = None
                 self.task_cmd_vel = Twist()
                 
-                self.get_logger().warn('🛑 ACİL DURDURMA - Tüm görevler iptal edildi!')
+                self.get_logger().warn('ACİL DURDURMA - Tüm görevler iptal edildi!')
                 self.publish_task_status("EMERGENCY_STOP - All tasks cancelled")
 
 def main(args=None):

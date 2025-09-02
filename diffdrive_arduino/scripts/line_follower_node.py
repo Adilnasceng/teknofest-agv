@@ -3,6 +3,8 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
 from geometry_msgs.msg import Twist
+from std_srvs.srv import SetBool
+from std_msgs.msg import Bool
 from cv_bridge import CvBridge
 import cv2
 import numpy as np
@@ -25,6 +27,16 @@ class LineFollower(Node):
             
         # Hata ayıklama için işlenmiş görüntüyü yayınlayacak publisher
         self.processed_image_pub = self.create_publisher(Image, '/processed_image', 10)
+        
+        # Çizgi takibi durumu publisher'ı
+        self.line_status_pub = self.create_publisher(Bool, '/line_follower_status', 10)
+        
+        # Service server - çizgi takibini başlat/durdur
+        self.control_service = self.create_service(
+            SetBool,
+            'line_follower_control',
+            self.control_callback
+        )
 
         self.bridge = CvBridge()
         
@@ -32,9 +44,45 @@ class LineFollower(Node):
         self.forward_speed = 0.1
         self.kp = 0.005
         
-        self.get_logger().info('Çizgi Takip Düğümü Başlatıldı.')
+        # Çizgi takibi durumu
+        self.is_following = False
+        self.line_detected = False
+        
+        # Timer - durum yayını için
+        self.status_timer = self.create_timer(0.1, self.publish_status)
+        
+        self.get_logger().info('🔍 Çizgi Takip Düğümü Başlatıldı (Servis Kontrollü).')
+        self.get_logger().info('📞 Servis: /line_follower_control')
+
+    def control_callback(self, request, response):
+        """Çizgi takibini başlat/durdur"""
+        if request.data:
+            self.is_following = True
+            self.get_logger().info('🟢 Çizgi takibi BAŞLATILDI')
+            response.success = True
+            response.message = "Çizgi takibi başlatıldı"
+        else:
+            self.is_following = False
+            # Robot durdur
+            stop_msg = Twist()
+            self.velocity_publisher.publish(stop_msg)
+            self.get_logger().info('🔴 Çizgi takibi DURDURULDU')
+            response.success = True
+            response.message = "Çizgi takibi durduruldu"
+        
+        return response
+
+    def publish_status(self):
+        """Çizgi takibi durumunu yayınla"""
+        status_msg = Bool()
+        status_msg.data = self.is_following and self.line_detected
+        self.line_status_pub.publish(status_msg)
 
     def image_callback(self, msg):
+        # Çizgi takibi aktif değilse görüntü işleme yapma
+        if not self.is_following:
+            return
+            
         try:
             cv_image = self.bridge.imgmsg_to_cv2(msg, 'bgr8')
         except Exception as e:
@@ -53,13 +101,9 @@ class LineFollower(Node):
         twist_msg = Twist()
 
         if M['m00'] > 0:
+            self.line_detected = True
             cx = int(M['m10'] / M['m00'])
             
-            # --- Görsel Hata Ayıklama için Merkez Çizimi ---
-            # Bu çizim, yayınlanacak görüntüde görünecek
-            # thresh_color = cv2.cvtColor(thresh, cv2.COLOR_GRAY2BGR) # Eğer renkli isterseniz
-            # cv2.circle(thresh_color, (cx, int(roi.shape[0]/2)), 5, (0, 255, 0), -1)
-
             # Kontrol Mantığı
             roi_width = roi.shape[1]
             error = (roi_width // 2) - cx
@@ -67,22 +111,21 @@ class LineFollower(Node):
             twist_msg.linear.x = self.forward_speed
             twist_msg.angular.z = self.kp * float(error)
             
-            self.get_logger().info(f'Çizgi bulundu. Hata: {error}, Dönüş Hızı: {twist_msg.angular.z:.2f}', throttle_duration_sec=0.5)
+            if self.is_following:  # Sadece takip modundayken log
+                self.get_logger().info(f'🔍 Çizgi takip ediliyor. Hata: {error}, Dönüş: {twist_msg.angular.z:.2f}', throttle_duration_sec=1.0)
         else:
-            self.get_logger().warn('Çizgi bulunamadı!', throttle_duration_sec=1.0)
+            self.line_detected = False
+            if self.is_following:
+                self.get_logger().warn('⚠️ Çizgi bulunamadı!', throttle_duration_sec=2.0)
             twist_msg.linear.x = 0.0
             twist_msg.angular.z = 0.0
 
-        self.velocity_publisher.publish(twist_msg)
+        # Sadece takip modundayken hareket komutları gönder
+        if self.is_following:
+            self.velocity_publisher.publish(twist_msg)
 
-        # --- ARTIK GÖRSEL PENCERE YOK ---
-        # cv2.imshow("İşlenmiş Görüntü (ROI)", thresh)
-        # cv2.imshow("Orijinal Görüntü (ROI)", roi)
-        # cv2.waitKey(1)
-        
-        # Bunun yerine, işlenmiş görüntüyü ROS topic olarak yayınla
+        # İşlenmiş görüntüyü yayınla
         try:
-            # Görüntüyü yayınlamak için tekrar ROS formatına çevir
             processed_msg = self.bridge.cv2_to_imgmsg(thresh, 'mono8')
             self.processed_image_pub.publish(processed_msg)
         except Exception as e:

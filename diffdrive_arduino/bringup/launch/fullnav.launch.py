@@ -8,16 +8,7 @@ import os
 
 def generate_launch_description():
     # Paket yolları
-    rplidar_ros_pkg = os.path.join(get_package_share_directory('rplidar_ros'))
     diffdrive_arduino_pkg = os.path.join(get_package_share_directory('diffdrive_arduino'))
-    nav2_bringup_pkg = os.path.join(get_package_share_directory('nav2_bringup'))
-
-    # Serial port argümanı (lazım olur)
-    serial_port_arg = DeclareLaunchArgument(
-        'serial_port',
-        default_value='/dev/ttyUSB0',
-        description='RPLidar serial port'
-    )
 
     # 1. diffbot.launch.py çalışacak
     diffbot_launch = IncludeLaunchDescription(
@@ -32,28 +23,26 @@ def generate_launch_description():
         actions=[
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(
-                    os.path.join(rplidar_ros_pkg, 'launch', 'rplidar_a2m12_launch.py')
-                ),
-                launch_arguments={'serial_port': LaunchConfiguration('serial_port')}.items()
+                    os.path.join(diffdrive_arduino_pkg, 'launch', 'rplidar.launch.py')
+                )
             )
         ]
     )
 
-    # 3. 5 saniye sonra navigation.launch.py başlasın (params_file ARG'si vermeden)
-    nav2_launch = TimerAction(
+    # 3. 5 saniye sonra localization.launch.py başlasın
+    localization = TimerAction(
         period=5.0,
         actions=[
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(
-                    os.path.join(nav2_bringup_pkg, 'launch', 'navigation_launch.py')
+                    os.path.join(diffdrive_arduino_pkg, 'launch', 'localization.launch.py')
                 )
             )
         ]
     )
 
     return LaunchDescription([
-        serial_port_arg,
         diffbot_launch,
         rplidar_launch,
-        nav2_launch
+        localization
     ])

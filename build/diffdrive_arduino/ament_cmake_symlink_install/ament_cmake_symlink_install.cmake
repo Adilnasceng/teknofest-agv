@@ -322,8 +322,8 @@ ament_cmake_symlink_install_directory("/home/ubuntu/denem/diffdrive_arduino" DIR
 # install(DIRECTORY "bringup/launch" "bringup/config" "DESTINATION" "share/diffdrive_arduino")
 ament_cmake_symlink_install_directory("/home/ubuntu/denem/diffdrive_arduino" DIRECTORY "bringup/launch" "bringup/config" "DESTINATION" "share/diffdrive_arduino")
 
-# install(PROGRAMS "scripts/obstacle_wait_node.py" "scripts/buzzer_control_node.py" "scripts/goal_sound_node.py" "scripts/dynamic_goal_task_manager_node.py" "scripts/line_follower_node.py" "DESTINATION" "lib/diffdrive_arduino")
-ament_cmake_symlink_install_programs("/home/ubuntu/denem/diffdrive_arduino" PROGRAMS "scripts/obstacle_wait_node.py" "scripts/buzzer_control_node.py" "scripts/goal_sound_node.py" "scripts/dynamic_goal_task_manager_node.py" "scripts/line_follower_node.py" "DESTINATION" "lib/diffdrive_arduino")
+# install(PROGRAMS "scripts/obstacle_wait_node.py" "scripts/buzzer_control_node.py" "scripts/goal_sound_node.py" "scripts/dynamic_goal_task_manager_node.py" "scripts/line_follower_node.py" "scripts/qr_code_reader_node.py" "DESTINATION" "lib/diffdrive_arduino")
+ament_cmake_symlink_install_programs("/home/ubuntu/denem/diffdrive_arduino" PROGRAMS "scripts/obstacle_wait_node.py" "scripts/buzzer_control_node.py" "scripts/goal_sound_node.py" "scripts/dynamic_goal_task_manager_node.py" "scripts/line_follower_node.py" "scripts/qr_code_reader_node.py" "DESTINATION" "lib/diffdrive_arduino")
 
 # install(FILES "/opt/ros/humble/lib/python3.10/site-packages/ament_package/template/environment_hook/library_path.sh" "DESTINATION" "share/diffdrive_arduino/environment")
 ament_cmake_symlink_install_files("/home/ubuntu/denem/diffdrive_arduino" FILES "/opt/ros/humble/lib/python3.10/site-packages/ament_package/template/environment_hook/library_path.sh" "DESTINATION" "share/diffdrive_arduino/environment")

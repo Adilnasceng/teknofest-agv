@@ -1,0 +1,1 @@
+/home/ubuntu/denem/diffdrive_arduino/scripts/qr_code_reader_node.py

@@ -73,6 +73,7 @@ install(PROGRAMS
   scripts/goal_sound_node.py
   scripts/dynamic_goal_task_manager_node.py
   scripts/line_follower_node.py
+  scripts/qr_code_reader_node.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
