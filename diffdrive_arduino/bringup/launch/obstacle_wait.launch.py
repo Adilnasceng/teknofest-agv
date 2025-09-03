@@ -19,7 +19,11 @@ def generate_launch_description():
             'enable_obstacle_wait': True,           # Engel bekleme özelliğini aktif et
             'ignore_duration': 30.0,                # Bekleme sonrası ignore süresi (saniye)
             'enable_buzzer': True                   # Buzzer kontrolünü aktif et
-        }]
+        }],
+        # TWIST MUX İÇİN REMAPPİNG EKLENDİ
+        remappings=[
+            ('/cmd_vel', '/cmd_vel_nav_processed')  # Navigation işlendikten sonra twist_mux'a gönder
+        ]
     )
 
     # Buzzer Control Node - hardware interface ile konuşan node

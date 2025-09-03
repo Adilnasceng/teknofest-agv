@@ -3,12 +3,16 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     
-    # Line Follower Node
+    # Line Follower Node with topic remapping
     line_follower_node = Node(
         package='diffdrive_arduino',
         executable='line_follower_node.py',
         name='line_follower_node',
-        output='screen'
+        output='screen',
+        remappings=[
+            ('/cmd_vel_line_follow', '/cmd_vel'),  # Line follower'ın cmd_vel'ini robot'a yönlendir
+            ('/image_raw', '/line_camera/image_raw'),  # Line camera'yı kullan
+        ]
     )
     
     # Dynamic Goal Task Manager Node
@@ -38,6 +42,6 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        line_follower_node,      # Çizgi takibi node'u
+        line_follower_node,      # Çizgi takibi node'u (remapped)
         goal_task_manager_node   # Ana görev yöneticisi
     ])

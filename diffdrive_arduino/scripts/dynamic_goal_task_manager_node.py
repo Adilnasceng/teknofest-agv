@@ -34,7 +34,6 @@ class GorevTipi(Enum):
     CIZGI_TAKIP = "cizgi_takip"      # Çizgi takibi
     KUTU_ALMA = "kutu_alma"          # Kutu alma (ileri hareket)  
     KUTU_BIRAKMA = "kutu_birakma"    # Kutu bırakma (geri hareket)
-    # Gelecekte: KARGO_TASIMA = "kargo_tasima" gibi başka görevler eklenebilir
 
 class CokluGorevYoneticisi(Node):
     def __init__(self):
@@ -44,8 +43,9 @@ class CokluGorevYoneticisi(Node):
         # Parametreler
         self.declare_parameter('total_goals', 6)
         
-        # Çizgi takibi parametreleri
-        self.declare_parameter('line_follow_duration', 10.0)  # Çizgi takibi süresi (saniye)
+        # Çizgi takibi parametreleri (süre bazlı kaldırıldı)
+        self.declare_parameter('line_lost_timeout', 3.0)      # Çizgi kaybolma timeout süresi
+        self.declare_parameter('line_status_check_rate', 0.1) # Çizgi durumu kontrol frekansı
         
         # Özel hareket parametreleri
         self.declare_parameter('forward_speed', 0.2)        # Kutu alma için ileri hız
@@ -62,7 +62,8 @@ class CokluGorevYoneticisi(Node):
         self.total_goals = self.get_parameter('total_goals').value
         
         # Çizgi takibi parametreleri
-        self.line_follow_duration = self.get_parameter('line_follow_duration').value
+        self.line_lost_timeout = self.get_parameter('line_lost_timeout').value
+        self.line_status_check_rate = self.get_parameter('line_status_check_rate').value
         
         # Özel hareket parametreleri
         self.forward_speed = self.get_parameter('forward_speed').value
@@ -79,7 +80,7 @@ class CokluGorevYoneticisi(Node):
         # Durum ve görev yönetimi değişkenleri
         self.durum = Durum.HEDEF_TANIMLAMA
         self.current_pose = None
-        self.baslangic_pose = None  # YENİ: Başlangıç pozisyonunu kaydet
+        self.baslangic_pose = None
         self.hedefler = []
         self.hedef_tanimlama_asama = 1
         self.gorev_listesi = []
@@ -92,6 +93,12 @@ class CokluGorevYoneticisi(Node):
         self.task_start_time = 0
         self.task_cmd_vel = Twist()
         
+        # Çizgi algılama durumu takip değişkenleri
+        self.line_follower_active = False
+        self.line_detected = False
+        self.line_lost_time = None  # Çizginin kaybolma zamanı
+        self.last_line_status_time = 0
+        
         # Zaman tabanlı kontroller için
         self.delay_start_time = 0
         self.wait_start_time = 0
@@ -103,15 +110,25 @@ class CokluGorevYoneticisi(Node):
         self.line_follower_client = self.create_client(SetBool, 'line_follower_control')
         self.sound1_client = self.create_client(SetBool, 'play_sound_1')  # Kutu alma sesi
         self.sound2_client = self.create_client(SetBool, 'play_sound_2')  # Kutu bırakma sesi
+        
         self.line_services_ready = False
         self.sound_services_ready = False
 
         # Subscriber'lar
         self.goal_sub = self.create_subscription(PoseStamped, '/goal_pose', self.goal_pose_callback, 10)
         self.pose_sub = self.create_subscription(PoseWithCovarianceStamped, '/amcl_pose', self.pose_callback, 10)
+        
+        # Çizgi takibi durumu için subscriber - EN ÖNEMLİ EKLENTİ
+        self.line_status_sub = self.create_subscription(
+            Bool, 
+            '/line_follower_status', 
+            self.line_status_callback, 
+            10
+        )
 
-        # Publishers
-        self.cmd_vel_publisher = self.create_publisher(Twist, '/cmd_vel', 10)  # Kutu alma/bırakma için
+        # Publishers - Twist Mux uyumlu
+        # Özel hareket için direkt /cmd_vel yerine /cmd_vel_teleop kullan (yüksek öncelik)
+        self.cmd_vel_publisher = self.create_publisher(Twist, '/cmd_vel_teleop', 10)
         self.task_status_publisher = self.create_publisher(String, '/task_status', 10)
         self.goal_info_publisher = self.create_publisher(String, '/goal_info', 10)
 
@@ -119,16 +136,45 @@ class CokluGorevYoneticisi(Node):
         self.timer = self.create_timer(0.1, self.durum_makinesi_callback)
         self.service_check_timer = self.create_timer(2.0, self.check_services)
 
-        self.get_logger().info("Çoklu Görev Yöneticisi başlatıldı.")
-        self.get_logger().info("Görev sistemi: İki aşamalı görev yönetimi")
+        self.get_logger().info("Çoklu Görev Yöneticisi başlatıldı (Çizgi Algılaması Bazlı).")
+        self.get_logger().info("🔍 YENİ ÖZELLİK: Çizgi takibi süre bazlı değil, çizgi kaybolana kadar devam eder")
+        self.get_logger().info("📊 Çizgi kaybolma timeout: {}s".format(self.line_lost_timeout))
         self.get_logger().info("KUTU ALMA: Çizgi takibi + İleri hareket")
         self.get_logger().info("KUTU BIRAKMA: Çizgi takibi + 180° dönüş")
-        self.get_logger().info(f"Çizgi takibi süresi: {self.line_follow_duration}s")
+        self.get_logger().info("🔧 Twist Mux kullanımı: Navigation pause/resume kaldırıldı")
         self.get_logger().info(f"İleri hareket: {self.forward_speed} m/s ({self.forward_duration}s)")
         self.get_logger().info(f"180° dönüş: {self.turn_speed} rad/s ({self.turn_duration}s)")
         self.get_logger().info(f"Görev gecikmesi: {self.task_delay}s, Görev sonrası bekleme: {self.post_task_wait}s")
         self.get_logger().info(f"Lütfen RViz üzerinden {self.hedef_tanimlama_asama}. hedefi belirleyin.")
         self.publish_task_status(f"GOAL_DEFINITION - Waiting for goal {self.hedef_tanimlama_asama}/{self.total_goals}")
+
+    def line_status_callback(self, msg):
+        """Çizgi takibi durumunu takip et"""
+        current_time = time.time()
+        self.last_line_status_time = current_time
+        
+        # Çizgi algılama durumunu güncelle
+        previous_line_detected = self.line_detected
+        self.line_detected = msg.data
+        
+        # Çizgi durumu değişimi kontrolü
+        if self.line_follower_active:  # Sadece çizgi takibi aktifken kontrol et
+            if self.line_detected:
+                # Çizgi bulundu
+                if not previous_line_detected:
+                    self.get_logger().info('🔍✅ Çizgi yeniden bulundu!')
+                
+                # Çizgi kaybolma zamanını sıfırla
+                self.line_lost_time = None
+                
+            else:
+                # Çizgi kaybedildi
+                if previous_line_detected:
+                    self.get_logger().warn('🔍⚠️ Çizgi kaybedildi - timeout başladı!')
+                    self.line_lost_time = current_time
+                elif self.line_lost_time is None:
+                    # İlk kez çizgi kaybolma durumu
+                    self.line_lost_time = current_time
 
     def check_services(self):
         """Service'lerin hazır olup olmadığını kontrol et"""
@@ -196,6 +242,15 @@ class CokluGorevYoneticisi(Node):
             return GorevTipi.KUTU_ALMA
         else:  # Çift sayılı hedefler (2, 4, 6)
             return GorevTipi.KUTU_BIRAKMA
+
+    def is_line_completely_lost(self):
+        """Çizginin tamamen kaybolup kaybolmadığını kontrol et"""
+        if self.line_lost_time is None:
+            return False  # Çizgi kaybolmamış
+        
+        current_time = time.time()
+        elapsed = current_time - self.line_lost_time
+        return elapsed >= self.line_lost_timeout
 
     def durum_makinesi_callback(self):
         current_time = time.time()
@@ -265,19 +320,31 @@ class CokluGorevYoneticisi(Node):
         elif self.durum == Durum.EK_HAREKET_GECIKME:
             # Gecikme süresi doldu mu kontrol et
             if current_time - self.delay_start_time >= self.task_delay:
+                # Twist Mux kullanımı ile navigation pause/resume kaldırıldı
                 self.start_line_following()
                 self.durum = Durum.CIZGI_TAKIP_KONTROL
 
         elif self.durum == Durum.CIZGI_TAKIP_KONTROL:
             if self.is_executing_task and self.current_phase == "line_follow":
-                # Çizgi takibi süresi doldu mu kontrol et
-                elapsed = current_time - self.task_start_time
-                if elapsed >= self.line_follow_duration:
-                    self.finish_line_following()
-                    self.durum = Durum.OZEL_HAREKET_BASLAT
-                elif self.debug_mode and int(elapsed * 10) % 10 == 0:
-                    remaining = self.line_follow_duration - elapsed
-                    self.get_logger().info(f'Çizgi takibi - Kalan: {remaining:.1f}s')
+                # ÖNEMLİ: Çizgi durumuna göre kontrol
+                if self.line_follower_active:
+                    if self.is_line_completely_lost():
+                        # Çizgi tamamen kayboldu, çizgi takibini bitir
+                        self.get_logger().info(f'🔍⏰ Çizgi {self.line_lost_timeout}s boyunca bulunamadı - Çizgi takibi bitiyor!')
+                        self.finish_line_following()
+                        self.durum = Durum.OZEL_HAREKET_BASLAT
+                    elif self.debug_mode:
+                        # Debug bilgisi - çizgi durumu
+                        if self.line_detected:
+                            if int(current_time * 2) % 10 == 0:  # Her 5 saniyede bir
+                                elapsed = current_time - self.task_start_time
+                                self.get_logger().info(f'🔍✅ Çizgi takip ediliyor - Süre: {elapsed:.1f}s')
+                        else:
+                            if self.line_lost_time:
+                                lost_duration = current_time - self.line_lost_time
+                                remaining = self.line_lost_timeout - lost_duration
+                                if int(lost_duration * 10) % 10 == 0:  # Her saniye
+                                    self.get_logger().info(f'🔍⚠️ Çizgi kayıp - Timeout: {remaining:.1f}s')
 
         elif self.durum == Durum.OZEL_HAREKET_BASLAT:
             self.start_special_movement()
@@ -312,6 +379,7 @@ class CokluGorevYoneticisi(Node):
                 self.get_logger().info('⏰ Görev sonrası bekleme tamamlandı!')
                 self.get_logger().info('🚀 Sıradaki hedefe geçiliyor...')
                 self.publish_task_status("POST_TASK_WAIT_COMPLETED - Moving to next goal")
+                # Twist Mux ile navigation otomatik devam eder
                 self.sonraki_goreve_gec()
 
         elif self.durum == Durum.BASLANGIC_KONUMA_DON:
@@ -358,7 +426,7 @@ class CokluGorevYoneticisi(Node):
             self.gorev_listesi = []
             self.hedef_tanimlama_asama = 1
             self.aktif_gorev_index = 0
-            self.baslangic_pose = None  # Başlangıç pozisyonunu sıfırla
+            self.baslangic_pose = None
             self.durum = Durum.HEDEF_TANIMLAMA
             self.get_logger().info("🔄 Sistem yeni görevler için hazır.")
             self.get_logger().info(f"🎯 Lütfen RViz üzerinden {self.hedef_tanimlama_asama}. hedefi belirleyin.")
@@ -393,14 +461,20 @@ class CokluGorevYoneticisi(Node):
             self.is_executing_task = True
             self.current_phase = "line_follow"
             self.task_start_time = time.time()
+            self.line_follower_active = True  # Çizgi takibi aktif oldu
+            
+            # Çizgi durumu değişkenlerini sıfırla
+            self.line_detected = False
+            self.line_lost_time = None
             
             task_name = "KUTU ALMA" if self.current_task == GorevTipi.KUTU_ALMA else "KUTU BIRAKMA"
             self.get_logger().info(f'GÖREV BAŞLATILDI: {task_name} - Aşama 1: Çizgi takibi')
-            self.get_logger().info(f'Çizgi takibi süresi: {self.line_follow_duration}s')
+            self.get_logger().info(f'🔍 Çizgi kaybolma timeout: {self.line_lost_timeout}s')
+            self.get_logger().info('🔧 Twist Mux: Çizgi takibi öncelik kazandı, navigation otomatik pause')
             
-            self.publish_task_status(f"LINE_FOLLOW_STARTED - {task_name} - Duration: {self.line_follow_duration}s")
+            self.publish_task_status(f"LINE_FOLLOW_STARTED - {task_name} - Until line is lost ({self.line_lost_timeout}s timeout)")
             
-            # Çizgi takibini başlat
+            # Çizgi takibini başlat - Twist mux otomatik olarak önceliği çizgi takibine verecek
             self.call_line_follower_service(True)
 
     def finish_line_following(self):
@@ -409,13 +483,17 @@ class CokluGorevYoneticisi(Node):
             if not self.is_executing_task or self.current_phase != "line_follow":
                 return
             
-            # Çizgi takibini durdur
+            self.line_follower_active = False  # Çizgi takibi artık aktif değil
+            
+            # Çizgi takibini durdur - Twist mux otomatik olarak navigation'ı restore edecek
             self.call_line_follower_service(False)
             
             task_name = "KUTU ALMA" if self.current_task == GorevTipi.KUTU_ALMA else "KUTU BIRAKMA"
-            self.get_logger().info(f'Aşama 1 tamamlandı: {task_name} - Çizgi takibi bitti')
+            elapsed = time.time() - self.task_start_time
+            self.get_logger().info(f'Aşama 1 tamamlandı: {task_name} - Çizgi takibi bitti (Süre: {elapsed:.1f}s)')
+            self.get_logger().info('🔧 Twist Mux: Navigation restored, özel hareket için teleop aktifleşecek')
             
-            self.publish_task_status(f"LINE_FOLLOW_COMPLETED - {task_name} - Moving to special movement")
+            self.publish_task_status(f"LINE_FOLLOW_COMPLETED - {task_name} - Moving to special movement (Duration: {elapsed:.1f}s)")
 
     def start_special_movement(self):
         """Özel hareket aşamasını başlat (İleri hareket veya 180° dönüş)"""
@@ -457,6 +535,7 @@ class CokluGorevYoneticisi(Node):
                 # Ses çal
                 self.play_task_sound()
             
+            self.get_logger().info('🔧 Twist Mux: Teleop prioritesi aktif (navigation override)')
             self.publish_task_status(f"SPECIAL_MOVEMENT_STARTED - {task_name} - Duration: {duration}s")
 
     def finish_special_movement(self):
@@ -465,7 +544,7 @@ class CokluGorevYoneticisi(Node):
             if not self.is_executing_task or self.current_phase != "special_move":
                 return
             
-            # Robot durdur
+            # Robot durdur - Twist mux teleop priority'yi sonlandır
             stop_cmd = Twist()
             self.cmd_vel_publisher.publish(stop_cmd)
             
@@ -473,6 +552,7 @@ class CokluGorevYoneticisi(Node):
             self.get_logger().info(f'Aşama 2 tamamlandı: {task_name} - Özel hareket bitti')
             self.get_logger().info(f'GÖREV TAMAMLANDI: {task_name}')
             self.get_logger().info(f'{self.post_task_wait} saniye bekleme başlıyor...')
+            self.get_logger().info('🔧 Twist Mux: Navigation otomatik restore (normal priority)')
             
             self.publish_task_status(f"TASK_COMPLETED - {task_name} - Waiting {self.post_task_wait}s")
             
@@ -480,47 +560,6 @@ class CokluGorevYoneticisi(Node):
             self.is_executing_task = False
             self.current_task = None
             self.current_phase = None
-            self.task_cmd_vel = Twist()
-            
-            # Post-task bekleme başlat
-            self.wait_start_time = time.time()
-            self.durum = Durum.GOREV_SONRASI_BEKLEME
-
-    def finish_task_execution(self):
-        """Görev tipine göre uygun şekilde görevi bitir"""
-        with self.lock:
-            if not self.is_executing_task:
-                return
-            
-            # Görev tipine göre durdurma işlemi yap
-            if self.current_task == GorevTipi.CIZGI_TAKIP:
-                # Çizgi takibini durdur
-                self.call_line_follower_service(False)
-                task_name = "ÇİZGİ TAKİBİ"
-                
-            elif self.current_task == GorevTipi.KUTU_ALMA:
-                # Robot durdur
-                stop_cmd = Twist()
-                self.cmd_vel_publisher.publish(stop_cmd)
-                task_name = "KUTU ALMA"
-                
-            elif self.current_task == GorevTipi.KUTU_BIRAKMA:
-                # Robot durdur
-                stop_cmd = Twist()
-                self.cmd_vel_publisher.publish(stop_cmd)
-                task_name = "KUTU BIRAKMA"
-            
-            else:
-                task_name = "BİLİNMEYEN GÖREV"
-            
-            self.get_logger().info(f'✅ GÖREV TAMAMLANDI: {task_name}')
-            self.get_logger().info(f'⏳ {self.post_task_wait} saniye bekleme başlıyor...')
-            
-            self.publish_task_status(f"TASK_COMPLETED - {task_name} - Waiting {self.post_task_wait}s")
-            
-            # Görev durumunu sıfırla
-            self.is_executing_task = False
-            self.current_task = None
             self.task_cmd_vel = Twist()
             
             # Post-task bekleme başlat
@@ -611,6 +650,7 @@ class CokluGorevYoneticisi(Node):
                 # Görev aşamasına göre durdurma
                 if self.current_phase == "line_follow":
                     self.call_line_follower_service(False)
+                    self.line_follower_active = False
                 elif self.current_phase == "special_move":
                     stop_cmd = Twist()
                     self.cmd_vel_publisher.publish(stop_cmd)
@@ -621,6 +661,7 @@ class CokluGorevYoneticisi(Node):
                 self.task_cmd_vel = Twist()
                 
                 self.get_logger().warn('ACİL DURDURMA - Tüm görevler iptal edildi!')
+                self.get_logger().info('🔧 Twist Mux: Acil durdurma sonrası navigation restore')
                 self.publish_task_status("EMERGENCY_STOP - All tasks cancelled")
 
 def main(args=None):
