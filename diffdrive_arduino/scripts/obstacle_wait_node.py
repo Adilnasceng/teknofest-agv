@@ -52,6 +52,14 @@ class ObstacleWaitNode(Node):
             10
         )
         
+        # YENİ: Dış kontrol için subscriber
+        self.obstacle_control_subscription = self.create_subscription(
+            Bool,
+            '/obstacle_wait_enable',  # Task manager'dan gelen kontrol
+            self.obstacle_control_callback,
+            10
+        )
+        
         # Publishers
         self.cmd_vel_publisher = self.create_publisher(Twist, '/cmd_vel', 10)
         self.obstacle_status_publisher = self.create_publisher(Bool, '/obstacle_detected', 10)
@@ -64,6 +72,10 @@ class ObstacleWaitNode(Node):
         self.obstacle_detected = False
         self.last_nav_cmd = Twist()
         self.buzzer_active = False
+        
+        # YENİ: Dış kontrol durumu
+        self.external_control_active = False  # Dış kontrolden gelen aktif/pasif durumu
+        self.last_external_command_time = 0  # Son dış komut zamanı
         
         # Ana state machine
         self.state = "NORMAL"  # NORMAL, WAITING, IGNORING
@@ -82,13 +94,38 @@ class ObstacleWaitNode(Node):
         self.get_logger().info(f'⏰ Bekleme süresi: {self.wait_duration}s')
         self.get_logger().info(f'🚫 Ignore süresi: {self.ignore_duration}s')
         self.get_logger().info(f'🔊 Buzzer kontrolü: {"Aktif" if self.enable_buzzer else "Pasif"}')
+        self.get_logger().info(f'🎛️ Dış kontrol: /obstacle_wait_enable topic\'i dinleniyor')
         
         # Başlangıç durumu
-        self.publish_status("INITIALIZED - Ready to detect obstacles")
+        self.publish_status("INITIALIZED - Ready for external control and obstacle detection")
+
+    def obstacle_control_callback(self, msg):
+        """YENİ: Dış kontrolden gelen aktif/pasif komutlarını işle"""
+        self.external_control_active = msg.data
+        self.last_external_command_time = time.time()
+        
+        status = "AKTİF" if self.external_control_active else "PASİF"
+        self.get_logger().info(f'🎛️ DIŞ KONTROL: Engel algılama {status}')
+        
+        # Eğer dış kontrolden pasif gelirse, mevcut beklemeleri iptal et
+        if not self.external_control_active:
+            if self.state in ["WAITING", "IGNORING"]:
+                self.get_logger().info('🔄 Dış kontrol pasif - Bekleme/Ignore iptal edildi')
+                self.state = "NORMAL"
+                self.state_start_time = None
+                self.set_buzzer_state(False)
+                self.publish_status("EXTERNAL_DISABLED - Wait/Ignore cancelled")
+        
+        # Status güncelle
+        if self.external_control_active:
+            self.publish_status("EXTERNAL_ENABLED - Obstacle detection active")
+        else:
+            self.publish_status("EXTERNAL_DISABLED - Obstacle detection inactive")
 
     def scan_callback(self, msg):
         """LaserScan verilerini işle"""
-        if not self.enable_obstacle_wait or self.state == "IGNORING":
+        # YENİ: Dış kontrol ve parametreli kontrol birlikte değerlendir
+        if not self.is_obstacle_detection_enabled() or self.state == "IGNORING":
             self.obstacle_detected = False
             return
             
@@ -98,6 +135,11 @@ class ObstacleWaitNode(Node):
         obstacle_msg = Bool()
         obstacle_msg.data = self.obstacle_detected
         self.obstacle_status_publisher.publish(obstacle_msg)
+
+    def is_obstacle_detection_enabled(self):
+        """YENİ: Engel algılamanın aktif olup olmadığını kontrol et"""
+        # Hem parametre hem de dış kontrolün aktif olması gerekir
+        return self.enable_obstacle_wait and self.external_control_active
 
     def detect_front_obstacle(self, scan_msg):
         """Robotun önündeki engeli tespit et"""
@@ -141,11 +183,16 @@ class ObstacleWaitNode(Node):
 
     def control_loop(self):
         """Ana state machine"""
-        if not self.enable_obstacle_wait:
-            # Özellik kapalıysa doğrudan navigation komutlarını geçir
+        # YENİ: Engel algılama genel olarak devre dışıysa
+        if not self.is_obstacle_detection_enabled():
+            # Doğrudan navigation komutlarını geçir
             self.cmd_vel_publisher.publish(self.last_nav_cmd)
-            self.state = "NORMAL"
-            self.set_buzzer_state(False)
+            
+            # Eğer önceki durumda bekleme/ignore vardıysa temizle
+            if self.state != "NORMAL":
+                self.state = "NORMAL"
+                self.state_start_time = None
+                self.set_buzzer_state(False)
             return
         
         current_time = time.time()
@@ -266,7 +313,7 @@ class ObstacleWaitNode(Node):
             self.buzzer_pattern_state = not self.buzzer_pattern_state
 
     def set_enable_obstacle_wait(self, enable):
-        """Engel bekleme özelliğini aktif/pasif yap"""
+        """Engel bekleme özelliğini aktif/pasif yap (parametre kontrolü)"""
         self.enable_obstacle_wait = enable
         if not enable:
             self.state = "NORMAL"
@@ -274,8 +321,8 @@ class ObstacleWaitNode(Node):
             self.set_buzzer_state(False)
         
         status = "ENABLED" if enable else "DISABLED"
-        self.get_logger().info(f'Obstacle wait özelliği: {status}')
-        self.publish_status(f"FEATURE_{status}")
+        self.get_logger().info(f'Obstacle wait parametresi: {status}')
+        self.publish_status(f"PARAMETER_{status}")
 
     def set_enable_buzzer(self, enable):
         """Buzzer özelliğini aktif/pasif yap"""
@@ -285,6 +332,17 @@ class ObstacleWaitNode(Node):
         
         status = "ENABLED" if enable else "DISABLED"
         self.get_logger().info(f'Buzzer kontrolü: {status}')
+
+    def get_status_info(self):
+        """YENİ: Mevcut durum bilgilerini döndür"""
+        return {
+            'parameter_enabled': self.enable_obstacle_wait,
+            'external_control_active': self.external_control_active,
+            'overall_enabled': self.is_obstacle_detection_enabled(),
+            'current_state': self.state,
+            'obstacle_detected': self.obstacle_detected,
+            'buzzer_active': self.buzzer_active
+        }
 
 
 def main(args=None):

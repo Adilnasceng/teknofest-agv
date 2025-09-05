@@ -50,6 +50,8 @@ class CokluGorevYoneticisi(Node):
         self.declare_parameter('post_task_wait', 5.0)   # Görev sonrası bekleme süresi
         self.declare_parameter('return_to_start', True) # Başlangıça dönüş
         self.declare_parameter('debug_mode', True)
+        # YENİ: Engel algılama kontrolü parametreleri
+        self.declare_parameter('enable_obstacle_control', True)  # Engel algılama kontrolü aktif/pasif
         
         self.base_goals = self.get_parameter('base_goals').value
         self.total_goals = self.base_goals * 2  # YENİ: Her temel görev için 2 hedef
@@ -61,8 +63,8 @@ class CokluGorevYoneticisi(Node):
         self.navigation_wait = self.get_parameter('navigation_wait').value  # YENİ
         self.post_task_wait = self.get_parameter('post_task_wait').value
         self.return_to_start = self.get_parameter('return_to_start').value
-
         self.debug_mode = self.get_parameter('debug_mode').value
+        self.enable_obstacle_control = self.get_parameter('enable_obstacle_control').value
 
         # Durum ve görev yönetimi değişkenleri
         self.durum = Durum.HEDEF_TANIMLAMA
@@ -84,6 +86,9 @@ class CokluGorevYoneticisi(Node):
         self.wait_start_time = 0
         self.navigation_wait_start_time = 0  # YENİ: Yönlenme bekleme zamanı
 
+        # YENİ: Engel algılama kontrolü durumu
+        self.obstacle_detection_active = False
+
         # Thread safety
         self.lock = Lock()
         
@@ -100,6 +105,9 @@ class CokluGorevYoneticisi(Node):
         self.cmd_vel_publisher = self.create_publisher(Twist, '/cmd_vel', 10)
         self.task_status_publisher = self.create_publisher(String, '/task_status', 10)
         self.goal_info_publisher = self.create_publisher(String, '/goal_info', 10)
+        
+        # YENİ: Engel algılama kontrolü için publisher
+        self.obstacle_control_publisher = self.create_publisher(Bool, '/obstacle_wait_enable', 10)
 
         # Ana durum makinesi döngüsü için timer
         self.timer = self.create_timer(0.1, self.durum_makinesi_callback)
@@ -110,8 +118,18 @@ class CokluGorevYoneticisi(Node):
         self.get_logger().info(f"🔢 {self.base_goals} temel görev = {self.total_goals} toplam hedef")
         self.get_logger().info(f"⚡ İleri: {self.forward_speed} m/s ({self.forward_duration}s), Geri: {self.backward_speed} m/s ({self.backward_duration}s)")
         self.get_logger().info(f"⏱️ Yönlenme bekleme: {self.navigation_wait}s, Görev gecikmesi: {self.task_delay}s, Görev sonrası: {self.post_task_wait}s")
+        
+        # YENİ: Engel algılama kontrolü log'u
+        if self.enable_obstacle_control:
+            self.get_logger().info("🚧 Engel algılama kontrolü AKTİF - Yönlenme görevlerinde çalışacak")
+        else:
+            self.get_logger().info("🚧 Engel algılama kontrolü PASİF")
+            
         self.get_logger().info(f"🎯 Lütfen RViz üzerinden {self.hedef_tanimlama_asama}. hedefi belirleyin.")
         self.publish_task_status(f"GOAL_DEFINITION - Waiting for goal {self.hedef_tanimlama_asama}/{self.total_goals}")
+
+        # Başlangıçta engel algılamayı kapat
+        self.set_obstacle_detection(False)
 
     def check_services(self):
         """Service'lerin hazır olup olmadığını kontrol et"""
@@ -184,6 +202,29 @@ class CokluGorevYoneticisi(Node):
         else:
             return "KUTU BIRAKMA (Geri Git)"
 
+    def set_obstacle_detection(self, enable):
+        """YENİ: Engel algılama durumunu ayarla"""
+        if not self.enable_obstacle_control:
+            return  # Kontrol devre dışıysa hiçbir şey yapma
+            
+        if self.obstacle_detection_active != enable:
+            self.obstacle_detection_active = enable
+            
+            # Obstacle wait node'una kontrol mesajı gönder
+            control_msg = Bool()
+            control_msg.data = enable
+            self.obstacle_control_publisher.publish(control_msg)
+            
+            status = "AKTİF" if enable else "PASİF"
+            task_info = ""
+            if enable:
+                # Hangi görev için aktif olduğunu belirt
+                if hasattr(self, 'gorev_listesi') and self.aktif_gorev_index < len(self.gorev_listesi):
+                    current_task = self.gorev_listesi[self.aktif_gorev_index]
+                    task_info = f" ({current_task['isim']})"
+            
+            self.get_logger().info(f"🚧 Engel algılama: {status}{task_info}")
+
     def durum_makinesi_callback(self):
         current_time = time.time()
 
@@ -221,6 +262,17 @@ class CokluGorevYoneticisi(Node):
 
         elif self.durum == Durum.HEDEFE_GIT:
             gorev = self.gorev_listesi[self.aktif_gorev_index]
+            
+            # YENİ: Görev tipine göre engel algılamayı ayarla
+            if gorev['gorev_tipi'] == GorevTipi.YONLENME:
+                # Yönlenme görevi → Engel algılamayı aktif et
+                self.set_obstacle_detection(True)
+                self.get_logger().info(f"🚧 Yönlenme görevi → Engel algılama AKTİF")
+            else:
+                # Kutu alma/bırakma görevi → Engel algılamayı pasif et
+                self.set_obstacle_detection(False)
+                self.get_logger().info(f"🚧 Kutu işlemi → Engel algılama PASİF")
+            
             self.get_logger().info(f"🎯 Görev {self.aktif_gorev_index + 1}/{len(self.gorev_listesi)}: {gorev['isim']}'e gidiliyor...")
             self.publish_task_status(f"NAVIGATING - {gorev['isim']}")
             self.navigator.goToPose(gorev['hedef_pose'])
@@ -231,6 +283,10 @@ class CokluGorevYoneticisi(Node):
                 result = self.navigator.getResult()
                 if result == TaskResult.SUCCEEDED:
                     self.get_logger().info("✅ Hedefe başarıyla ulaşıldı.")
+                    
+                    # YENİ: Hedefe ulaştıktan sonra engel algılamayı kapat
+                    self.set_obstacle_detection(False)
+                    
                     gorev = self.gorev_listesi[self.aktif_gorev_index]
                     
                     # Görev tipine göre farklı davranış
@@ -245,6 +301,8 @@ class CokluGorevYoneticisi(Node):
                         self.durum = Durum.EK_HAREKET_BASLAT
                 else:
                     self.get_logger().error(f"❌ Hedefe gidilemedi (Durum: {result}).")
+                    # Hata durumunda da engel algılamayı kapat
+                    self.set_obstacle_detection(False)
                     self.durum = Durum.HATA
 
         elif self.durum == Durum.YONLENME_BEKLEME:
@@ -313,6 +371,10 @@ class CokluGorevYoneticisi(Node):
                 self.durum = Durum.HATA
                 return
 
+            # YENİ: Başlangıç konumuna dönerken engel algılamayı aktif et
+            self.set_obstacle_detection(True)
+            self.get_logger().info(f"🚧 Başlangıç konumuna dönüş → Engel algılama AKTİF")
+
             # Başlangıç pozisyonunu PoseStamped formatına çevir
             baslangic_goal = PoseStamped()
             baslangic_goal.header.frame_id = 'map'
@@ -331,6 +393,9 @@ class CokluGorevYoneticisi(Node):
         elif self.durum == Durum.BASLANGIC_KONUMA_DON_KONTROL:
             if self.navigator.isTaskComplete():
                 result = self.navigator.getResult()
+                # YENİ: Başlangıç konumuna ulaştıktan sonra engel algılamayı kapat
+                self.set_obstacle_detection(False)
+                
                 if result == TaskResult.SUCCEEDED:
                     self.get_logger().info("🏠✅ Başlangıç konumuna başarıyla döndü!")
                     self.publish_task_status("RETURNED_HOME - Successfully returned to start position")
@@ -341,6 +406,9 @@ class CokluGorevYoneticisi(Node):
                     self.durum = Durum.HATA
 
         elif self.durum == Durum.GOREV_BITTI or self.durum == Durum.HATA:
+            # YENİ: Son durumda engel algılamayı kapat
+            self.set_obstacle_detection(False)
+            
             if self.durum == Durum.GOREV_BITTI: 
                 self.get_logger().info("🎉 Tüm görevler başarıyla tamamlandı ve başlangıç konumuna döndü!")
             else: 
@@ -486,6 +554,9 @@ class CokluGorevYoneticisi(Node):
     def emergency_stop(self):
         """Acil durdurma"""
         with self.lock:
+            # YENİ: Acil durumda engel algılamayı kapat
+            self.set_obstacle_detection(False)
+            
             if self.is_executing_task:
                 stop_cmd = Twist()
                 self.cmd_vel_publisher.publish(stop_cmd)
