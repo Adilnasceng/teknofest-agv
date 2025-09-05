@@ -14,6 +14,7 @@ from enum import Enum
 
 # Programın durumlarını tanımlayan Enum sınıfı
 class Durum(Enum):
+    BASLANGIC_KONUMU_TANIMLAMA = 0  # YENİ: Manuel başlangıç konumu tanımlama
     BOS_BEKLEME = 1
     HEDEF_TANIMLAMA = 2
     NAVIGASYONU_BASLAT = 3
@@ -67,9 +68,10 @@ class CokluGorevYoneticisi(Node):
         self.enable_obstacle_control = self.get_parameter('enable_obstacle_control').value
 
         # Durum ve görev yönetimi değişkenleri
-        self.durum = Durum.HEDEF_TANIMLAMA
+        self.durum = Durum.BASLANGIC_KONUMU_TANIMLAMA  # YENİ: Başlangıç konumu tanımlama ile başla
         self.current_pose = None
-        self.baslangic_pose = None  # Başlangıç pozisyonunu kaydet
+        self.baslangic_pose = None  # Manuel olarak tanımlanacak başlangıç pozisyonu
+        self.baslangic_konumu_tanimlandi = False  # YENİ: Başlangıç konumunun tanımlandığını takip et
         self.hedefler = []
         self.hedef_tanimlama_asama = 1
         self.gorev_listesi = []
@@ -125,8 +127,10 @@ class CokluGorevYoneticisi(Node):
         else:
             self.get_logger().info("🚧 Engel algılama kontrolü PASİF")
             
-        self.get_logger().info(f"🎯 Lütfen RViz üzerinden {self.hedef_tanimlama_asama}. hedefi belirleyin.")
-        self.publish_task_status(f"GOAL_DEFINITION - Waiting for goal {self.hedef_tanimlama_asama}/{self.total_goals}")
+        # YENİ: İlk olarak başlangıç konumu tanımlama talimatı
+        self.get_logger().info("🏠 ÖNCE RViz üzerinden BAŞLANGIÇ KONUMUNU belirleyin.")
+        self.get_logger().info("📍 Başlangıç konumu tanımlandıktan sonra hedefler tanımlanacak.")
+        self.publish_task_status("START_POSITION_DEFINITION - Set start position first")
 
         # Başlangıçta engel algılamayı kapat
         self.set_obstacle_detection(False)
@@ -145,20 +149,39 @@ class CokluGorevYoneticisi(Node):
                 self.get_logger().warn('⚠️ Ses servisleri bağlantısı yok!')
 
     def pose_callback(self, msg):
+        # YENİ: Sadece mevcut pozisyonu güncelle, otomatik başlangıç kaydı yapma
         self.current_pose = msg.pose.pose
 
-        # İlk pose geldiğinde başlangıç pozisyonunu kaydet
-        if self.baslangic_pose is None:
-            self.baslangic_pose = msg.pose.pose
-            x = self.baslangic_pose.position.x
-            y = self.baslangic_pose.position.y
-            self.get_logger().info(f"🏠 Başlangıç konumu kaydedildi: ({x:.2f}, {y:.2f})")
-
     def goal_pose_callback(self, msg):
-        if self.durum != Durum.HEDEF_TANIMLAMA:
+        # YENİ: Önce başlangıç konumu tanımlama kontrolü
+        if self.durum == Durum.BASLANGIC_KONUMU_TANIMLAMA:
+            if not self.baslangic_konumu_tanimlandi:
+                # Başlangıç konumunu manuel olarak tanımla
+                self.baslangic_pose = msg.pose
+                self.baslangic_konumu_tanimlandi = True
+                
+                x, y = msg.pose.position.x, msg.pose.position.y
+                self.get_logger().info(f"🏠✅ Başlangıç konumu manuel olarak tanımlandı: ({x:.2f}, {y:.2f})")
+                self.publish_goal_info(f"Start Position: ({x:.2f}, {y:.2f})")
+                
+                # Hedef tanımlama durumuna geç
+                self.durum = Durum.HEDEF_TANIMLAMA
+                
+                # İlk hedef tanımlama talimatı
+                next_task_type = self.get_task_type_for_goal(self.hedef_tanimlama_asama)
+                next_task_desc = self.get_task_description(next_task_type)
+                self.get_logger().info(f"🎯 Şimdi RViz üzerinden {self.hedef_tanimlama_asama}. hedefi belirleyin ({next_task_desc}).")
+                self.publish_task_status(f"GOAL_DEFINITION - Waiting for goal {self.hedef_tanimlama_asama}/{self.total_goals} ({next_task_desc})")
+                return
+            else:
+                self.get_logger().warn("❌ Başlangıç konumu zaten tanımlandı.")
+                return
+
+        elif self.durum != Durum.HEDEF_TANIMLAMA:
             self.get_logger().warn("❌ Sistem hedef tanımlama modunda değil, yeni hedef alınamıyor.")
             return
 
+        # Hedef tanımlama işlemi (eski kod)
         self.hedefler.append(msg)
         x, y = msg.pose.position.x, msg.pose.position.y
 
@@ -228,7 +251,12 @@ class CokluGorevYoneticisi(Node):
     def durum_makinesi_callback(self):
         current_time = time.time()
 
-        if self.durum == Durum.HEDEF_TANIMLAMA or self.durum == Durum.BOS_BEKLEME:
+        # YENİ: Başlangıç konumu tanımlama durumu
+        if self.durum == Durum.BASLANGIC_KONUMU_TANIMLAMA:
+            # Sadece başlangıç konumu tanımlanmasını bekle
+            return
+
+        elif self.durum == Durum.HEDEF_TANIMLAMA or self.durum == Durum.BOS_BEKLEME:
             return
 
         elif self.durum == Durum.NAVIGASYONU_BASLAT:
@@ -383,8 +411,8 @@ class CokluGorevYoneticisi(Node):
 
             x = self.baslangic_pose.position.x
             y = self.baslangic_pose.position.y
-            self.get_logger().info(f"🏠 Başlangıç konumuna gidiliyor: ({x:.2f}, {y:.2f})")
-            self.publish_task_status(f"RETURNING_HOME - Going to start position ({x:.2f}, {y:.2f})")
+            self.get_logger().info(f"🏠 Manuel tanımlanan başlangıç konumuna gidiliyor: ({x:.2f}, {y:.2f})")
+            self.publish_task_status(f"RETURNING_HOME - Going to manual start position ({x:.2f}, {y:.2f})")
 
             # Başlangıç konumuna navigasyon başlat
             self.navigator.goToPose(baslangic_goal)
@@ -397,8 +425,8 @@ class CokluGorevYoneticisi(Node):
                 self.set_obstacle_detection(False)
                 
                 if result == TaskResult.SUCCEEDED:
-                    self.get_logger().info("🏠✅ Başlangıç konumuna başarıyla döndü!")
-                    self.publish_task_status("RETURNED_HOME - Successfully returned to start position")
+                    self.get_logger().info("🏠✅ Manuel tanımlanan başlangıç konumuna başarıyla döndü!")
+                    self.publish_task_status("RETURNED_HOME - Successfully returned to manual start position")
                     self.durum = Durum.GOREV_BITTI
                 else:
                     self.get_logger().error(f"❌ Başlangıç konumuna dönülemedi (Durum: {result}).")
@@ -410,22 +438,22 @@ class CokluGorevYoneticisi(Node):
             self.set_obstacle_detection(False)
             
             if self.durum == Durum.GOREV_BITTI: 
-                self.get_logger().info("🎉 Tüm görevler başarıyla tamamlandı ve başlangıç konumuna döndü!")
+                self.get_logger().info("🎉 Tüm görevler başarıyla tamamlandı ve manuel başlangıç konumuna döndü!")
             else: 
                 self.get_logger().info("❌ Görev dizisi bir hatadan dolayı sonlandı.")
 
-            # Sistemi sıfırla
+            # Sistemi sıfırla - YENİ: Başlangıç konumu tanımlama ile başla
             self.hedefler = []
             self.gorev_listesi = []
             self.hedef_tanimlama_asama = 1
             self.aktif_gorev_index = 0
             self.baslangic_pose = None  # Başlangıç pozisyonunu sıfırla
-            self.durum = Durum.HEDEF_TANIMLAMA
+            self.baslangic_konumu_tanimlandi = False  # YENİ: Başlangıç konumu sıfırla
+            self.nav2_ready = False  # Navigator kontrolünü sıfırla
+            self.durum = Durum.BASLANGIC_KONUMU_TANIMLAMA  # YENİ: Başlangıç konumu tanımlama ile başla
             self.get_logger().info("🔄 Sistem yeni görevler için hazır.")
-            next_task_type = self.get_task_type_for_goal(self.hedef_tanimlama_asama)
-            next_task_desc = self.get_task_description(next_task_type)
-            self.get_logger().info(f"🎯 Lütfen RViz üzerinden {self.hedef_tanimlama_asama}. hedefi belirleyin ({next_task_desc}).")
-            self.publish_task_status(f"SYSTEM_RESET - Waiting for goal {self.hedef_tanimlama_asama}/{self.total_goals} ({next_task_desc})")
+            self.get_logger().info("🏠 ÖNCE RViz üzerinden YENİ BAŞLANGIÇ KONUMUNU belirleyin.")
+            self.publish_task_status("SYSTEM_RESET - Set new start position first")
 
     def sonraki_goreve_gec(self):
         self.aktif_gorev_index += 1
@@ -435,7 +463,7 @@ class CokluGorevYoneticisi(Node):
             # Tüm görevler tamamlandı
             if self.return_to_start:
                 # Başlangıç konumuna dön
-                self.get_logger().info("✅ Tüm görevler tamamlandı! Başlangıç konumuna dönülüyor...")
+                self.get_logger().info("✅ Tüm görevler tamamlandı! Manuel başlangıç konumuna dönülüyor...")
                 self.durum = Durum.BASLANGIC_KONUMA_DON
             else:
                 # Direkt bitir

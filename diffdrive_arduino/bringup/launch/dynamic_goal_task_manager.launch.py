@@ -2,12 +2,13 @@ from launch import LaunchDescription
 from launch_ros.actions import Node
 
 def generate_launch_description():
-    # Dynamic Goal Task Manager Node
+    # Dynamic Goal Task Manager Node with namespace
     goal_task_manager_node = Node(
         package='diffdrive_arduino',
         executable='dynamic_goal_task_manager_node.py',
-        name='dynamic_goal_task_manager',
+        name='enhanced_task_manager',
         output='screen',
+        emulate_tty=True,
         parameters=[{
             'base_goals': 2,
             'navigation_wait': 5.0,
@@ -16,8 +17,9 @@ def generate_launch_description():
             'forward_duration': 3.0,
             'backward_duration': 3.0,
             'task_delay': 2.0,
+            'enable_obstacle_control': True,  # Yönlenme görevlerinde engel algılama aktif
             'post_task_wait': 5.0,
-            'return_to_start': True,  # YENİ: Başlangıç konumuna dönüş
+            'return_to_start': True,
             'debug_mode': True,
         }]
     )

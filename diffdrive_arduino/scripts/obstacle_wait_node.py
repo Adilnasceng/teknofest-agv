@@ -21,6 +21,7 @@ class ObstacleWaitNode(Node):
         self.declare_parameter('enable_obstacle_wait', True)        # özelliği aktif/pasif
         self.declare_parameter('ignore_duration', 10.0)             # bekleme sonrası ignore süresi
         self.declare_parameter('enable_buzzer', True)               # buzzer kontrolü aktif/pasif
+        self.declare_parameter('activation_delay', 5.0)             # YENİ: aktivasyon gecikme süresi
         
         self.obstacle_distance_threshold = self.get_parameter('obstacle_distance_threshold').value
         self.obstacle_angle_range = self.get_parameter('obstacle_angle_range').value
@@ -29,6 +30,7 @@ class ObstacleWaitNode(Node):
         self.enable_obstacle_wait = self.get_parameter('enable_obstacle_wait').value
         self.ignore_duration = self.get_parameter('ignore_duration').value
         self.enable_buzzer = self.get_parameter('enable_buzzer').value
+        self.activation_delay = self.get_parameter('activation_delay').value  # YENİ
         
         # QoS profili
         qos_profile = QoSProfile(
@@ -73,12 +75,14 @@ class ObstacleWaitNode(Node):
         self.last_nav_cmd = Twist()
         self.buzzer_active = False
         
-        # YENİ: Dış kontrol durumu
-        self.external_control_active = False  # Dış kontrolden gelen aktif/pasif durumu
-        self.last_external_command_time = 0  # Son dış komut zamanı
+        # YENİ: Dış kontrol durumu ve aktivasyon gecikme sistemi
+        self.external_control_requested = False  # Dış kontrolden aktivasyon isteği
+        self.external_control_active = False     # Gerçek aktivasyon durumu
+        self.activation_start_time = None        # Aktivasyon gecikme başlangıç zamanı
+        self.last_external_command_time = 0     # Son dış komut zamanı
         
         # Ana state machine
-        self.state = "NORMAL"  # NORMAL, WAITING, IGNORING
+        self.state = "NORMAL"  # NORMAL, WAITING, IGNORING, ACTIVATING
         self.state_start_time = None
         
         # Timer - periyodik kontrol
@@ -93,6 +97,7 @@ class ObstacleWaitNode(Node):
         self.get_logger().info(f'📐 Engel açısı: ±{self.obstacle_angle_range/2}°')
         self.get_logger().info(f'⏰ Bekleme süresi: {self.wait_duration}s')
         self.get_logger().info(f'🚫 Ignore süresi: {self.ignore_duration}s')
+        self.get_logger().info(f'⏱️ Aktivasyon gecikme: {self.activation_delay}s')  # YENİ
         self.get_logger().info(f'🔊 Buzzer kontrolü: {"Aktif" if self.enable_buzzer else "Pasif"}')
         self.get_logger().info(f'🎛️ Dış kontrol: /obstacle_wait_enable topic\'i dinleniyor')
         
@@ -100,27 +105,60 @@ class ObstacleWaitNode(Node):
         self.publish_status("INITIALIZED - Ready for external control and obstacle detection")
 
     def obstacle_control_callback(self, msg):
-        """YENİ: Dış kontrolden gelen aktif/pasif komutlarını işle"""
-        self.external_control_active = msg.data
+        """YENİ: Dış kontrolden gelen aktiv/pasif komutlarını gecikmeyle işle"""
+        requested_state = msg.data
         self.last_external_command_time = time.time()
         
-        status = "AKTİF" if self.external_control_active else "PASİF"
-        self.get_logger().info(f'🎛️ DIŞ KONTROL: Engel algılama {status}')
-        
-        # Eğer dış kontrolden pasif gelirse, mevcut beklemeleri iptal et
-        if not self.external_control_active:
-            if self.state in ["WAITING", "IGNORING"]:
-                self.get_logger().info('🔄 Dış kontrol pasif - Bekleme/Ignore iptal edildi')
-                self.state = "NORMAL"
-                self.state_start_time = None
-                self.set_buzzer_state(False)
-                self.publish_status("EXTERNAL_DISABLED - Wait/Ignore cancelled")
-        
-        # Status güncelle
-        if self.external_control_active:
-            self.publish_status("EXTERNAL_ENABLED - Obstacle detection active")
+        if requested_state:
+            # Aktivasyon isteği - gecikmeyle aktiv et
+            if not self.external_control_requested:
+                self.external_control_requested = True
+                self.activation_start_time = time.time()
+                
+                self.get_logger().info(f'🎛️ DIŞ KONTROL: Aktivasyon isteği alındı')
+                self.get_logger().info(f'⏱️ {self.activation_delay} saniye sonra engel algılama aktif olacak...')
+                self.publish_status(f"ACTIVATION_REQUESTED - Will activate in {self.activation_delay}s")
+                
         else:
-            self.publish_status("EXTERNAL_DISABLED - Obstacle detection inactive")
+            # Deaktivasyon isteği - hemen kapat
+            if self.external_control_requested or self.external_control_active:
+                self.external_control_requested = False
+                self.external_control_active = False
+                self.activation_start_time = None
+                
+                self.get_logger().info(f'🎛️ DIŞ KONTROL: Engel algılama derhal PASİF')
+                
+                # Mevcut beklemeleri iptal et
+                if self.state in ["WAITING", "IGNORING"]:
+                    self.get_logger().info('🔄 Dış kontrol pasif - Bekleme/Ignore iptal edildi')
+                    self.state = "NORMAL"
+                    self.state_start_time = None
+                    self.set_buzzer_state(False)
+                
+                self.publish_status("EXTERNAL_DISABLED - Obstacle detection inactive")
+
+    def handle_activation_delay(self):
+        """YENİ: Aktivasyon gecikme sürecini yönet"""
+        if not self.external_control_requested or self.activation_start_time is None:
+            return
+            
+        current_time = time.time()
+        elapsed = current_time - self.activation_start_time
+        remaining = self.activation_delay - elapsed
+        
+        if elapsed >= self.activation_delay:
+            # Gecikme süresi doldu - şimdi aktiv et
+            self.external_control_active = True
+            self.activation_start_time = None
+            
+            self.get_logger().info(f'✅ Aktivasyon gecikme tamamlandı - Engel algılama AKTİF!')
+            self.publish_status("ACTIVATION_COMPLETED - Obstacle detection now active")
+            
+        else:
+            # Gecikme devam ediyor - periyodik log
+            if int(remaining * 10) % 30 == 0:  # Her 3 saniyede bir
+                self.get_logger().info(f'⏱️ Aktivasyon bekliyor... Kalan: {remaining:.1f}s')
+                self.publish_status(f"ACTIVATION_PENDING - remaining: {remaining:.1f}s")
 
     def scan_callback(self, msg):
         """LaserScan verilerini işle"""
@@ -138,7 +176,8 @@ class ObstacleWaitNode(Node):
 
     def is_obstacle_detection_enabled(self):
         """YENİ: Engel algılamanın aktif olup olmadığını kontrol et"""
-        # Hem parametre hem de dış kontrolün aktif olması gerekir
+        # Hem parametre hem de dış kontrolün gerçekten aktif olması gerekir
+        # NOT: external_control_active kullanıyoruz, external_control_requested değil
         return self.enable_obstacle_wait and self.external_control_active
 
     def detect_front_obstacle(self, scan_msg):
@@ -183,6 +222,9 @@ class ObstacleWaitNode(Node):
 
     def control_loop(self):
         """Ana state machine"""
+        # YENİ: Aktivasyon gecikme sürecini kontrol et
+        self.handle_activation_delay()
+        
         # YENİ: Engel algılama genel olarak devre dışıysa
         if not self.is_obstacle_detection_enabled():
             # Doğrudan navigation komutlarını geçir
@@ -337,11 +379,13 @@ class ObstacleWaitNode(Node):
         """YENİ: Mevcut durum bilgilerini döndür"""
         return {
             'parameter_enabled': self.enable_obstacle_wait,
+            'external_control_requested': self.external_control_requested,
             'external_control_active': self.external_control_active,
             'overall_enabled': self.is_obstacle_detection_enabled(),
             'current_state': self.state,
             'obstacle_detected': self.obstacle_detected,
-            'buzzer_active': self.buzzer_active
+            'buzzer_active': self.buzzer_active,
+            'activation_delay': self.activation_delay
         }
 
 
