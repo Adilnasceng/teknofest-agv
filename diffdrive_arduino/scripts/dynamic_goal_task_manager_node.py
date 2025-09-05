@@ -20,48 +20,54 @@ class Durum(Enum):
     HEDEFE_GIT = 4
     HEDEF_KONTROL = 5
     EK_HAREKET_BASLAT = 6
-    EK_HAREKET_GECIKME = 7    # YENİ DURUM: Gecikme bekleniyor
+    EK_HAREKET_GECIKME = 7    # Gecikme bekleniyor
     EK_HAREKET_KONTROL = 8
-    GOREV_SONRASI_BEKLEME = 9  # YENİ DURUM: Görev sonrası bekleme
-    BASLANGIC_KONUMA_DON = 10  # YENİ DURUM: Başlangıç konumuna dön
-    BASLANGIC_KONUMA_DON_KONTROL = 11  # YENİ DURUM: Başlangıç konumu kontrolü
-    GOREV_BITTI = 12
-    HATA = 13
+    YONLENME_BEKLEME = 9     # YENİ: Yönlenme görevi bekleme
+    GOREV_SONRASI_BEKLEME = 10  # Görev sonrası bekleme
+    BASLANGIC_KONUMA_DON = 11   # Başlangıç konumuna dön
+    BASLANGIC_KONUMA_DON_KONTROL = 12  # Başlangıç konumu kontrolü
+    GOREV_BITTI = 13
+    HATA = 14
 
 class GorevTipi(Enum):
-    KUTU_ALMA = "kutu_alma"      # 1, 3, 5 hedefleri için (ileri git)
-    KUTU_BIRAKMA = "kutu_birakma" # 2, 4, 6 hedefleri için (geri git)
+    YONLENME = "yonlenme"        # YENİ: Sadece hedefe git ve bekle
+    KUTU_ALMA = "kutu_alma"      # Kutu alma görevleri için (ileri git)
+    KUTU_BIRAKMA = "kutu_birakma" # Kutu bırakma görevleri için (geri git)
 
 class CokluGorevYoneticisi(Node):
     def __init__(self):
-        super().__init__('dynamic_goal_task_manager')
+        super().__init__('enhanced_task_manager')
         self.navigator = BasicNavigator()
 
         # Parametreler
-        self.declare_parameter('total_goals', 6)
+        self.declare_parameter('base_goals', 6)  # 6 temel görev = 12 toplam hedef
         self.declare_parameter('forward_speed', 0.2)
         self.declare_parameter('backward_speed', -0.2)
         self.declare_parameter('forward_duration', 3.0)
         self.declare_parameter('backward_duration', 3.0)
         self.declare_parameter('task_delay', 2.0)
-        self.declare_parameter('post_task_wait', 5.0)  # Görev sonrası bekleme süresi
-        self.declare_parameter('return_to_start', True)  # YENİ: Başlangıça dönüş
+        self.declare_parameter('navigation_wait', 5.0)  # YENİ: Yönlenme bekleme süresi
+        self.declare_parameter('post_task_wait', 5.0)   # Görev sonrası bekleme süresi
+        self.declare_parameter('return_to_start', True) # Başlangıça dönüş
         self.declare_parameter('debug_mode', True)
-        self.total_goals = self.get_parameter('total_goals').value
+        
+        self.base_goals = self.get_parameter('base_goals').value
+        self.total_goals = self.base_goals * 2  # YENİ: Her temel görev için 2 hedef
         self.forward_speed = self.get_parameter('forward_speed').value
         self.backward_speed = self.get_parameter('backward_speed').value
         self.forward_duration = self.get_parameter('forward_duration').value
         self.backward_duration = self.get_parameter('backward_duration').value
         self.task_delay = self.get_parameter('task_delay').value
+        self.navigation_wait = self.get_parameter('navigation_wait').value  # YENİ
         self.post_task_wait = self.get_parameter('post_task_wait').value
-        self.return_to_start = self.get_parameter('return_to_start').value  # YENİ
+        self.return_to_start = self.get_parameter('return_to_start').value
 
         self.debug_mode = self.get_parameter('debug_mode').value
 
         # Durum ve görev yönetimi değişkenleri
         self.durum = Durum.HEDEF_TANIMLAMA
         self.current_pose = None
-        self.baslangic_pose = None  # YENİ: Başlangıç pozisyonunu kaydet
+        self.baslangic_pose = None  # Başlangıç pozisyonunu kaydet
         self.hedefler = []
         self.hedef_tanimlama_asama = 1
         self.gorev_listesi = []
@@ -76,6 +82,7 @@ class CokluGorevYoneticisi(Node):
         # Zaman tabanlı kontroller için
         self.delay_start_time = 0
         self.wait_start_time = 0
+        self.navigation_wait_start_time = 0  # YENİ: Yönlenme bekleme zamanı
 
         # Thread safety
         self.lock = Lock()
@@ -98,16 +105,16 @@ class CokluGorevYoneticisi(Node):
         self.timer = self.create_timer(0.1, self.durum_makinesi_callback)
         self.service_check_timer = self.create_timer(2.0, self.check_services)
 
-        self.get_logger().info("🎯 Çoklu Görev Yöneticisi başlatıldı.")
-        self.get_logger().info("📋 Görev sistemi: 1,3,5 → İleri Git | 2,4,6 → Geri Git")
+        self.get_logger().info("🎯 Gelişmiş Çoklu Görev Yöneticisi başlatıldı.")
+        self.get_logger().info("📋 YENİ Görev sistemi: Yönlenme → Kutu Alma → Yönlenme → Kutu Bırakma")
+        self.get_logger().info(f"🔢 {self.base_goals} temel görev = {self.total_goals} toplam hedef")
         self.get_logger().info(f"⚡ İleri: {self.forward_speed} m/s ({self.forward_duration}s), Geri: {self.backward_speed} m/s ({self.backward_duration}s)")
-        self.get_logger().info(f"⏱️ Görev gecikmesi: {self.task_delay}s, Görev sonrası bekleme: {self.post_task_wait}s")
+        self.get_logger().info(f"⏱️ Yönlenme bekleme: {self.navigation_wait}s, Görev gecikmesi: {self.task_delay}s, Görev sonrası: {self.post_task_wait}s")
         self.get_logger().info(f"🎯 Lütfen RViz üzerinden {self.hedef_tanimlama_asama}. hedefi belirleyin.")
         self.publish_task_status(f"GOAL_DEFINITION - Waiting for goal {self.hedef_tanimlama_asama}/{self.total_goals}")
 
     def check_services(self):
         """Service'lerin hazır olup olmadığını kontrol et"""
-        # Removed line_follower_client check since it doesn't exist
         sound1_ready = self.sound1_client.service_is_ready()
         sound2_ready = self.sound2_client.service_is_ready()
 
@@ -139,7 +146,8 @@ class CokluGorevYoneticisi(Node):
 
         # Görev tipini belirle
         gorev_tipi = self.get_task_type_for_goal(self.hedef_tanimlama_asama)
-        gorev_adi = "KUTU ALMA (İleri Git)" if gorev_tipi == GorevTipi.KUTU_ALMA else "KUTU BIRAKMA (Geri Git)"
+        gorev_adi = self.get_task_description(gorev_tipi)
+        
         self.get_logger().info(f"✅ Hedef {self.hedef_tanimlama_asama} kaydedildi: ({x:.2f}, {y:.2f}) - {gorev_adi}")
         self.publish_goal_info(f"Goal {self.hedef_tanimlama_asama}: ({x:.2f}, {y:.2f}) - {gorev_adi}")
 
@@ -149,15 +157,32 @@ class CokluGorevYoneticisi(Node):
             self.get_logger().info(f"🎉 Tüm {self.total_goals} hedef de tanımlandı.")
             self.durum = Durum.NAVIGASYONU_BASLAT
         else:
-            self.get_logger().info(f"🎯 Lütfen RViz üzerinden {self.hedef_tanimlama_asama}. hedefi belirleyin.")
-            self.publish_task_status(f"GOAL_DEFINITION - Waiting for goal {self.hedef_tanimlama_asama}/{self.total_goals}")
+            next_task_type = self.get_task_type_for_goal(self.hedef_tanimlama_asama)
+            next_task_desc = self.get_task_description(next_task_type)
+            self.get_logger().info(f"🎯 Lütfen RViz üzerinden {self.hedef_tanimlama_asama}. hedefi belirleyin ({next_task_desc}).")
+            self.publish_task_status(f"GOAL_DEFINITION - Waiting for goal {self.hedef_tanimlama_asama}/{self.total_goals} ({next_task_desc})")
 
     def get_task_type_for_goal(self, goal_number):
-        """Hedef numarasına göre görev tipini belirle"""
-        if goal_number % 2 == 1:  # Tek sayılı hedefler (1, 3, 5)
-            return GorevTipi.KUTU_ALMA
-        else:  # Çift sayılı hedefler (2, 4, 6)
-            return GorevTipi.KUTU_BIRAKMA
+        """Hedef numarasına göre görev tipini belirle - YENİ SISTEM"""
+        # 1-2: Yönlenme-Kutu Alma, 3-4: Yönlenme-Kutu Bırakma, 5-6: Yönlenme-Kutu Alma, vs.
+        if goal_number % 2 == 1:  # Tek sayılı hedefler → Yönlenme
+            return GorevTipi.YONLENME
+        else:  # Çift sayılı hedefler → Kutu işlemi
+            # Hangi çift grup olduğuna göre kutu alma/bırakma belirle
+            group_number = (goal_number // 2)  # 1. grup: 2, 2. grup: 4, 3. grup: 6, vs.
+            if group_number % 2 == 1:  # 1., 3., 5. grup → Kutu Alma
+                return GorevTipi.KUTU_ALMA
+            else:  # 2., 4., 6. grup → Kutu Bırakma
+                return GorevTipi.KUTU_BIRAKMA
+
+    def get_task_description(self, gorev_tipi):
+        """Görev tipine göre açıklama döndür"""
+        if gorev_tipi == GorevTipi.YONLENME:
+            return "YÖNLENME (Git ve Bekle)"
+        elif gorev_tipi == GorevTipi.KUTU_ALMA:
+            return "KUTU ALMA (İleri Git)"
+        else:
+            return "KUTU BIRAKMA (Geri Git)"
 
     def durum_makinesi_callback(self):
         current_time = time.time()
@@ -173,16 +198,17 @@ class CokluGorevYoneticisi(Node):
             for i in range(self.total_goals):
                 hedef = self.hedefler[i]
                 goal_number = i + 1
-
-                # Görev tipini belirle
-                if goal_number % 2 != 0:  # Tek sayılı hedefler
-                    gorev_tipi = GorevTipi.KUTU_ALMA
+                gorev_tipi = self.get_task_type_for_goal(goal_number)
+                gorev_adi = self.get_task_description(gorev_tipi)
+                
+                # Ek hareket bilgisini belirle
+                if gorev_tipi == GorevTipi.YONLENME:
+                    ek_hareket = None  # Yönlenme görevi için ek hareket yok
+                elif gorev_tipi == GorevTipi.KUTU_ALMA:
                     ek_hareket = self.forward_speed
-                    gorev_adi = "KUTU ALMA (İleri Git)"
-                else:  # Çift sayılı hedefler
-                    gorev_tipi = GorevTipi.KUTU_BIRAKMA
+                else:  # KUTU_BIRAKMA
                     ek_hareket = self.backward_speed
-                    gorev_adi = "KUTU BIRAKMA (Geri Git)"
+
                 self.gorev_listesi.append({
                     "hedef_pose": hedef, 
                     "ek_hareket": ek_hareket,
@@ -205,10 +231,32 @@ class CokluGorevYoneticisi(Node):
                 result = self.navigator.getResult()
                 if result == TaskResult.SUCCEEDED:
                     self.get_logger().info("✅ Hedefe başarıyla ulaşıldı.")
-                    self.durum = Durum.EK_HAREKET_BASLAT
+                    gorev = self.gorev_listesi[self.aktif_gorev_index]
+                    
+                    # Görev tipine göre farklı davranış
+                    if gorev['gorev_tipi'] == GorevTipi.YONLENME:
+                        # Yönlenme görevi → Sadece bekle
+                        self.get_logger().info(f"📍 YÖNLENME görevi - {self.navigation_wait} saniye bekleme başlıyor...")
+                        self.navigation_wait_start_time = current_time
+                        self.publish_task_status(f"NAVIGATION_TASK - Waiting {self.navigation_wait}s at position")
+                        self.durum = Durum.YONLENME_BEKLEME
+                    else:
+                        # Kutu alma/bırakma görevi → Ek hareket yap
+                        self.durum = Durum.EK_HAREKET_BASLAT
                 else:
                     self.get_logger().error(f"❌ Hedefe gidilemedi (Durum: {result}).")
                     self.durum = Durum.HATA
+
+        elif self.durum == Durum.YONLENME_BEKLEME:
+            # Robot durdur
+            stop_cmd = Twist()
+            self.cmd_vel_publisher.publish(stop_cmd)
+            
+            # Yönlenme bekleme süresi doldu mu kontrol et
+            if current_time - self.navigation_wait_start_time >= self.navigation_wait:
+                self.get_logger().info('✅ Yönlenme görevi tamamlandı!')
+                self.publish_task_status("NAVIGATION_COMPLETED - Moving to next goal")
+                self.sonraki_goreve_gec()
 
         elif self.durum == Durum.EK_HAREKET_BASLAT:
             gorev = self.gorev_listesi[self.aktif_gorev_index]
@@ -219,7 +267,7 @@ class CokluGorevYoneticisi(Node):
                 self.publish_task_status(f"TASK_DELAY - Waiting {self.task_delay}s before task")
                 self.durum = Durum.EK_HAREKET_GECIKME
             else:
-               # Ek hareket yoksa veya pozisyon bilgisi yoksa bir sonraki göreve geç
+               # Ek hareket yoksa (bu durumda olmamalı) bir sonraki göreve geç
                 self.sonraki_goreve_gec()
 
         elif self.durum == Durum.EK_HAREKET_GECIKME:
@@ -306,8 +354,10 @@ class CokluGorevYoneticisi(Node):
             self.baslangic_pose = None  # Başlangıç pozisyonunu sıfırla
             self.durum = Durum.HEDEF_TANIMLAMA
             self.get_logger().info("🔄 Sistem yeni görevler için hazır.")
-            self.get_logger().info(f"🎯 Lütfen RViz üzerinden {self.hedef_tanimlama_asama}. hedefi belirleyin.")
-            self.publish_task_status(f"SYSTEM_RESET - Waiting for goal {self.hedef_tanimlama_asama}/{self.total_goals}")
+            next_task_type = self.get_task_type_for_goal(self.hedef_tanimlama_asama)
+            next_task_desc = self.get_task_description(next_task_type)
+            self.get_logger().info(f"🎯 Lütfen RViz üzerinden {self.hedef_tanimlama_asama}. hedefi belirleyin ({next_task_desc}).")
+            self.publish_task_status(f"SYSTEM_RESET - Waiting for goal {self.hedef_tanimlama_asama}/{self.total_goals} ({next_task_desc})")
 
     def sonraki_goreve_gec(self):
         self.aktif_gorev_index += 1
@@ -338,10 +388,14 @@ class CokluGorevYoneticisi(Node):
                 task_duration = self.forward_duration
                 self.task_cmd_vel.linear.x = self.forward_speed
                 task_name = "KUTU ALMA (İLERİ GİT)"
-            else:
+            elif gorev['gorev_tipi'] == GorevTipi.KUTU_BIRAKMA:
                 task_duration = self.backward_duration
                 self.task_cmd_vel.linear.x = self.backward_speed
                 task_name = "KUTU BIRAKMA (GERİ GİT)"
+            else:
+                # Bu durumda olmamalı - yönlenme görevleri için ek hareket yok
+                self.get_logger().error("❌ Yönlenme görevi için ek hareket çağrıldı!")
+                return
             
             # Diğer hareket bileşenlerini sıfırla
             self.task_cmd_vel.linear.y = 0.0
@@ -355,6 +409,7 @@ class CokluGorevYoneticisi(Node):
             self.get_logger().info(f'🚀 GÖREV BAŞLATILDI: {task_name}')
             self.get_logger().info(f'⚡ Hız: {self.task_cmd_vel.linear.x} m/s, Süre: {task_duration}s')
             self.publish_task_status(f"TASK_EXECUTING - {task_name} - Duration: {task_duration}s")
+            
             # Göreve özel ses çal
             self.play_task_sound()
             
@@ -396,7 +451,7 @@ class CokluGorevYoneticisi(Node):
                 # Kutu alma için ses 1
                 future = self.sound1_client.call_async(request)
                 future.add_done_callback(lambda f: self.sound_callback(f, "kutu_alma"))
-            else:
+            elif self.current_task == GorevTipi.KUTU_BIRAKMA:
                 # Kutu bırakma için ses 2
                 future = self.sound2_client.call_async(request)
                 future.add_done_callback(lambda f: self.sound_callback(f, "kutu_birakma"))
@@ -448,7 +503,7 @@ def main(args=None):
     try:
         rclpy.spin(node)
     except (KeyboardInterrupt, SystemExit):
-        node.get_logger().info('Çoklu Görev Yöneticisi durduruldu')
+        node.get_logger().info('Gelişmiş Çoklu Görev Yöneticisi durduruldu')
         node.emergency_stop()
     finally:
         node.destroy_node()

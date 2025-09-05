@@ -9,7 +9,8 @@ def generate_launch_description():
         name='dynamic_goal_task_manager',
         output='screen',
         parameters=[{
-            'total_goals': 6,
+            'base_goals': 2,
+            'navigation_wait': 5.0,
             'forward_speed': 0.2,
             'backward_speed': -0.2,
             'forward_duration': 3.0,
