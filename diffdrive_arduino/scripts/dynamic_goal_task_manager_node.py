@@ -5,7 +5,7 @@ from rclpy.node import Node
 from nav2_simple_commander.robot_navigator import BasicNavigator, TaskResult
 from geometry_msgs.msg import PoseStamped, PoseWithCovarianceStamped, Twist
 from std_msgs.msg import String, Bool
-from std_srvs.srv import SetBool
+from std_srvs.srv import SetBool, Trigger
 import tf_transformations
 import math
 import time
@@ -24,11 +24,17 @@ class Durum(Enum):
     EK_HAREKET_GECIKME = 7    # Gecikme bekleniyor
     EK_HAREKET_KONTROL = 8
     YONLENME_BEKLEME = 9     # YENİ: Yönlenme görevi bekleme
-    GOREV_SONRASI_BEKLEME = 10  # Görev sonrası bekleme
-    BASLANGIC_KONUMA_DON = 11   # Başlangıç konumuna dön
-    BASLANGIC_KONUMA_DON_KONTROL = 12  # Başlangıç konumu kontrolü
-    GOREV_BITTI = 13
-    HATA = 14
+    # YENİ: Servo ve ses kontrolü için durumlar
+    SERVO_ONCESI_BEKLEME = 10     # Servo tetiklemeden önce bekleme
+    SERVO_TETIKLEME = 11          # Servo tetikleme
+    SERVO_SONRASI_BEKLEME = 12    # Servo tetikleme sonrası bekleme
+    SES_ONCESI_BEKLEME = 13       # Ses çalmadan önce bekleme
+    SES_SONRASI_BEKLEME = 14      # Ses sonrası bekleme
+    GOREV_SONRASI_BEKLEME = 15    # Final görev sonrası bekleme
+    BASLANGIC_KONUMA_DON = 16     # Başlangıç konumuna dön
+    BASLANGIC_KONUMA_DON_KONTROL = 17  # Başlangıç konumu kontrolü
+    GOREV_BITTI = 18
+    HATA = 19
 
 class GorevTipi(Enum):
     YONLENME = "yonlenme"        # YENİ: Sadece hedefe git ve bekle
@@ -41,14 +47,23 @@ class CokluGorevYoneticisi(Node):
         self.navigator = BasicNavigator()
 
         # Parametreler
-        self.declare_parameter('base_goals', 6)  # 6 temel görev = 12 toplam hedef
+        self.declare_parameter('base_goals', 2)  # 2 temel görev = 4 toplam hedef
         self.declare_parameter('forward_speed', 0.2)
         self.declare_parameter('backward_speed', -0.2)
         self.declare_parameter('forward_duration', 3.0)
         self.declare_parameter('backward_duration', 3.0)
         self.declare_parameter('task_delay', 2.0)
         self.declare_parameter('navigation_wait', 5.0)  # YENİ: Yönlenme bekleme süresi
-        self.declare_parameter('post_task_wait', 5.0)   # Görev sonrası bekleme süresi
+        
+        # YENİ: Servo ve ses kontrol parametreleri
+        self.declare_parameter('pre_servo_wait', 5.0)     # Servo tetiklemeden önce bekleme
+        self.declare_parameter('post_servo_wait', 5.0)    # Servo tetikleme sonrası bekleme  
+        self.declare_parameter('pre_sound_wait', 5.0)     # Ses çalmadan önce bekleme
+        self.declare_parameter('post_sound_wait', 5.0)    # Ses sonrası bekleme
+        self.declare_parameter('post_task_wait', 5.0)     # Final görev sonrası bekleme süresi
+        self.declare_parameter('enable_servo_control', True)  # Servo kontrol aktif/pasif
+        self.declare_parameter('enable_sound_control', True)  # Ses kontrol aktif/pasif
+        
         self.declare_parameter('return_to_start', True) # Başlangıça dönüş
         self.declare_parameter('debug_mode', True)
         # YENİ: Engel algılama kontrolü parametreleri
@@ -62,7 +77,16 @@ class CokluGorevYoneticisi(Node):
         self.backward_duration = self.get_parameter('backward_duration').value
         self.task_delay = self.get_parameter('task_delay').value
         self.navigation_wait = self.get_parameter('navigation_wait').value  # YENİ
+        
+        # YENİ: Servo ve ses kontrol parametreleri
+        self.pre_servo_wait = self.get_parameter('pre_servo_wait').value
+        self.post_servo_wait = self.get_parameter('post_servo_wait').value
+        self.pre_sound_wait = self.get_parameter('pre_sound_wait').value
+        self.post_sound_wait = self.get_parameter('post_sound_wait').value
         self.post_task_wait = self.get_parameter('post_task_wait').value
+        self.enable_servo_control = self.get_parameter('enable_servo_control').value
+        self.enable_sound_control = self.get_parameter('enable_sound_control').value
+        
         self.return_to_start = self.get_parameter('return_to_start').value
         self.debug_mode = self.get_parameter('debug_mode').value
         self.enable_obstacle_control = self.get_parameter('enable_obstacle_control').value
@@ -87,6 +111,10 @@ class CokluGorevYoneticisi(Node):
         self.delay_start_time = 0
         self.wait_start_time = 0
         self.navigation_wait_start_time = 0  # YENİ: Yönlenme bekleme zamanı
+        
+        # YENİ: Servo ve ses kontrol zamanları
+        self.servo_wait_start_time = 0
+        self.sound_wait_start_time = 0
 
         # YENİ: Engel algılama kontrolü durumu
         self.obstacle_detection_active = False
@@ -94,10 +122,14 @@ class CokluGorevYoneticisi(Node):
         # Thread safety
         self.lock = Lock()
         
-        # Service clients - ses için
+        # Service clients - ses ve servo için
         self.sound1_client = self.create_client(SetBool, 'play_sound_1')
         self.sound2_client = self.create_client(SetBool, 'play_sound_2')
+        # YENİ: Servo kontrol client
+        self.servo_client = self.create_client(Trigger, '/trigger_servo')
+        
         self.services_ready = False
+        self.servo_service_ready = False  # YENİ: Servo service durumu
         
         # Subscriber'lar
         self.goal_sub = self.create_subscription(PoseStamped, '/goal_pose', self.goal_pose_callback, 10)
@@ -119,7 +151,20 @@ class CokluGorevYoneticisi(Node):
         self.get_logger().info("📋 YENİ Görev sistemi: Yönlenme → Kutu Alma → Yönlenme → Kutu Bırakma")
         self.get_logger().info(f"🔢 {self.base_goals} temel görev = {self.total_goals} toplam hedef")
         self.get_logger().info(f"⚡ İleri: {self.forward_speed} m/s ({self.forward_duration}s), Geri: {self.backward_speed} m/s ({self.backward_duration}s)")
-        self.get_logger().info(f"⏱️ Yönlenme bekleme: {self.navigation_wait}s, Görev gecikmesi: {self.task_delay}s, Görev sonrası: {self.post_task_wait}s")
+        self.get_logger().info(f"⏱️ Yönlenme bekleme: {self.navigation_wait}s, Görev gecikmesi: {self.task_delay}s")
+        
+        # YENİ: Servo ve ses kontrol log'ları
+        if self.enable_servo_control:
+            self.get_logger().info(f"🤖 Servo kontrolü AKTİF - Öncesi: {self.pre_servo_wait}s, Sonrası: {self.post_servo_wait}s")
+        else:
+            self.get_logger().info("🤖 Servo kontrolü PASİF")
+            
+        if self.enable_sound_control:
+            self.get_logger().info(f"🔊 Ses kontrolü AKTİF - Öncesi: {self.pre_sound_wait}s, Sonrası: {self.post_sound_wait}s")
+        else:
+            self.get_logger().info("🔊 Ses kontrolü PASİF")
+            
+        self.get_logger().info(f"⏰ Final görev sonrası bekleme: {self.post_task_wait}s")
         
         # YENİ: Engel algılama kontrolü log'u
         if self.enable_obstacle_control:
@@ -139,14 +184,23 @@ class CokluGorevYoneticisi(Node):
         """Service'lerin hazır olup olmadığını kontrol et"""
         sound1_ready = self.sound1_client.service_is_ready()
         sound2_ready = self.sound2_client.service_is_ready()
+        servo_ready = self.servo_client.service_is_ready()  # YENİ: Servo service kontrolü
 
-        new_status = sound1_ready and sound2_ready
-        if new_status != self.services_ready:
-            self.services_ready = new_status
+        new_sound_status = sound1_ready and sound2_ready
+        if new_sound_status != self.services_ready:
+            self.services_ready = new_sound_status
             if self.services_ready:
                 self.get_logger().info('✅ Ses servisleri hazır!')
             else:
                 self.get_logger().warn('⚠️ Ses servisleri bağlantısı yok!')
+                
+        # YENİ: Servo service durumu
+        if servo_ready != self.servo_service_ready:
+            self.servo_service_ready = servo_ready
+            if self.servo_service_ready:
+                self.get_logger().info('✅ Servo servisi hazır!')
+            else:
+                self.get_logger().warn('⚠️ Servo servisi bağlantısı yok!')
 
     def pose_callback(self, msg):
         # YENİ: Sadece mevcut pozisyonu güncelle, otomatik başlangıç kaydı yapma
@@ -380,6 +434,98 @@ class CokluGorevYoneticisi(Node):
                     remaining = task_duration - elapsed
                     task_name = "KUTU ALMA" if self.current_task == GorevTipi.KUTU_ALMA else "KUTU BIRAKMA"
                     self.get_logger().info(f'🔄 {task_name} - Kalan: {remaining:.1f}s')
+
+        # YENİ: Servo öncesi bekleme durumu
+        elif self.durum == Durum.SERVO_ONCESI_BEKLEME:
+            # Robot durdur
+            stop_cmd = Twist()
+            self.cmd_vel_publisher.publish(stop_cmd)
+            
+            # Servo öncesi bekleme süresi doldu mu kontrol et
+            if current_time - self.servo_wait_start_time >= self.pre_servo_wait:
+                self.get_logger().info('⏰ Servo öncesi bekleme tamamlandı!')
+                
+                # Servo kontrolü aktifse servo tetikle, değilse atla
+                if self.enable_servo_control:
+                    self.trigger_servo()
+                    self.durum = Durum.SERVO_TETIKLEME
+                else:
+                    self.get_logger().info('🤖 Servo kontrolü devre dışı, atlıyor...')
+                    # Ses kontrolüne geç
+                    if self.enable_sound_control:
+                        self.get_logger().info(f"🔊 {self.pre_sound_wait} saniye ses öncesi bekleme başlıyor...")
+                        self.sound_wait_start_time = current_time
+                        self.publish_task_status(f"PRE_SOUND_WAIT - Waiting {self.pre_sound_wait}s before sound")
+                        self.durum = Durum.SES_ONCESI_BEKLEME
+                    else:
+                        self.get_logger().info(f"⏳ {self.post_task_wait} saniye final bekleme başlıyor...")
+                        self.wait_start_time = current_time
+                        self.publish_task_status(f"FINAL_TASK_WAIT - Waiting {self.post_task_wait}s")
+                        self.durum = Durum.GOREV_SONRASI_BEKLEME
+
+        # YENİ: Servo tetikleme durumu (sadece async response bekleme)
+        elif self.durum == Durum.SERVO_TETIKLEME:
+            # Bu durum servo response callback'i ile değiştirilecek
+            # Burada sadece timeout kontrolü yapabiliriz (opsiyonel)
+            pass
+
+        # YENİ: Servo sonrası bekleme durumu
+        elif self.durum == Durum.SERVO_SONRASI_BEKLEME:
+            # Robot durdur
+            stop_cmd = Twist()
+            self.cmd_vel_publisher.publish(stop_cmd)
+            
+            # Servo sonrası bekleme süresi doldu mu kontrol et
+            if current_time - self.servo_wait_start_time >= self.post_servo_wait:
+                self.get_logger().info('⏰ Servo sonrası bekleme tamamlandı!')
+                
+                # Ses kontrolüne geç
+                if self.enable_sound_control:
+                    self.get_logger().info(f"🔊 {self.pre_sound_wait} saniye ses öncesi bekleme başlıyor...")
+                    self.sound_wait_start_time = current_time
+                    self.publish_task_status(f"PRE_SOUND_WAIT - Waiting {self.pre_sound_wait}s before sound")
+                    self.durum = Durum.SES_ONCESI_BEKLEME
+                else:
+                    self.get_logger().info('🔊 Ses kontrolü devre dışı, atlıyor...')
+                    # Final beklemeye geç
+                    self.get_logger().info(f"⏳ {self.post_task_wait} saniye final bekleme başlıyor...")
+                    self.wait_start_time = current_time
+                    self.publish_task_status(f"FINAL_TASK_WAIT - Waiting {self.post_task_wait}s")
+                    self.durum = Durum.GOREV_SONRASI_BEKLEME
+
+        # YENİ: Ses öncesi bekleme durumu
+        elif self.durum == Durum.SES_ONCESI_BEKLEME:
+            # Robot durdur
+            stop_cmd = Twist()
+            self.cmd_vel_publisher.publish(stop_cmd)
+            
+            # Ses öncesi bekleme süresi doldu mu kontrol et
+            if current_time - self.sound_wait_start_time >= self.pre_sound_wait:
+                self.get_logger().info('⏰ Ses öncesi bekleme tamamlandı!')
+                
+                # Ses çal ve sonrası beklemeye geç
+                self.play_task_sound()
+                
+                self.get_logger().info(f"🔊 {self.post_sound_wait} saniye ses sonrası bekleme başlıyor...")
+                self.sound_wait_start_time = current_time
+                self.publish_task_status(f"POST_SOUND_WAIT - Waiting {self.post_sound_wait}s after sound")
+                self.durum = Durum.SES_SONRASI_BEKLEME
+
+        # YENİ: Ses sonrası bekleme durumu
+        elif self.durum == Durum.SES_SONRASI_BEKLEME:
+            # Robot durdur
+            stop_cmd = Twist()
+            self.cmd_vel_publisher.publish(stop_cmd)
+            
+            # Ses sonrası bekleme süresi doldu mu kontrol et
+            if current_time - self.sound_wait_start_time >= self.post_sound_wait:
+                self.get_logger().info('⏰ Ses sonrası bekleme tamamlandı!')
+                
+                # Final beklemeye geç
+                self.get_logger().info(f"⏳ {self.post_task_wait} saniye final bekleme başlıyor...")
+                self.wait_start_time = current_time
+                self.publish_task_status(f"FINAL_TASK_WAIT - Waiting {self.post_task_wait}s")
+                self.durum = Durum.GOREV_SONRASI_BEKLEME
                     
         elif self.durum == Durum.GOREV_SONRASI_BEKLEME:
             # Robot durdur
@@ -388,9 +534,9 @@ class CokluGorevYoneticisi(Node):
             
             # Bekleme süresi doldu mu kontrol et
             if current_time - self.wait_start_time >= self.post_task_wait:
-                self.get_logger().info('⏰ Görev sonrası bekleme tamamlandı!')
+                self.get_logger().info('⏰ Final görev sonrası bekleme tamamlandı!')
                 self.get_logger().info('🚀 Sıradaki hedefe geçiliyor...')
-                self.publish_task_status("POST_TASK_WAIT_COMPLETED - Moving to next goal")
+                self.publish_task_status("FINAL_TASK_WAIT_COMPLETED - Moving to next goal")
                 self.sonraki_goreve_gec()
 
         elif self.durum == Durum.BASLANGIC_KONUMA_DON:
@@ -506,11 +652,8 @@ class CokluGorevYoneticisi(Node):
             self.get_logger().info(f'⚡ Hız: {self.task_cmd_vel.linear.x} m/s, Süre: {task_duration}s')
             self.publish_task_status(f"TASK_EXECUTING - {task_name} - Duration: {task_duration}s")
             
-            # Göreve özel ses çal
-            self.play_task_sound()
-            
     def finish_task_execution(self):
-        """Görev çalıştırma bitir"""
+        """Görev çalıştırma bitir - YENİ: Servo ve ses kontrol akışı"""
         with self.lock:
             if not self.is_executing_task:
                 return
@@ -521,22 +664,108 @@ class CokluGorevYoneticisi(Node):
 
             task_name = "KUTU ALMA" if self.current_task == GorevTipi.KUTU_ALMA else "KUTU BIRAKMA"
             self.get_logger().info(f'✅ GÖREV TAMAMLANDI: {task_name}')
-            self.get_logger().info(f'⏳ {self.post_task_wait} saniye bekleme başlıyor...')
-
-            self.publish_task_status(f"TASK_COMPLETED - {task_name} - Waiting {self.post_task_wait}s")
 
             # Görev durumunu sıfırla
             self.is_executing_task = False
+            current_task_type = self.current_task  # Görev tipini sakla
             self.current_task = None
             self.task_cmd_vel = Twist()
 
-            # Post-task bekleme başlat
+            # YENİ: Kutu bırakma göreviyse servo ve ses kontrol akışını başlat
+            if current_task_type == GorevTipi.KUTU_BIRAKMA:
+                self.get_logger().info('🤖 KUTU BIRAKMA tamamlandı - Servo ve ses kontrol akışı başlıyor...')
+                
+                # Servo kontrolü aktifse servo bekleme başlat
+                if self.enable_servo_control:
+                    self.get_logger().info(f"🤖 {self.pre_servo_wait} saniye servo öncesi bekleme başlıyor...")
+                    self.servo_wait_start_time = time.time()
+                    self.publish_task_status(f"PRE_SERVO_WAIT - Waiting {self.pre_servo_wait}s before servo")
+                    self.durum = Durum.SERVO_ONCESI_BEKLEME
+                elif self.enable_sound_control:
+                    # Servo devre dışıysa direkt ses kontrolüne geç
+                    self.get_logger().info('🤖 Servo kontrolü devre dışı, ses kontrolüne geçiliyor...')
+                    self.get_logger().info(f"🔊 {self.pre_sound_wait} saniye ses öncesi bekleme başlıyor...")
+                    self.sound_wait_start_time = time.time()
+                    self.publish_task_status(f"PRE_SOUND_WAIT - Waiting {self.pre_sound_wait}s before sound")
+                    self.durum = Durum.SES_ONCESI_BEKLEME
+                else:
+                    # Her ikisi de devre dışıysa direkt final beklemeye geç
+                    self.get_logger().info('🤖🔊 Servo ve ses kontrolü devre dışı, final beklemeye geçiliyor...')
+                    self.get_logger().info(f"⏳ {self.post_task_wait} saniye final bekleme başlıyor...")
+                    self.wait_start_time = time.time()
+                    self.publish_task_status(f"FINAL_TASK_WAIT - Waiting {self.post_task_wait}s")
+                    self.durum = Durum.GOREV_SONRASI_BEKLEME
+            else:
+                # Kutu alma veya yönlenme görevi → Normal post-task bekleme
+                self.get_logger().info(f'⏳ {self.post_task_wait} saniye final bekleme başlıyor...')
+                self.publish_task_status(f"FINAL_TASK_WAIT - Waiting {self.post_task_wait}s")
+                self.wait_start_time = time.time()
+                self.durum = Durum.GOREV_SONRASI_BEKLEME
+
+    # YENİ: Servo tetikleme fonksiyonu
+    def trigger_servo(self):
+        """Servo tetikleme servisi çağır"""
+        if not self.servo_service_ready:
+            self.get_logger().warn('🚫 Servo servisi hazır değil!')
+            # Servo başarısız, ses kontrolüne geç
+            self.handle_servo_failure()
+            return
+            
+        try:
+            request = Trigger.Request()
+            
+            # Async call yaparak blocking'i önle
+            future = self.servo_client.call_async(request)
+            future.add_done_callback(self.handle_servo_response)
+            
+            self.get_logger().info('🤖 Servo tetikleme isteği gönderildi...')
+            self.publish_task_status("SERVO_TRIGGERING - Calling servo service")
+            
+        except Exception as e:
+            self.get_logger().error(f'Servo service call hatası: {e}')
+            self.handle_servo_failure()
+
+    def handle_servo_response(self, future):
+        """Servo service response'unu handle et"""
+        try:
+            response = future.result()
+            if response.success:
+                self.get_logger().info('✅ Servo başarıyla tetiklendi!')
+                self.get_logger().info(f'📝 Servo yanıtı: {response.message}')
+                self.get_logger().info('🤖 Servo şimdi 90 dereceye gidip 5 saniye bekleyecek!')
+                
+                # Servo sonrası bekleme başlat
+                self.get_logger().info(f"🤖 {self.post_servo_wait} saniye servo sonrası bekleme başlıyor...")
+                self.servo_wait_start_time = time.time()
+                self.publish_task_status(f"POST_SERVO_WAIT - Waiting {self.post_servo_wait}s after servo")
+                self.durum = Durum.SERVO_SONRASI_BEKLEME
+            else:
+                self.get_logger().error(f'❌ Servo tetikleme başarısız: {response.message}')
+                self.handle_servo_failure()
+                
+        except Exception as e:
+            self.get_logger().error(f'Servo service response hatası: {e}')
+            self.handle_servo_failure()
+
+    def handle_servo_failure(self):
+        """Servo başarısız olduğunda ses kontrolüne geç"""
+        if self.enable_sound_control:
+            self.get_logger().info('🔊 Servo başarısız, ses kontrolüne geçiliyor...')
+            self.get_logger().info(f"🔊 {self.pre_sound_wait} saniye ses öncesi bekleme başlıyor...")
+            self.sound_wait_start_time = time.time()
+            self.publish_task_status(f"PRE_SOUND_WAIT - Waiting {self.pre_sound_wait}s before sound")
+            self.durum = Durum.SES_ONCESI_BEKLEME
+        else:
+            self.get_logger().info('🔊 Ses kontrolü de devre dışı, final beklemeye geçiliyor...')
+            self.get_logger().info(f"⏳ {self.post_task_wait} saniye final bekleme başlıyor...")
             self.wait_start_time = time.time()
+            self.publish_task_status(f"FINAL_TASK_WAIT - Waiting {self.post_task_wait}s")
             self.durum = Durum.GOREV_SONRASI_BEKLEME
             
     def play_task_sound(self):
         """Görev tipine göre ses çal"""
         if not self.services_ready:
+            self.get_logger().warn('🚫 Ses servisleri hazır değil!')
             return
 
         try:
@@ -547,10 +776,17 @@ class CokluGorevYoneticisi(Node):
                 # Kutu alma için ses 1
                 future = self.sound1_client.call_async(request)
                 future.add_done_callback(lambda f: self.sound_callback(f, "kutu_alma"))
+                self.get_logger().info('🔊 Kutu alma sesi çalınıyor...')
             elif self.current_task == GorevTipi.KUTU_BIRAKMA:
                 # Kutu bırakma için ses 2
                 future = self.sound2_client.call_async(request)
                 future.add_done_callback(lambda f: self.sound_callback(f, "kutu_birakma"))
+                self.get_logger().info('🔊 Kutu bırakma sesi çalınıyor...')
+            else:
+                # Genel durum için kutu bırakma sesi (çünkü bu akış kutu bırakma sonrası)
+                future = self.sound2_client.call_async(request)
+                future.add_done_callback(lambda f: self.sound_callback(f, "kutu_birakma"))
+                self.get_logger().info('🔊 Görev tamamlama sesi çalınıyor...')
 
         except Exception as e:
             self.get_logger().error(f'Görev sesi çalma hatası: {e}')
