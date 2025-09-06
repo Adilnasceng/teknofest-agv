@@ -104,6 +104,7 @@ class CokluGorevYoneticisi(Node):
         # Görev çalıştırma için değişkenler
         self.is_executing_task = False
         self.current_task = None
+        self.completed_task_type = None  # YENİ: Tamamlanan görev tipini sakla
         self.task_start_time = 0
         self.task_cmd_vel = Twist()
 
@@ -504,7 +505,7 @@ class CokluGorevYoneticisi(Node):
                 self.get_logger().info('⏰ Ses öncesi bekleme tamamlandı!')
                 
                 # Ses çal ve sonrası beklemeye geç
-                self.play_task_sound()
+                self.play_task_sound(self.completed_task_type)  # DÜZELTME: Görev tipini parametre olarak geç
                 
                 self.get_logger().info(f"🔊 {self.post_sound_wait} saniye ses sonrası bekleme başlıyor...")
                 self.sound_wait_start_time = current_time
@@ -653,7 +654,7 @@ class CokluGorevYoneticisi(Node):
             self.publish_task_status(f"TASK_EXECUTING - {task_name} - Duration: {task_duration}s")
             
     def finish_task_execution(self):
-        """Görev çalıştırma bitir - YENİ: Servo ve ses kontrol akışı"""
+        """Görev çalıştırma bitir - DÜZELTME: Hem kutu alma hem kutu bırakma için ses kontrol akışı"""
         with self.lock:
             if not self.is_executing_task:
                 return
@@ -665,17 +666,19 @@ class CokluGorevYoneticisi(Node):
             task_name = "KUTU ALMA" if self.current_task == GorevTipi.KUTU_ALMA else "KUTU BIRAKMA"
             self.get_logger().info(f'✅ GÖREV TAMAMLANDI: {task_name}')
 
+            # DÜZELTME: Tamamlanan görev tipini sakla
+            self.completed_task_type = self.current_task
+            
             # Görev durumunu sıfırla
             self.is_executing_task = False
-            current_task_type = self.current_task  # Görev tipini sakla
             self.current_task = None
             self.task_cmd_vel = Twist()
 
-            # YENİ: Kutu bırakma göreviyse servo ve ses kontrol akışını başlat
-            if current_task_type == GorevTipi.KUTU_BIRAKMA:
+            # DÜZELTME: Kutu bırakma için servo akışı, tüm görevler için ses akışı
+            if self.completed_task_type == GorevTipi.KUTU_BIRAKMA:
+                # Kutu bırakma → Servo ve ses kontrolü
                 self.get_logger().info('🤖 KUTU BIRAKMA tamamlandı - Servo ve ses kontrol akışı başlıyor...')
                 
-                # Servo kontrolü aktifse servo bekleme başlat
                 if self.enable_servo_control:
                     self.get_logger().info(f"🤖 {self.pre_servo_wait} saniye servo öncesi bekleme başlıyor...")
                     self.servo_wait_start_time = time.time()
@@ -695,8 +698,16 @@ class CokluGorevYoneticisi(Node):
                     self.wait_start_time = time.time()
                     self.publish_task_status(f"FINAL_TASK_WAIT - Waiting {self.post_task_wait}s")
                     self.durum = Durum.GOREV_SONRASI_BEKLEME
+                    
+            elif self.completed_task_type == GorevTipi.KUTU_ALMA and self.enable_sound_control:
+                # DÜZELTME: Kutu alma → Sadece ses kontrolü
+                self.get_logger().info('📦 KUTU ALMA tamamlandı - Ses kontrol akışı başlıyor...')
+                self.get_logger().info(f"🔊 {self.pre_sound_wait} saniye ses öncesi bekleme başlıyor...")
+                self.sound_wait_start_time = time.time()
+                self.publish_task_status(f"PRE_SOUND_WAIT - Waiting {self.pre_sound_wait}s before sound")
+                self.durum = Durum.SES_ONCESI_BEKLEME
             else:
-                # Kutu alma veya yönlenme görevi → Normal post-task bekleme
+                # Ses kontrolü devre dışı → Normal post-task bekleme
                 self.get_logger().info(f'⏳ {self.post_task_wait} saniye final bekleme başlıyor...')
                 self.publish_task_status(f"FINAL_TASK_WAIT - Waiting {self.post_task_wait}s")
                 self.wait_start_time = time.time()
@@ -762,8 +773,8 @@ class CokluGorevYoneticisi(Node):
             self.publish_task_status(f"FINAL_TASK_WAIT - Waiting {self.post_task_wait}s")
             self.durum = Durum.GOREV_SONRASI_BEKLEME
             
-    def play_task_sound(self):
-        """Görev tipine göre ses çal"""
+    def play_task_sound(self, task_type):
+        """DÜZELTME: Görev tipine göre ses çal - parametre olarak görev tipi al"""
         if not self.services_ready:
             self.get_logger().warn('🚫 Ses servisleri hazır değil!')
             return
@@ -772,21 +783,19 @@ class CokluGorevYoneticisi(Node):
             request = SetBool.Request()
             request.data = True
 
-            if self.current_task == GorevTipi.KUTU_ALMA:
+            if task_type == GorevTipi.KUTU_ALMA:
                 # Kutu alma için ses 1
                 future = self.sound1_client.call_async(request)
                 future.add_done_callback(lambda f: self.sound_callback(f, "kutu_alma"))
                 self.get_logger().info('🔊 Kutu alma sesi çalınıyor...')
-            elif self.current_task == GorevTipi.KUTU_BIRAKMA:
+            elif task_type == GorevTipi.KUTU_BIRAKMA:
                 # Kutu bırakma için ses 2
                 future = self.sound2_client.call_async(request)
                 future.add_done_callback(lambda f: self.sound_callback(f, "kutu_birakma"))
                 self.get_logger().info('🔊 Kutu bırakma sesi çalınıyor...')
             else:
-                # Genel durum için kutu bırakma sesi (çünkü bu akış kutu bırakma sonrası)
-                future = self.sound2_client.call_async(request)
-                future.add_done_callback(lambda f: self.sound_callback(f, "kutu_birakma"))
-                self.get_logger().info('🔊 Görev tamamlama sesi çalınıyor...')
+                # Yönlenme görevi için ses yok
+                self.get_logger().info('🔊 Yönlenme görevi - ses çalınmıyor.')
 
         except Exception as e:
             self.get_logger().error(f'Görev sesi çalma hatası: {e}')
