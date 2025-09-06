@@ -70,6 +70,18 @@ hardware_interface::CallbackReturn DiffDriveArduinoHardware::on_init(
   {
     cfg_.enable_reverse_buzzer = true; // Default aktif
   }
+
+  // Servo control parametresi
+  if (info_.hardware_parameters.count("enable_servo_control") > 0)
+  {
+    cfg_.enable_servo_control = (info_.hardware_parameters["enable_servo_control"] == "true");
+    RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                "Servo control enabled: %s", cfg_.enable_servo_control ? "true" : "false");
+  }
+  else 
+  {
+    cfg_.enable_servo_control = true; // Default aktif
+  }
   
   if (info_.hardware_parameters.count("pid_p") > 0)
   {
@@ -91,6 +103,9 @@ hardware_interface::CallbackReturn DiffDriveArduinoHardware::on_init(
   buzzer_manual_active_ = false;
   buzzer_obstacle_active_ = false;
   buzzer_active_ = false;
+
+  // Servo durumunu başlat
+  servo_triggered_ = false;
 
   // ROS interfaces kurulumu
   setup_ros_interfaces();
@@ -152,17 +167,17 @@ void DiffDriveArduinoHardware::setup_ros_interfaces()
   // ROS node oluştur
   node_ = rclcpp::Node::make_shared("diffbot_hardware_interface");
   
-  // Buzzer control service (mevcut)
+  // Buzzer control service
   buzzer_service_ = node_->create_service<std_srvs::srv::SetBool>(
     "set_buzzer_state",
     std::bind(&DiffDriveArduinoHardware::buzzer_service_callback, this,
               std::placeholders::_1, std::placeholders::_2));
 
-  // Buzzer status publisher (mevcut)
+  // Buzzer status publisher
   buzzer_status_publisher_ = node_->create_publisher<std_msgs::msg::Bool>(
     "buzzer_status", 10);
 
-  // YENİ: Ses kontrolü servisleri
+  // Ses kontrolü servisleri
   sound1_service_ = node_->create_service<std_srvs::srv::SetBool>(
     "play_sound_1",
     std::bind(&DiffDriveArduinoHardware::sound1_service_callback, this,
@@ -173,8 +188,17 @@ void DiffDriveArduinoHardware::setup_ros_interfaces()
     std::bind(&DiffDriveArduinoHardware::sound2_service_callback, this,
               std::placeholders::_1, std::placeholders::_2));
 
+  // SERVO SERVISI VE PUBLISHER - DÜZELTİLDİ!
+  servo_trigger_service_ = node_->create_service<std_srvs::srv::Trigger>(
+    "trigger_servo",
+    std::bind(&DiffDriveArduinoHardware::servo_trigger_service_callback, this,
+              std::placeholders::_1, std::placeholders::_2));
+
+  servo_status_publisher_ = node_->create_publisher<std_msgs::msg::Bool>(
+    "servo_status", 10);
+
   RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
-              "ROS interfaces setup complete - Services: /set_buzzer_state, /play_sound_1, /play_sound_2, Topic: /buzzer_status");
+              "ROS interfaces setup complete - Services: /set_buzzer_state, /play_sound_1, /play_sound_2, /trigger_servo, Topics: /buzzer_status, /servo_status");
 }
 
 void DiffDriveArduinoHardware::buzzer_service_callback(
@@ -190,6 +214,7 @@ void DiffDriveArduinoHardware::buzzer_service_callback(
   RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
               "Buzzer service called: %s", response->message.c_str());
 }
+
 void DiffDriveArduinoHardware::sound1_service_callback(
   const std::shared_ptr<std_srvs::srv::SetBool::Request> request,
   std::shared_ptr<std_srvs::srv::SetBool::Response> response)
@@ -230,11 +255,61 @@ void DiffDriveArduinoHardware::sound2_service_callback(
               "Sound 2 service called: %s", response->message.c_str());
 }
 
+void DiffDriveArduinoHardware::servo_trigger_service_callback(
+  const std::shared_ptr<std_srvs::srv::Trigger::Request> request,
+  std::shared_ptr<std_srvs::srv::Trigger::Response> response)
+{
+  (void)request; // Trigger service'inin request'i boş olabilir
+  
+  if (comms_.connected() && cfg_.enable_servo_control)
+  {
+    trigger_servo_movement();
+    
+    response->success = true;
+    response->message = "Servo triggered successfully - Moving to 90 degrees for 15 seconds";
+    
+    // Servo status publish et
+    publish_servo_status(true);
+    
+    RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                "Servo service called: %s", response->message.c_str());
+  }
+  else if (!comms_.connected())
+  {
+    response->success = false;
+    response->message = "Arduino connection not available";
+    
+    RCLCPP_ERROR(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                 "Servo service failed: %s", response->message.c_str());
+  }
+  else
+  {
+    response->success = false;
+    response->message = "Servo control is disabled in configuration";
+    
+    RCLCPP_WARN(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                "Servo service failed: %s", response->message.c_str());
+  }
+}
+
 void DiffDriveArduinoHardware::publish_buzzer_status()
 {
   auto msg = std_msgs::msg::Bool();
   msg.data = buzzer_active_;
   buzzer_status_publisher_->publish(msg);
+}
+
+void DiffDriveArduinoHardware::publish_servo_status(bool triggered)
+{
+  auto msg = std_msgs::msg::Bool();
+  msg.data = triggered;
+  servo_status_publisher_->publish(msg);
+  
+  if (triggered)
+  {
+    RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                "Servo status published: TRIGGERED");
+  }
 }
 
 ::std::vector<hardware_interface::StateInterface> DiffDriveArduinoHardware::export_state_interfaces()
@@ -323,7 +398,6 @@ hardware_interface::CallbackReturn DiffDriveArduinoHardware::on_deactivate(
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
-// diffbot_system.cpp read() fonksiyonunda
 hardware_interface::return_type DiffDriveArduinoHardware::read(
   const rclcpp::Time & /*time*/, const rclcpp::Duration & period)
 {
@@ -453,6 +527,7 @@ void DiffDriveArduinoHardware::check_reverse_condition()
     update_buzzer_state();
   }
 }
+
 void DiffDriveArduinoHardware::play_sound_1()
 {
   if (comms_.connected())
@@ -497,6 +572,51 @@ void DiffDriveArduinoHardware::play_sound(int sound_number)
   {
     RCLCPP_WARN(rclcpp::get_logger("DiffDriveArduinoHardware"), "Cannot play sound %d - not connected", sound_number);
   }
+}
+
+void DiffDriveArduinoHardware::trigger_servo_movement()
+{
+  if (comms_.connected() && cfg_.enable_servo_control)
+  {
+    comms_.trigger_servo_movement();
+    RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                "Servo tetiklendi - 90 dereceye gidip 15 saniye bekleyecek");
+  }
+  else if (!comms_.connected())
+  {
+    RCLCPP_WARN(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                "Servo tetiklenemedi - Arduino bağlantısı yok");
+  }
+  else
+  {
+    RCLCPP_WARN(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                "Servo tetiklenemedi - Servo kontrolü deaktif");
+  }
+}
+
+void DiffDriveArduinoHardware::trigger_servo(int servo_index)
+{
+  if (comms_.connected() && cfg_.enable_servo_control)
+  {
+    comms_.trigger_servo(servo_index);
+    RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                "Servo %d tetiklendi", servo_index);
+  }
+  else if (!comms_.connected())
+  {
+    RCLCPP_WARN(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                "Servo %d tetiklenemedi - Arduino bağlantısı yok", servo_index);
+  }
+  else
+  {
+    RCLCPP_WARN(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                "Servo %d tetiklenemedi - Servo kontrolü deaktif", servo_index);
+  }
+}
+
+bool DiffDriveArduinoHardware::is_servo_available() const
+{
+  return (comms_.connected() && cfg_.enable_servo_control);
 }
 
 }  // namespace diffdrive_arduino

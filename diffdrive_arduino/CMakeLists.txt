@@ -74,6 +74,7 @@ install(PROGRAMS
   scripts/dynamic_goal_task_manager_node.py
   scripts/line_follower_node.py
   scripts/qr_code_reader_node.py
+  scripts/servo_test_node.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

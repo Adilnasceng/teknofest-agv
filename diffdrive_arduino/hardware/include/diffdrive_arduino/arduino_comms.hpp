@@ -140,6 +140,35 @@ public:
     }
   }
 
+  // YENİ: Servo motor kontrolü fonksiyonları
+  void trigger_servo(int servo_index)
+  {
+    ::std::stringstream ss;
+    ss << "v " << servo_index << "\r";  // Arduino'ya "v 0" komutu gönder (servo tetikle)
+    ::std::string response = send_msg(ss.str());
+    
+    // Response'u kontrol et (optional)
+    if (response.find("OK") == ::std::string::npos && 
+        response.find("Invalid") != ::std::string::npos) {
+      ::std::cerr << "Servo command failed: " << response << ::std::endl;
+    }
+  }
+
+  // Ana servo tetikleme fonksiyonu (servo 0 için)
+  void trigger_servo_movement()
+  {
+    trigger_servo(0);  // Servo 0'ı tetikle (90 derece git, 5 saniye bekle, geri dön)
+  }
+
+  // Servo durumu sorgulama (isteğe bağlı - gelecekte kullanılabilir)
+  void read_servo_status(int servo_index)
+  {
+    ::std::stringstream ss;
+    ss << "t " << servo_index << "\r";  // Arduino'ya servo read komutu
+    ::std::string response = send_msg(ss.str());
+    // Response işleme burada yapılabilir
+  }
+
 private:
     LibSerial::SerialPort serial_conn_;
     int timeout_ms_;
