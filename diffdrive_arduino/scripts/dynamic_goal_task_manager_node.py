@@ -137,7 +137,7 @@ class CokluGorevYoneticisi(Node):
         self.pose_sub = self.create_subscription(PoseWithCovarianceStamped, '/amcl_pose', self.pose_callback, 10)
 
         # Publishers
-        self.cmd_vel_publisher = self.create_publisher(Twist, '/cmd_vel', 10)
+        self.cmd_vel_publisher = self.create_publisher(Twist, '/cmd_vel_nav', 10)
         self.task_status_publisher = self.create_publisher(String, '/task_status', 10)
         self.goal_info_publisher = self.create_publisher(String, '/goal_info', 10)
         
@@ -177,10 +177,22 @@ class CokluGorevYoneticisi(Node):
         self.get_logger().info("🏠 ÖNCE RViz üzerinden BAŞLANGIÇ KONUMUNU belirleyin.")
         self.get_logger().info("📍 Başlangıç konumu tanımlandıktan sonra hedefler tanımlanacak.")
         self.publish_task_status("START_POSITION_DEFINITION - Set start position first")
-
+        # Retry mekanizması
+        self.max_retries = 3
+        self.current_retry_count = 0
         # Başlangıçta engel algılamayı kapat
         self.set_obstacle_detection(False)
+        # Başlangıçta 1 kere servo tetikleme
+        self.startup_servo_done = False
+        self.startup_timer = self.create_timer(2.0, self.startup_servo_check)
 
+    def startup_servo_check(self):
+        if not self.startup_servo_done and self.servo_service_ready:
+            self.startup_servo_done = True
+            self.startup_timer.destroy()
+        
+            request = Trigger.Request()
+            self.servo_client.call_async(request)
     def check_services(self):
         """Service'lerin hazır olup olmadığını kontrol et"""
         sound1_ready = self.sound1_client.service_is_ready()
@@ -366,6 +378,7 @@ class CokluGorevYoneticisi(Node):
                 result = self.navigator.getResult()
                 if result == TaskResult.SUCCEEDED:
                     self.get_logger().info("✅ Hedefe başarıyla ulaşıldı.")
+                    self.current_retry_count = 0  # Başarılı olunca retry sayacını sıfırla
                     
                     # YENİ: Hedefe ulaştıktan sonra engel algılamayı kapat
                     self.set_obstacle_detection(False)
@@ -383,10 +396,22 @@ class CokluGorevYoneticisi(Node):
                         # Kutu alma/bırakma görevi → Ek hareket yap
                         self.durum = Durum.EK_HAREKET_BASLAT
                 else:
-                    self.get_logger().error(f"❌ Hedefe gidilemedi (Durum: {result}).")
-                    # Hata durumunda da engel algılamayı kapat
-                    self.set_obstacle_detection(False)
-                    self.durum = Durum.HATA
+                    # Navigasyon başarısız - retry mekanizması
+                    self.current_retry_count += 1
+                    
+                    if self.current_retry_count <= self.max_retries:
+                        gorev = self.gorev_listesi[self.aktif_gorev_index]
+                        self.get_logger().warn(f"❌ Hedefe gidilemedi (Deneme {self.current_retry_count}/{self.max_retries}). Tekrar deneniyor...")
+                        self.publish_task_status(f"RETRYING - Attempt {self.current_retry_count}/{self.max_retries}")
+                        
+                        # Aynı hedefe tekrar git
+                        self.navigator.goToPose(gorev['hedef_pose'])
+                    else:
+                        # Max retry sayısına ulaşıldı
+                        self.get_logger().error(f"❌ Hedef {self.max_retries} deneme sonunda başarısız. Sonraki hedefe geçiliyor...")
+                        self.current_retry_count = 0
+                        self.set_obstacle_detection(False)
+                        self.sonraki_goreve_gec()
 
         elif self.durum == Durum.YONLENME_BEKLEME:
             # Robot durdur
@@ -784,13 +809,13 @@ class CokluGorevYoneticisi(Node):
             request.data = True
 
             if task_type == GorevTipi.KUTU_ALMA:
-                # Kutu alma için ses 1
-                future = self.sound1_client.call_async(request)
+                # Kutu alma için ses 2
+                future = self.sound2_client.call_async(request)
                 future.add_done_callback(lambda f: self.sound_callback(f, "kutu_alma"))
                 self.get_logger().info('🔊 Kutu alma sesi çalınıyor...')
             elif task_type == GorevTipi.KUTU_BIRAKMA:
-                # Kutu bırakma için ses 2
-                future = self.sound2_client.call_async(request)
+                # Kutu bırakma için ses 1
+                future = self.sound1_client.call_async(request)
                 future.add_done_callback(lambda f: self.sound_callback(f, "kutu_birakma"))
                 self.get_logger().info('🔊 Kutu bırakma sesi çalınıyor...')
             else:

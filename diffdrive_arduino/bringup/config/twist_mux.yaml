@@ -1,23 +1,31 @@
 twist_mux:
   ros__parameters:
     topics:
+      # Navigation kontrolü - En düşük öncelik
       navigation:
         topic: /cmd_vel_nav
-        timeout: 0.5
+        timeout: 1.0
         priority: 10
       
-      line_follow:
-        topic: /cmd_vel_line_follow
-        timeout: 0.5
+      # Task Manager kontrolü - Orta öncelik  
+      task_manager:
+        topic: /cmd_vel_task
+        timeout: 1.0
         priority: 50
-        
-      teleop:
-        topic: /cmd_vel_teleop
+
+      # Joystick kontrolü - En yüksek öncelik
+      joystick:
+        topic: /cmd_vel_joystick
         timeout: 0.5
         priority: 100
     
+    # Lock sistemi
     locks:
       lock:
         topic: /twist_mux/lock
         timeout: 0.0
         priority: 255
+
+    # Diğer ayarlar
+    use_stamped: false
+    publish_cmd_vel: true

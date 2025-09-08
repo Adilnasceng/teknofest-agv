@@ -2,27 +2,20 @@
 
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
-from ament_index_python.packages import get_package_share_directory
+from launch.actions import DeclareLaunchArgument
+
 import os
+from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
-    # Package path
-    diffdrive_arduino_pkg = get_package_share_directory('diffdrive_arduino')
+    use_sim_time = LaunchConfiguration('use_sim_time')
     
-    # Twist mux config file path
-    twist_mux_params = os.path.join(
-        diffdrive_arduino_pkg,
+    # Config dosyasının yolu
+    twist_mux_config = os.path.join(
+        get_package_share_directory('diffdrive_arduino'),
         'config',
         'twist_mux.yaml'
-    )
-    
-    # Launch arguments
-    use_sim_time_arg = DeclareLaunchArgument(
-        'use_sim_time',
-        default_value='false',
-        description='Use simulation time'
     )
 
     # Twist Mux Node
@@ -32,56 +25,37 @@ def generate_launch_description():
         name='twist_mux',
         output='screen',
         parameters=[
-            twist_mux_params,
-            {'use_sim_time': LaunchConfiguration('use_sim_time')}
+            twist_mux_config,
+            {'use_sim_time': use_sim_time}
         ],
         remappings=[
-            ('cmd_vel_out', '/cmd_vel')  # Çıkış olarak /cmd_vel kullan
+            # Twist mux çıkışını obstacle wait'e gönder
+            ('/cmd_vel', '/cmd_vel_filtered')
         ]
     )
 
-    # Line Follower Node
-    line_follower_node = Node(
-        package='diffdrive_arduino',
-        executable='line_follower_node.py',
-        name='line_follower_node',
-        output='screen',
-        parameters=[
-            {'use_sim_time': LaunchConfiguration('use_sim_time')}
-        ]
-    )
+    # Obstacle Wait Node - Artık bu launch'ta değil, ayrı çalışacak
+    # çünkü obstacle wait node kendi topic'lerini kullanıyor
     
-    # Dynamic Goal Task Manager Node - ÇİZGİ ALGILAMA BAZLI
-    goal_task_manager_node = Node(
-        package='diffdrive_arduino',
-        executable='dynamic_goal_task_manager_node.py',
-        name='dynamic_goal_task_manager',
-        output='screen',
-        parameters=[{
-            'total_goals': 1,
-            
-            # Çizgi takibi parametreleri (SÜRE BAZLI KALDIRILDI)
-            'line_lost_timeout': 3.0,        # Çizgi kaybolma timeout süresi (saniye)
-            'line_status_check_rate': 0.1,   # Çizgi durumu kontrol frekansı
-            
-            # Özel hareket parametreleri
-            'forward_speed': 0.2,            # Kutu alma için ileri hız
-            'forward_duration': 3.0,         # Kutu alma için ileri süresi
-            'turn_speed': 0.5,               # Kutu bırakma için dönüş hızı (rad/s)
-            'turn_duration': 3.14,           # Kutu bırakma için 180° dönüş süresi (pi saniye)
-            
-            # Genel parametreler
-            'task_delay': 2.0,
-            'post_task_wait': 5.0,
-            'return_to_start': True,
-            'debug_mode': True,
-            'use_sim_time': LaunchConfiguration('use_sim_time')
-        }]
-    )
-
     return LaunchDescription([
-        use_sim_time_arg,
-        twist_mux_node,          # Twist mux controller
-        line_follower_node,      # Çizgi takibi node'u
-        goal_task_manager_node   # Ana görev yöneticisi (Çizgi algılama bazlı)
+        DeclareLaunchArgument(
+            'use_sim_time',
+            default_value='false',
+            description='Use sim time if true'
+        ),
+        
+        twist_mux_node,
+        # obstacle_wait_node  # KALDIRILDI - ayrı launch edilecek
     ])
+
+
+# GÜNCELLENMIŞ SİSTEM MİMARİSİ:
+#
+# Navigation Stack → /cmd_vel_nav ↘
+# Task Manager → /cmd_vel_task → Twist Mux → /cmd_vel_filtered → Obstacle Wait → Robot
+# Teleop → /cmd_vel_teleop ↗
+#
+# Obstacle Wait Node artık:
+# - Twist mux çıkışından /cmd_vel_filtered'ı dinliyor
+# - Tüm kaynaklardan gelen komutları engelleyebiliyor
+# - Robot kontrolcüsüne /diffbot_base_controller/cmd_vel_unstamped gönderebiliyor
