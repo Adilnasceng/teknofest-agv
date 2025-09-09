@@ -14,10 +14,10 @@ amcl:
     global_frame_id: "map"
     lambda_short: 0.1
     laser_likelihood_max_dist: 2.0
-    laser_max_range: 100.0
+    laser_max_range: 12.0
     laser_min_range: -1.0
     laser_model_type: "likelihood_field"
-    max_beams: 40
+    max_beams: 30
     max_particles: 1500
     min_particles: 500
     odom_frame_id: "odom"
@@ -45,8 +45,8 @@ bt_navigator:
     global_frame: map
     robot_base_frame: base_link
     odom_topic: /odom
-    bt_loop_duration: 50
-    default_server_timeout: 20
+    bt_loop_duration: 40
+    default_server_timeout: 40
     wait_for_service_timeout: 1000
     default_nav_to_pose_bt_xml: "/home/ubuntu/denem/diffdrive_arduino/bringup/config/mybehaviortree.xml"
 
@@ -201,8 +201,8 @@ local_costmap:
       filters: ["keepout_filter"]  # Hem keepout hem speed filter
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
-        cost_scaling_factor: 3.0
-        inflation_radius: 0.55
+        cost_scaling_factor: 4.0
+        inflation_radius: 0.7
         
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
