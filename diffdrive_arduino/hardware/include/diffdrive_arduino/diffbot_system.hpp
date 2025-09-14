@@ -22,6 +22,7 @@
 #include "std_srvs/srv/set_bool.hpp"
 #include "std_srvs/srv/trigger.hpp"
 #include "std_msgs/msg/bool.hpp"
+#include "sensor_msgs/msg/battery_state.hpp"
 
 // Arduino communication ve wheel include'ları
 #include "diffdrive_arduino/arduino_comms.hpp"
@@ -50,6 +51,7 @@ struct Config
   double reverse_speed_threshold = -0.1; // Geri gitme eşiği (m/s)
   bool enable_reverse_buzzer = true;     // Geri gitme buzzer'ını aktif et/deaktif et
   bool enable_servo_control = true;      // Servo kontrolünü aktif et/deaktif et
+  double battery_read_interval = 5.0;    // Battery okuma aralığı (saniye)
 };
 
 public:
@@ -119,6 +121,22 @@ public:
   DIFFDRIVE_ARDUINO_PUBLIC
   bool is_servo_available() const;
 
+  // =================== BATTERY KONTROLÜ ===================
+  DIFFDRIVE_ARDUINO_PUBLIC
+  void read_battery_status();
+
+  DIFFDRIVE_ARDUINO_PUBLIC
+  bool get_battery_info(float &voltage, float &percentage);
+
+  DIFFDRIVE_ARDUINO_PUBLIC
+  bool is_battery_available() const;
+
+  DIFFDRIVE_ARDUINO_PUBLIC
+  void set_battery_read_interval(double interval_seconds);
+
+  DIFFDRIVE_ARDUINO_PUBLIC
+  double get_battery_read_interval() const;
+
 private:
   // =================== CORE HARDWARE ===================
   ArduinoComms comms_;
@@ -149,6 +167,17 @@ private:
   
   // Servo durumu yönetimi
   bool servo_triggered_ = false;        // Servo tetiklenme durumu
+
+  // =================== BATTERY SERVICES & PUBLISHERS ===================
+  rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr battery_service_;
+  rclcpp::Publisher<sensor_msgs::msg::BatteryState>::SharedPtr battery_status_publisher_;
+  
+  // Battery durumu yönetimi
+  float battery_voltage_ = 0.0f;        // Son okunan voltaj değeri
+  float battery_percentage_ = 0.0f;     // Son okunan yüzde değeri
+  bool battery_available_ = false;      // Battery okuma durumu
+  rclcpp::Time last_battery_read_;      // Son battery okuma zamanı
+  double battery_read_interval_ = 5.0;  // Battery okuma aralığı (saniye)
   
   // =================== PRIVATE METHODS ===================
   
@@ -162,6 +191,10 @@ private:
   
   // Servo yönetimi
   void publish_servo_status(bool triggered);
+
+  // Battery yönetimi
+  void publish_battery_status();
+  void update_battery_data();
   
   // =================== SERVICE CALLBACKS ===================
   
@@ -181,6 +214,11 @@ private:
 
   // Servo service callback
   void servo_trigger_service_callback(
+    const std::shared_ptr<std_srvs::srv::Trigger::Request> request,
+    std::shared_ptr<std_srvs::srv::Trigger::Response> response);
+
+  // Battery service callback
+  void battery_service_callback(
     const std::shared_ptr<std_srvs::srv::Trigger::Request> request,
     std::shared_ptr<std_srvs::srv::Trigger::Response> response);
 };

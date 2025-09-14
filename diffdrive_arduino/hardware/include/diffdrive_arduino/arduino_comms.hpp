@@ -140,7 +140,7 @@ public:
     }
   }
 
-  // YENİ: Servo motor kontrolü fonksiyonları
+  // Servo motor kontrolü fonksiyonları
   void trigger_servo(int servo_index)
   {
     ::std::stringstream ss;
@@ -157,7 +157,7 @@ public:
   // Ana servo tetikleme fonksiyonu (servo 0 için)
   void trigger_servo_movement()
   {
-    trigger_servo(0);  // Servo 0'ı tetikle (90 derece git, 5 saniye bekle, geri dön)
+    trigger_servo(0);  // Servo 0'ı tetikle (90 derece git, 15 saniye bekle, geri dön)
   }
 
   // Servo durumu sorgulama (isteğe bağlı - gelecekte kullanılabilir)
@@ -167,6 +167,48 @@ public:
     ss << "t " << servo_index << "\r";  // Arduino'ya servo read komutu
     ::std::string response = send_msg(ss.str());
     // Response işleme burada yapılabilir
+  }
+
+  // BATTERY MONITORING fonksiyonları
+  void read_battery_info(float &voltage, float &percentage)
+  {
+    ::std::string response = send_msg("f\r");  // 'f' komutu gönder
+    
+    // Parse response format: "voltage:percentage" (örn: "12.45:85.3")
+    ::std::string delimiter = ":";
+    size_t del_pos = response.find(delimiter);
+    
+    if (del_pos != ::std::string::npos) {
+      ::std::string voltage_str = response.substr(0, del_pos);
+      ::std::string percentage_str = response.substr(del_pos + delimiter.length());
+      
+      try {
+        voltage = ::std::stof(voltage_str);
+        percentage = ::std::stof(percentage_str);
+      } catch (const ::std::exception& e) {
+        // Parse hatası durumunda varsayılan değerler
+        voltage = 0.0f;
+        percentage = 0.0f;
+      }
+    } else {
+      // Delimiter bulunamadığında varsayılan değerler
+      voltage = 0.0f;
+      percentage = 0.0f;
+    }
+  }
+
+  // Battery durumunu tek seferde okuma ve doğrulama
+  bool get_battery_status(float &voltage, float &percentage)
+  {
+    try {
+      read_battery_info(voltage, percentage);
+      // Makul değerler kontrolü (12V sistem için)
+      return (voltage > 8.0f && voltage < 16.0f && percentage >= 0.0f && percentage <= 100.0f);
+    } catch (...) {
+      voltage = 0.0f;
+      percentage = 0.0f;
+      return false;
+    }
   }
 
 private:

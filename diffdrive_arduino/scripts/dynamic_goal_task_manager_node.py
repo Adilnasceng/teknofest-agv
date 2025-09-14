@@ -4,7 +4,8 @@ import rclpy
 from rclpy.node import Node
 from nav2_simple_commander.robot_navigator import BasicNavigator, TaskResult
 from geometry_msgs.msg import PoseStamped, PoseWithCovarianceStamped, Twist
-from std_msgs.msg import String, Bool
+from std_msgs.msg import String, Bool, Float32
+from sensor_msgs.msg import BatteryState
 from std_srvs.srv import SetBool, Trigger
 import tf_transformations
 import math
@@ -14,30 +15,36 @@ from enum import Enum
 
 # Programın durumlarını tanımlayan Enum sınıfı
 class Durum(Enum):
-    BASLANGIC_KONUMU_TANIMLAMA = 0  # YENİ: Manuel başlangıç konumu tanımlama
-    BOS_BEKLEME = 1
-    HEDEF_TANIMLAMA = 2
-    NAVIGASYONU_BASLAT = 3
-    HEDEFE_GIT = 4
-    HEDEF_KONTROL = 5
-    EK_HAREKET_BASLAT = 6
-    EK_HAREKET_GECIKME = 7    # Gecikme bekleniyor
-    EK_HAREKET_KONTROL = 8
-    YONLENME_BEKLEME = 9     # YENİ: Yönlenme görevi bekleme
-    # YENİ: Servo ve ses kontrolü için durumlar
-    SERVO_ONCESI_BEKLEME = 10     # Servo tetiklemeden önce bekleme
-    SERVO_TETIKLEME = 11          # Servo tetikleme
-    SERVO_SONRASI_BEKLEME = 12    # Servo tetikleme sonrası bekleme
-    SES_ONCESI_BEKLEME = 13       # Ses çalmadan önce bekleme
-    SES_SONRASI_BEKLEME = 14      # Ses sonrası bekleme
-    GOREV_SONRASI_BEKLEME = 15    # Final görev sonrası bekleme
-    BASLANGIC_KONUMA_DON = 16     # Başlangıç konumuna dön
-    BASLANGIC_KONUMA_DON_KONTROL = 17  # Başlangıç konumu kontrolü
-    GOREV_BITTI = 18
-    HATA = 19
+    BASLANGIC_KONUMU_TANIMLAMA = 0  # Manuel başlangıç konumu tanımlama
+    SARJ_ISTASYONU_TANIMLAMA = 1    # Şarj istasyonu tanımlama
+    BOS_BEKLEME = 2
+    HEDEF_TANIMLAMA = 3
+    NAVIGASYONU_BASLAT = 4
+    HEDEFE_GIT = 5
+    HEDEF_KONTROL = 6
+    EK_HAREKET_BASLAT = 7
+    EK_HAREKET_GECIKME = 8    # Gecikme bekleniyor
+    EK_HAREKET_KONTROL = 9
+    YONLENME_BEKLEME = 10     # Yönlenme görevi bekleme
+    # Servo ve ses kontrolü için durumlar
+    SERVO_ONCESI_BEKLEME = 11     # Servo tetiklemeden önce bekleme
+    SERVO_TETIKLEME = 12          # Servo tetikleme
+    SERVO_SONRASI_BEKLEME = 13    # Servo tetikleme sonrası bekleme
+    SES_ONCESI_BEKLEME = 14       # Ses çalmadan önce bekleme
+    SES_SONRASI_BEKLEME = 15      # Ses sonrası bekleme
+    GOREV_SONRASI_BEKLEME = 16    # Final görev sonrası bekleme
+    BASLANGIC_KONUMA_DON = 17     # Başlangıç konumuna dön
+    BASLANGIC_KONUMA_DON_KONTROL = 18  # Başlangıç konumu kontrolü
+    # Şarj istasyonu durumları
+    SARJ_ISTASYONUNA_GIT = 19         # Şarj istasyonuna git
+    SARJ_ISTASYONU_KONTROL = 20       # Şarj istasyonu navigasyon kontrolü
+    SARJ_BEKLEME = 21                 # Şarj istasyonunda bekleme
+    # YENİ: Görevler tamamlandıktan sonra bekleme ve şarj kontrolü
+    BEKLEME_VE_SARJ_KONTROL = 22      # Başlangıçta bekle ve batarya kontrol et
+    HATA = 23
 
 class GorevTipi(Enum):
-    YONLENME = "yonlenme"        # YENİ: Sadece hedefe git ve bekle
+    YONLENME = "yonlenme"        # Sadece hedefe git ve bekle
     KUTU_ALMA = "kutu_alma"      # Kutu alma görevleri için (ileri git)
     KUTU_BIRAKMA = "kutu_birakma" # Kutu bırakma görevleri için (geri git)
 
@@ -53,9 +60,9 @@ class CokluGorevYoneticisi(Node):
         self.declare_parameter('forward_duration', 3.0)
         self.declare_parameter('backward_duration', 3.0)
         self.declare_parameter('task_delay', 2.0)
-        self.declare_parameter('navigation_wait', 5.0)  # YENİ: Yönlenme bekleme süresi
+        self.declare_parameter('navigation_wait', 5.0)  # Yönlenme bekleme süresi
         
-        # YENİ: Servo ve ses kontrol parametreleri
+        # Servo ve ses kontrol parametreleri
         self.declare_parameter('pre_servo_wait', 5.0)     # Servo tetiklemeden önce bekleme
         self.declare_parameter('post_servo_wait', 5.0)    # Servo tetikleme sonrası bekleme  
         self.declare_parameter('pre_sound_wait', 5.0)     # Ses çalmadan önce bekleme
@@ -66,19 +73,26 @@ class CokluGorevYoneticisi(Node):
         
         self.declare_parameter('return_to_start', True) # Başlangıça dönüş
         self.declare_parameter('debug_mode', True)
-        # YENİ: Engel algılama kontrolü parametreleri
+        # Engel algılama kontrolü parametreleri
         self.declare_parameter('enable_obstacle_control', True)  # Engel algılama kontrolü aktif/pasif
         
+        # Şarj istasyonu parametreleri
+        self.declare_parameter('min_battery_level', 25.0)      # Minimum batarya seviyesi (%)
+        self.declare_parameter('full_battery_level', 95.0)     # Şarj tamamlanmış seviyesi (%)
+        self.declare_parameter('battery_check_interval', 5.0)  # Batarya kontrolü aralığı (saniye)
+        self.declare_parameter('charging_wait_time', 10.0)     # Şarj istasyonunda bekleme süresi (saniye)
+        self.declare_parameter('enable_battery_management', True)  # Batarya yönetimi aktif/pasif
+        
         self.base_goals = self.get_parameter('base_goals').value
-        self.total_goals = self.base_goals * 2  # YENİ: Her temel görev için 2 hedef
+        self.total_goals = self.base_goals * 2  # Her temel görev için 2 hedef
         self.forward_speed = self.get_parameter('forward_speed').value
         self.backward_speed = self.get_parameter('backward_speed').value
         self.forward_duration = self.get_parameter('forward_duration').value
         self.backward_duration = self.get_parameter('backward_duration').value
         self.task_delay = self.get_parameter('task_delay').value
-        self.navigation_wait = self.get_parameter('navigation_wait').value  # YENİ
+        self.navigation_wait = self.get_parameter('navigation_wait').value
         
-        # YENİ: Servo ve ses kontrol parametreleri
+        # Servo ve ses kontrol parametreleri
         self.pre_servo_wait = self.get_parameter('pre_servo_wait').value
         self.post_servo_wait = self.get_parameter('post_servo_wait').value
         self.pre_sound_wait = self.get_parameter('pre_sound_wait').value
@@ -90,34 +104,53 @@ class CokluGorevYoneticisi(Node):
         self.return_to_start = self.get_parameter('return_to_start').value
         self.debug_mode = self.get_parameter('debug_mode').value
         self.enable_obstacle_control = self.get_parameter('enable_obstacle_control').value
+        
+        # Şarj istasyonu parametreleri
+        self.min_battery_level = self.get_parameter('min_battery_level').value
+        self.full_battery_level = self.get_parameter('full_battery_level').value
+        self.battery_check_interval = self.get_parameter('battery_check_interval').value
+        self.charging_wait_time = self.get_parameter('charging_wait_time').value
+        self.enable_battery_management = self.get_parameter('enable_battery_management').value
 
         # Durum ve görev yönetimi değişkenleri
-        self.durum = Durum.BASLANGIC_KONUMU_TANIMLAMA  # YENİ: Başlangıç konumu tanımlama ile başla
+        self.durum = Durum.BASLANGIC_KONUMU_TANIMLAMA  # Başlangıç konumu tanımlama ile başla
         self.current_pose = None
         self.baslangic_pose = None  # Manuel olarak tanımlanacak başlangıç pozisyonu
-        self.baslangic_konumu_tanimlandi = False  # YENİ: Başlangıç konumunun tanımlandığını takip et
+        self.baslangic_konumu_tanimlandi = False  # Başlangıç konumunun tanımlandığını takip et
+        # Şarj istasyonu değişkenleri
+        self.sarj_istasyonu_pose = None  # Şarj istasyonu pozisyonu
+        self.sarj_istasyonu_tanimlandi = False  # Şarj istasyonu tanımlandı mı?
+        self.current_battery_percentage = 100.0  # Mevcut batarya yüzdesi
+        self.last_battery_check_time = 0  # Son batarya kontrol zamanı
+        self.sarj_oncesi_durum = None  # Şarja gitmeden önceki durum
+        self.sarj_oncesi_gorev_index = 0  # Şarja gitmeden önceki görev indeksi
+        self.sarj_bekleme_start_time = 0  # Şarj bekleme başlangıç zamanı
+        
         self.hedefler = []
         self.hedef_tanimlama_asama = 1
         self.gorev_listesi = []
         self.aktif_gorev_index = 0
+        
+        # YENİ: Görevlerin tamamlanıp tamamlanmadığını takip et
+        self.gorevler_tamamlandi = False  # Tüm görevler bir kere tamamlandı mı?
 
         # Görev çalıştırma için değişkenler
         self.is_executing_task = False
         self.current_task = None
-        self.completed_task_type = None  # YENİ: Tamamlanan görev tipini sakla
+        self.completed_task_type = None  # Tamamlanan görev tipini sakla
         self.task_start_time = 0
         self.task_cmd_vel = Twist()
 
         # Zaman tabanlı kontroller için
         self.delay_start_time = 0
         self.wait_start_time = 0
-        self.navigation_wait_start_time = 0  # YENİ: Yönlenme bekleme zamanı
+        self.navigation_wait_start_time = 0  # Yönlenme bekleme zamanı
         
-        # YENİ: Servo ve ses kontrol zamanları
+        # Servo ve ses kontrol zamanları
         self.servo_wait_start_time = 0
         self.sound_wait_start_time = 0
 
-        # YENİ: Engel algılama kontrolü durumu
+        # Engel algılama kontrolü durumu
         self.obstacle_detection_active = False
 
         # Thread safety
@@ -126,35 +159,44 @@ class CokluGorevYoneticisi(Node):
         # Service clients - ses ve servo için
         self.sound1_client = self.create_client(SetBool, 'play_sound_1')
         self.sound2_client = self.create_client(SetBool, 'play_sound_2')
-        # YENİ: Servo kontrol client
+        # Servo kontrol client
         self.servo_client = self.create_client(Trigger, '/trigger_servo')
         
         self.services_ready = False
-        self.servo_service_ready = False  # YENİ: Servo service durumu
+        self.servo_service_ready = False  # Servo service durumu
         
         # Subscriber'lar
         self.goal_sub = self.create_subscription(PoseStamped, '/goal_pose', self.goal_pose_callback, 10)
         self.pose_sub = self.create_subscription(PoseWithCovarianceStamped, '/amcl_pose', self.pose_callback, 10)
+        # Batarya durumu subscriber'ı
+        self.battery_sub = self.create_subscription(BatteryState, '/battery_status', self.battery_callback, 10)
+        # Minimum batarya seviyesi setter subscriber'ı
+        self.min_battery_sub = self.create_subscription(Float32, '/set_min_battery_level', self.set_min_battery_callback, 10)
 
         # Publishers
         self.cmd_vel_publisher = self.create_publisher(Twist, '/cmd_vel_nav', 10)
         self.task_status_publisher = self.create_publisher(String, '/task_status', 10)
         self.goal_info_publisher = self.create_publisher(String, '/goal_info', 10)
+        # Batarya durumu publisher'ı
+        self.battery_info_publisher = self.create_publisher(String, '/battery_info', 10)
         
-        # YENİ: Engel algılama kontrolü için publisher
+        # Engel algılama kontrolü için publisher
         self.obstacle_control_publisher = self.create_publisher(Bool, '/obstacle_wait_enable', 10)
 
         # Ana durum makinesi döngüsü için timer
         self.timer = self.create_timer(0.1, self.durum_makinesi_callback)
         self.service_check_timer = self.create_timer(2.0, self.check_services)
+        # Batarya kontrol timer'ı
+        self.battery_check_timer = self.create_timer(self.battery_check_interval, self.check_battery_level)
 
-        self.get_logger().info("🎯 Gelişmiş Çoklu Görev Yöneticisi başlatıldı.")
-        self.get_logger().info("📋 YENİ Görev sistemi: Yönlenme → Kutu Alma → Yönlenme → Kutu Bırakma")
+        self.get_logger().info("🎯 Gelişmiş Çoklu Görev Yöneticisi başlatıldı - TEK SEFERLİK GÖREV MODU")
+        self.get_logger().info("📋 Görev sistemi: Yönlenme → Kutu Alma → Yönlenme → Kutu Bırakma")
         self.get_logger().info(f"🔢 {self.base_goals} temel görev = {self.total_goals} toplam hedef")
+        self.get_logger().info("🔄 Görevler 1 kere tamamlandıktan sonra sadece şarj kontrolü yapılacak")
         self.get_logger().info(f"⚡ İleri: {self.forward_speed} m/s ({self.forward_duration}s), Geri: {self.backward_speed} m/s ({self.backward_duration}s)")
         self.get_logger().info(f"⏱️ Yönlenme bekleme: {self.navigation_wait}s, Görev gecikmesi: {self.task_delay}s")
         
-        # YENİ: Servo ve ses kontrol log'ları
+        # Servo ve ses kontrol log'ları
         if self.enable_servo_control:
             self.get_logger().info(f"🤖 Servo kontrolü AKTİF - Öncesi: {self.pre_servo_wait}s, Sonrası: {self.post_servo_wait}s")
         else:
@@ -167,15 +209,23 @@ class CokluGorevYoneticisi(Node):
             
         self.get_logger().info(f"⏰ Final görev sonrası bekleme: {self.post_task_wait}s")
         
-        # YENİ: Engel algılama kontrolü log'u
+        # Engel algılama kontrolü log'u
         if self.enable_obstacle_control:
             self.get_logger().info("🚧 Engel algılama kontrolü AKTİF - Yönlenme görevlerinde çalışacak")
         else:
             self.get_logger().info("🚧 Engel algılama kontrolü PASİF")
             
-        # YENİ: İlk olarak başlangıç konumu tanımlama talimatı
+        # Batarya yönetimi log'ları
+        if self.enable_battery_management:
+            self.get_logger().info(f"🔋 Batarya yönetimi AKTİF - Min: {self.min_battery_level}%, Tam: {self.full_battery_level}%")
+            self.get_logger().info(f"🔋 Kontrol aralığı: {self.battery_check_interval}s, Şarj bekleme: {self.charging_wait_time}s")
+            self.get_logger().info("📡 Minimum batarya seviyesini değiştirmek için:")
+            self.get_logger().info("   ros2 topic pub --once /set_min_battery_level std_msgs/Float32 \"data: 30.0\"")
+        else:
+            self.get_logger().info("🔋 Batarya yönetimi PASİF")
+            
+        # İlk olarak başlangıç konumu tanımlama talimatı
         self.get_logger().info("🏠 ÖNCE RViz üzerinden BAŞLANGIÇ KONUMUNU belirleyin.")
-        self.get_logger().info("📍 Başlangıç konumu tanımlandıktan sonra hedefler tanımlanacak.")
         self.publish_task_status("START_POSITION_DEFINITION - Set start position first")
         # Retry mekanizması
         self.max_retries = 3
@@ -193,11 +243,69 @@ class CokluGorevYoneticisi(Node):
         
             request = Trigger.Request()
             self.servo_client.call_async(request)
+            
+    # Batarya callback'i
+    def battery_callback(self, msg):
+        """Batarya durumunu güncelle"""
+        self.current_battery_percentage = msg.percentage * 100.0  # 0-1 aralığından 0-100'e çevir
+        
+        if self.debug_mode and time.time() - self.last_battery_check_time > 30:  # Her 30 saniyede bir debug log
+            self.get_logger().info(f"🔋 Batarya: {self.current_battery_percentage:.1f}%")
+
+    # Minimum batarya seviyesi setter callback'i
+    def set_min_battery_callback(self, msg):
+        """Minimum batarya seviyesini güncelle"""
+        old_level = self.min_battery_level
+        self.min_battery_level = msg.data
+        
+        self.get_logger().info(f"🔋 Minimum batarya seviyesi güncellendi: {old_level:.1f}% → {self.min_battery_level:.1f}%")
+        self.publish_battery_info(f"Min battery level updated: {self.min_battery_level:.1f}%")
+
+    # Batarya seviyesi kontrolü
+    def check_battery_level(self):
+        """Batarya seviyesini kontrol et ve gerektiğinde şarj istasyonuna yönlendir"""
+        if not self.enable_battery_management:
+            return
+            
+        current_time = time.time()
+        self.last_battery_check_time = current_time
+        
+        # Batarya seviyesi düşükse ve şarj istasyonu tanımlandıysa ve kutu bırakma görevinde değilse
+        if (self.current_battery_percentage < self.min_battery_level and 
+            self.sarj_istasyonu_tanimlandi and
+            not self.is_in_critical_task()):
+            
+            self.get_logger().warn(f"⚠️ Batarya seviyesi düşük: {self.current_battery_percentage:.1f}% < {self.min_battery_level:.1f}%")
+            self.get_logger().info("🔌 Şarj istasyonuna yönlendiriliyor...")
+            
+            # Mevcut durumu kaydet
+            self.sarj_oncesi_durum = self.durum
+            self.sarj_oncesi_gorev_index = self.aktif_gorev_index
+            
+            # Şarj istasyonuna git
+            self.durum = Durum.SARJ_ISTASYONUNA_GIT
+            self.publish_task_status(f"LOW_BATTERY - Going to charging station ({self.current_battery_percentage:.1f}%)")
+            
+    def is_in_critical_task(self):
+        """Kritik görev durumunda mı kontrol et (kutu bırakma sırasında şarja gitmesin)"""
+        # Kutu bırakma görevi sırasında şarja gitmesin
+        if (self.is_executing_task and 
+            self.current_task == GorevTipi.KUTU_BIRAKMA):
+            return True
+            
+        # Servo veya ses kontrolleri sırasında şarja gitmesin
+        if self.durum in [Durum.SERVO_ONCESI_BEKLEME, Durum.SERVO_TETIKLEME, 
+                          Durum.SERVO_SONRASI_BEKLEME, Durum.SES_ONCESI_BEKLEME, 
+                          Durum.SES_SONRASI_BEKLEME]:
+            return True
+            
+        return False
+
     def check_services(self):
         """Service'lerin hazır olup olmadığını kontrol et"""
         sound1_ready = self.sound1_client.service_is_ready()
         sound2_ready = self.sound2_client.service_is_ready()
-        servo_ready = self.servo_client.service_is_ready()  # YENİ: Servo service kontrolü
+        servo_ready = self.servo_client.service_is_ready()
 
         new_sound_status = sound1_ready and sound2_ready
         if new_sound_status != self.services_ready:
@@ -207,7 +315,7 @@ class CokluGorevYoneticisi(Node):
             else:
                 self.get_logger().warn('⚠️ Ses servisleri bağlantısı yok!')
                 
-        # YENİ: Servo service durumu
+        # Servo service durumu
         if servo_ready != self.servo_service_ready:
             self.servo_service_ready = servo_ready
             if self.servo_service_ready:
@@ -216,11 +324,17 @@ class CokluGorevYoneticisi(Node):
                 self.get_logger().warn('⚠️ Servo servisi bağlantısı yok!')
 
     def pose_callback(self, msg):
-        # YENİ: Sadece mevcut pozisyonu güncelle, otomatik başlangıç kaydı yapma
+        # Sadece mevcut pozisyonu güncelle, otomatik başlangıç kaydı yapma
         self.current_pose = msg.pose.pose
 
     def goal_pose_callback(self, msg):
-        # YENİ: Önce başlangıç konumu tanımlama kontrolü
+        # YENİ: Görevler tamamlandıktan sonra yeni görev tanımlama kabul etme
+        if self.gorevler_tamamlandi:
+            self.get_logger().warn("❌ Tüm görevler tamamlandı, yeni görev kabul edilmiyor.")
+            self.get_logger().info("🔋 Sadece batarya kontrolü yapılıyor.")
+            return
+            
+        # Önce başlangıç konumu tanımlama kontrolü
         if self.durum == Durum.BASLANGIC_KONUMU_TANIMLAMA:
             if not self.baslangic_konumu_tanimlandi:
                 # Başlangıç konumunu manuel olarak tanımla
@@ -231,17 +345,39 @@ class CokluGorevYoneticisi(Node):
                 self.get_logger().info(f"🏠✅ Başlangıç konumu manuel olarak tanımlandı: ({x:.2f}, {y:.2f})")
                 self.publish_goal_info(f"Start Position: ({x:.2f}, {y:.2f})")
                 
-                # Hedef tanımlama durumuna geç
-                self.durum = Durum.HEDEF_TANIMLAMA
+                # Şarj istasyonu tanımlama durumuna geç
+                self.durum = Durum.SARJ_ISTASYONU_TANIMLAMA
                 
-                # İlk hedef tanımlama talimatı
-                next_task_type = self.get_task_type_for_goal(self.hedef_tanimlama_asama)
-                next_task_desc = self.get_task_description(next_task_type)
-                self.get_logger().info(f"🎯 Şimdi RViz üzerinden {self.hedef_tanimlama_asama}. hedefi belirleyin ({next_task_desc}).")
-                self.publish_task_status(f"GOAL_DEFINITION - Waiting for goal {self.hedef_tanimlama_asama}/{self.total_goals} ({next_task_desc})")
+                # Şarj istasyonu tanımlama talimatı
+                if self.enable_battery_management:
+                    self.get_logger().info("🔌 Şimdi RViz üzerinden ŞARJ İSTASYONU konumunu belirleyin.")
+                    self.publish_task_status("CHARGING_STATION_DEFINITION - Set charging station position")
+                else:
+                    self.get_logger().info("🔋 Batarya yönetimi devre dışı, hedef tanımlama aşamasına geçiliyor.")
+                    self.durum = Durum.HEDEF_TANIMLAMA
+                    self.start_goal_definition()
                 return
             else:
                 self.get_logger().warn("❌ Başlangıç konumu zaten tanımlandı.")
+                return
+
+        # Şarj istasyonu tanımlama kontrolü
+        elif self.durum == Durum.SARJ_ISTASYONU_TANIMLAMA:
+            if not self.sarj_istasyonu_tanimlandi:
+                # Şarj istasyonu konumunu manuel olarak tanımla
+                self.sarj_istasyonu_pose = msg.pose
+                self.sarj_istasyonu_tanimlandi = True
+                
+                x, y = msg.pose.position.x, msg.pose.position.y
+                self.get_logger().info(f"🔌✅ Şarj istasyonu konumu manuel olarak tanımlandı: ({x:.2f}, {y:.2f})")
+                self.publish_goal_info(f"Charging Station: ({x:.2f}, {y:.2f})")
+                
+                # Hedef tanımlama durumuna geç
+                self.durum = Durum.HEDEF_TANIMLAMA
+                self.start_goal_definition()
+                return
+            else:
+                self.get_logger().warn("❌ Şarj istasyonu konumu zaten tanımlandı.")
                 return
 
         elif self.durum != Durum.HEDEF_TANIMLAMA:
@@ -270,6 +406,13 @@ class CokluGorevYoneticisi(Node):
             self.get_logger().info(f"🎯 Lütfen RViz üzerinden {self.hedef_tanimlama_asama}. hedefi belirleyin ({next_task_desc}).")
             self.publish_task_status(f"GOAL_DEFINITION - Waiting for goal {self.hedef_tanimlama_asama}/{self.total_goals} ({next_task_desc})")
 
+    def start_goal_definition(self):
+        """Hedef tanımlama sürecini başlat"""
+        next_task_type = self.get_task_type_for_goal(self.hedef_tanimlama_asama)
+        next_task_desc = self.get_task_description(next_task_type)
+        self.get_logger().info(f"🎯 Şimdi RViz üzerinden {self.hedef_tanimlama_asama}. hedefi belirleyin ({next_task_desc}).")
+        self.publish_task_status(f"GOAL_DEFINITION - Waiting for goal {self.hedef_tanimlama_asama}/{self.total_goals} ({next_task_desc})")
+
     def get_task_type_for_goal(self, goal_number):
         """Hedef numarasına göre görev tipini belirle - YENİ SISTEM"""
         # 1-2: Yönlenme-Kutu Alma, 3-4: Yönlenme-Kutu Bırakma, 5-6: Yönlenme-Kutu Alma, vs.
@@ -293,7 +436,7 @@ class CokluGorevYoneticisi(Node):
             return "KUTU BIRAKMA (Geri Git)"
 
     def set_obstacle_detection(self, enable):
-        """YENİ: Engel algılama durumunu ayarla"""
+        """Engel algılama durumunu ayarla"""
         if not self.enable_obstacle_control:
             return  # Kontrol devre dışıysa hiçbir şey yapma
             
@@ -318,9 +461,14 @@ class CokluGorevYoneticisi(Node):
     def durum_makinesi_callback(self):
         current_time = time.time()
 
-        # YENİ: Başlangıç konumu tanımlama durumu
+        # Başlangıç konumu tanımlama durumu
         if self.durum == Durum.BASLANGIC_KONUMU_TANIMLAMA:
             # Sadece başlangıç konumu tanımlanmasını bekle
+            return
+
+        # Şarj istasyonu tanımlama durumu
+        elif self.durum == Durum.SARJ_ISTASYONU_TANIMLAMA:
+            # Sadece şarj istasyonu tanımlanmasını bekle
             return
 
         elif self.durum == Durum.HEDEF_TANIMLAMA or self.durum == Durum.BOS_BEKLEME:
@@ -358,7 +506,7 @@ class CokluGorevYoneticisi(Node):
         elif self.durum == Durum.HEDEFE_GIT:
             gorev = self.gorev_listesi[self.aktif_gorev_index]
             
-            # YENİ: Görev tipine göre engel algılamayı ayarla
+            # Görev tipine göre engel algılamayı ayarla
             if gorev['gorev_tipi'] == GorevTipi.YONLENME:
                 # Yönlenme görevi → Engel algılamayı aktif et
                 self.set_obstacle_detection(True)
@@ -380,7 +528,7 @@ class CokluGorevYoneticisi(Node):
                     self.get_logger().info("✅ Hedefe başarıyla ulaşıldı.")
                     self.current_retry_count = 0  # Başarılı olunca retry sayacını sıfırla
                     
-                    # YENİ: Hedefe ulaştıktan sonra engel algılamayı kapat
+                    # Hedefe ulaştıktan sonra engel algılamayı kapat
                     self.set_obstacle_detection(False)
                     
                     gorev = self.gorev_listesi[self.aktif_gorev_index]
@@ -461,7 +609,7 @@ class CokluGorevYoneticisi(Node):
                     task_name = "KUTU ALMA" if self.current_task == GorevTipi.KUTU_ALMA else "KUTU BIRAKMA"
                     self.get_logger().info(f'🔄 {task_name} - Kalan: {remaining:.1f}s')
 
-        # YENİ: Servo öncesi bekleme durumu
+        # Servo öncesi bekleme durumu
         elif self.durum == Durum.SERVO_ONCESI_BEKLEME:
             # Robot durdur
             stop_cmd = Twist()
@@ -489,13 +637,13 @@ class CokluGorevYoneticisi(Node):
                         self.publish_task_status(f"FINAL_TASK_WAIT - Waiting {self.post_task_wait}s")
                         self.durum = Durum.GOREV_SONRASI_BEKLEME
 
-        # YENİ: Servo tetikleme durumu (sadece async response bekleme)
+        # Servo tetikleme durumu (sadece async response bekleme)
         elif self.durum == Durum.SERVO_TETIKLEME:
             # Bu durum servo response callback'i ile değiştirilecek
             # Burada sadece timeout kontrolü yapabiliriz (opsiyonel)
             pass
 
-        # YENİ: Servo sonrası bekleme durumu
+        # Servo sonrası bekleme durumu
         elif self.durum == Durum.SERVO_SONRASI_BEKLEME:
             # Robot durdur
             stop_cmd = Twist()
@@ -519,7 +667,7 @@ class CokluGorevYoneticisi(Node):
                     self.publish_task_status(f"FINAL_TASK_WAIT - Waiting {self.post_task_wait}s")
                     self.durum = Durum.GOREV_SONRASI_BEKLEME
 
-        # YENİ: Ses öncesi bekleme durumu
+        # Ses öncesi bekleme durumu
         elif self.durum == Durum.SES_ONCESI_BEKLEME:
             # Robot durdur
             stop_cmd = Twist()
@@ -530,14 +678,14 @@ class CokluGorevYoneticisi(Node):
                 self.get_logger().info('⏰ Ses öncesi bekleme tamamlandı!')
                 
                 # Ses çal ve sonrası beklemeye geç
-                self.play_task_sound(self.completed_task_type)  # DÜZELTME: Görev tipini parametre olarak geç
+                self.play_task_sound(self.completed_task_type)
                 
                 self.get_logger().info(f"🔊 {self.post_sound_wait} saniye ses sonrası bekleme başlıyor...")
                 self.sound_wait_start_time = current_time
                 self.publish_task_status(f"POST_SOUND_WAIT - Waiting {self.post_sound_wait}s after sound")
                 self.durum = Durum.SES_SONRASI_BEKLEME
 
-        # YENİ: Ses sonrası bekleme durumu
+        # Ses sonrası bekleme durumu
         elif self.durum == Durum.SES_SONRASI_BEKLEME:
             # Robot durdur
             stop_cmd = Twist()
@@ -565,13 +713,81 @@ class CokluGorevYoneticisi(Node):
                 self.publish_task_status("FINAL_TASK_WAIT_COMPLETED - Moving to next goal")
                 self.sonraki_goreve_gec()
 
+        # Şarj istasyonu durumları
+        elif self.durum == Durum.SARJ_ISTASYONUNA_GIT:
+            if self.sarj_istasyonu_pose is None:
+                self.get_logger().error("❌ Şarj istasyonu konumu bulunamadı!")
+                self.durum = Durum.HATA
+                return
+
+            # Şarj istasyonuna navigasyon için engel algılamayı aktif et
+            self.set_obstacle_detection(True)
+            self.get_logger().info(f"🚧 Şarj istasyonuna gidiş → Engel algılama AKTİF")
+
+            # Şarj istasyonu pozisyonunu PoseStamped formatına çevir
+            sarj_goal = PoseStamped()
+            sarj_goal.header.frame_id = 'map'
+            sarj_goal.header.stamp = self.get_clock().now().to_msg()
+            sarj_goal.pose = self.sarj_istasyonu_pose
+
+            x = self.sarj_istasyonu_pose.position.x
+            y = self.sarj_istasyonu_pose.position.y
+            self.get_logger().info(f"🔌 Şarj istasyonuna gidiliyor: ({x:.2f}, {y:.2f})")
+            self.publish_task_status(f"GOING_TO_CHARGE - Battery: {self.current_battery_percentage:.1f}%")
+            self.publish_battery_info(f"Low battery! Going to charging station ({x:.2f}, {y:.2f})")
+
+            # Şarj istasyonuna navigasyon başlat
+            self.navigator.goToPose(sarj_goal)
+            self.durum = Durum.SARJ_ISTASYONU_KONTROL
+
+        elif self.durum == Durum.SARJ_ISTASYONU_KONTROL:
+            if self.navigator.isTaskComplete():
+                result = self.navigator.getResult()
+                # Şarj istasyonuna ulaştıktan sonra engel algılamayı kapat
+                self.set_obstacle_detection(False)
+                
+                if result == TaskResult.SUCCEEDED:
+                    self.get_logger().info("🔌✅ Şarj istasyonuna başarıyla ulaşıldı!")
+                    self.get_logger().info(f"🔋 Şarj bekleme başlıyor: {self.charging_wait_time} saniye...")
+                    self.publish_task_status(f"AT_CHARGING_STATION - Waiting {self.charging_wait_time}s")
+                    self.publish_battery_info(f"Arrived at charging station. Current: {self.current_battery_percentage:.1f}%")
+                    
+                    self.sarj_bekleme_start_time = current_time
+                    self.durum = Durum.SARJ_BEKLEME
+                else:
+                    self.get_logger().error(f"❌ Şarj istasyonuna gidilemedi (Durum: {result}).")
+                    self.publish_task_status("CHARGING_FAILED - Could not reach charging station")
+                    # Başarısız olsa bile eski duruma dön
+                    self.restore_previous_state()
+
+        elif self.durum == Durum.SARJ_BEKLEME:
+            # Robot durdur
+            stop_cmd = Twist()
+            self.cmd_vel_publisher.publish(stop_cmd)
+            
+            # Şarj bekleme süresi doldu mu veya batarya yeterli seviyeye ulaştı mı?
+            charging_time_elapsed = current_time - self.sarj_bekleme_start_time >= self.charging_wait_time
+            battery_sufficient = self.current_battery_percentage >= self.full_battery_level
+            
+            if charging_time_elapsed or battery_sufficient:
+                if battery_sufficient:
+                    self.get_logger().info(f'🔋✅ Batarya şarj tamamlandı: {self.current_battery_percentage:.1f}%')
+                    self.publish_battery_info(f"Battery charged to {self.current_battery_percentage:.1f}%")
+                else:
+                    self.get_logger().info(f'⏰ Şarj bekleme süresi tamamlandı: {self.current_battery_percentage:.1f}%')
+                    self.publish_battery_info(f"Charging time completed. Current: {self.current_battery_percentage:.1f}%")
+                
+                self.get_logger().info('🚀 Görevlere geri dönülüyor...')
+                self.publish_task_status("CHARGING_COMPLETED - Returning to tasks")
+                self.restore_previous_state()
+
         elif self.durum == Durum.BASLANGIC_KONUMA_DON:
             if self.baslangic_pose is None:
                 self.get_logger().error("❌ Başlangıç konumu bulunamadı!")
                 self.durum = Durum.HATA
                 return
 
-            # YENİ: Başlangıç konumuna dönerken engel algılamayı aktif et
+            # Başlangıç konumuna dönerken engel algılamayı aktif et
             self.set_obstacle_detection(True)
             self.get_logger().info(f"🚧 Başlangıç konumuna dönüş → Engel algılama AKTİF")
 
@@ -593,39 +809,83 @@ class CokluGorevYoneticisi(Node):
         elif self.durum == Durum.BASLANGIC_KONUMA_DON_KONTROL:
             if self.navigator.isTaskComplete():
                 result = self.navigator.getResult()
-                # YENİ: Başlangıç konumuna ulaştıktan sonra engel algılamayı kapat
+                # Başlangıç konumuna ulaştıktan sonra engel algılamayı kapat
                 self.set_obstacle_detection(False)
                 
                 if result == TaskResult.SUCCEEDED:
                     self.get_logger().info("🏠✅ Manuel tanımlanan başlangıç konumuna başarıyla döndü!")
                     self.publish_task_status("RETURNED_HOME - Successfully returned to manual start position")
-                    self.durum = Durum.GOREV_BITTI
+                    # YENİ: Görevler tamamlandı işareti
+                    self.gorevler_tamamlandi = True
+                    # YENİ: Bekleme ve şarj kontrol durumuna geç
+                    self.durum = Durum.BEKLEME_VE_SARJ_KONTROL
+                    self.get_logger().info("✅ Tüm görevler tamamlandı! Şimdi sadece batarya kontrolü yapılacak.")
+                    self.get_logger().info("🔋 Sistem başlangıç noktasında bekleyip batarya durumunu izleyecek.")
                 else:
                     self.get_logger().error(f"❌ Başlangıç konumuna dönülemedi (Durum: {result}).")
                     self.publish_task_status("RETURN_HOME_FAILED - Could not return to start position")
                     self.durum = Durum.HATA
 
-        elif self.durum == Durum.GOREV_BITTI or self.durum == Durum.HATA:
-            # YENİ: Son durumda engel algılamayı kapat
-            self.set_obstacle_detection(False)
+        # YENİ: Bekleme ve şarj kontrol durumu
+        elif self.durum == Durum.BEKLEME_VE_SARJ_KONTROL:
+            # Robot durdur
+            stop_cmd = Twist()
+            self.cmd_vel_publisher.publish(stop_cmd)
             
-            if self.durum == Durum.GOREV_BITTI: 
-                self.get_logger().info("🎉 Tüm görevler başarıyla tamamlandı ve manuel başlangıç konumuna döndü!")
-            else: 
-                self.get_logger().info("❌ Görev dizisi bir hatadan dolayı sonlandı.")
+            # Bu durumda sürekli bekle, batarya kontrolü timer ile yapılıyor
+            # Herhangi bir aksiyon almaya gerek yok, batarya kontrol timer'ı gerektiğinde şarj durumuna geçirecek
+            pass
 
-            # Sistemi sıfırla - YENİ: Başlangıç konumu tanımlama ile başla
-            self.hedefler = []
-            self.gorev_listesi = []
-            self.hedef_tanimlama_asama = 1
-            self.aktif_gorev_index = 0
-            self.baslangic_pose = None  # Başlangıç pozisyonunu sıfırla
-            self.baslangic_konumu_tanimlandi = False  # YENİ: Başlangıç konumu sıfırla
-            self.nav2_ready = False  # Navigator kontrolünü sıfırla
-            self.durum = Durum.BASLANGIC_KONUMU_TANIMLAMA  # YENİ: Başlangıç konumu tanımlama ile başla
-            self.get_logger().info("🔄 Sistem yeni görevler için hazır.")
-            self.get_logger().info("🏠 ÖNCE RViz üzerinden YENİ BAŞLANGIÇ KONUMUNU belirleyin.")
-            self.publish_task_status("SYSTEM_RESET - Set new start position first")
+        elif self.durum == Durum.HATA:
+            # Hata durumunda engel algılamayı kapat
+            self.set_obstacle_detection(False)
+            self.get_logger().info("❌ Görev dizisi bir hatadan dolayı sonlandı.")
+            
+            # Hata durumunda da sistem sıfırlanmasın, sadece bekle
+            self.durum = Durum.BEKLEME_VE_SARJ_KONTROL
+            self.gorevler_tamamlandi = True
+            self.get_logger().info("🔄 Hata sonrası sistem bekleme moduna geçti.")
+
+    # Önceki duruma dön (şarj istasyonundan sonra)
+    def restore_previous_state(self):
+        """Şarj istasyonundan sonra önceki duruma dön"""
+        if self.sarj_oncesi_durum is not None:
+            # YENİ: Eğer görevler tamamlandıysa bekleme durumuna dön
+            if self.gorevler_tamamlandi:
+                self.get_logger().info("🏠 Şarj tamamlandı, başlangıç noktasında bekleme durumuna dönülüyor.")
+                self.durum = Durum.BEKLEME_VE_SARJ_KONTROL
+                self.publish_task_status("CHARGING_COMPLETED - Waiting at start position")
+            else:
+                # Önceki görev indeksini geri yükle
+                self.aktif_gorev_index = self.sarj_oncesi_gorev_index
+                
+                # Duruma göre devam et
+                if self.sarj_oncesi_durum in [Durum.HEDEFE_GIT, Durum.HEDEF_KONTROL]:
+                    # Navigasyon durumlarından geldiyse, hedefe gitmeyi devam et
+                    self.durum = Durum.HEDEFE_GIT
+                elif self.sarj_oncesi_durum in [Durum.YONLENME_BEKLEME]:
+                    # Yönlenme beklemesinden geldiyse, beklemeyi devam et
+                    self.navigation_wait_start_time = time.time()  # Bekleme zamanını sıfırla
+                    self.durum = Durum.YONLENME_BEKLEME
+                elif self.sarj_oncesi_durum == Durum.GOREV_SONRASI_BEKLEME:
+                    # Görev sonrası beklemeden geldiyse, sonraki göreve geç
+                    self.sonraki_goreve_gec()
+                elif self.sarj_oncesi_durum == Durum.BEKLEME_VE_SARJ_KONTROL:
+                    # Bekleme durumundan geldiyse tekrar bekleme durumuna dön
+                    self.durum = Durum.BEKLEME_VE_SARJ_KONTROL
+                else:
+                    # Diğer durumlar için güvenli bir nokta
+                    self.durum = Durum.HEDEFE_GIT
+                    
+            # Önceki durum bilgisini temizle
+            self.sarj_oncesi_durum = None
+            self.sarj_oncesi_gorev_index = 0
+        else:
+            # Önceki durum bilgisi yoksa
+            if self.gorevler_tamamlandi:
+                self.durum = Durum.BEKLEME_VE_SARJ_KONTROL
+            else:
+                self.durum = Durum.HEDEFE_GIT
 
     def sonraki_goreve_gec(self):
         self.aktif_gorev_index += 1
@@ -638,9 +898,11 @@ class CokluGorevYoneticisi(Node):
                 self.get_logger().info("✅ Tüm görevler tamamlandı! Manuel başlangıç konumuna dönülüyor...")
                 self.durum = Durum.BASLANGIC_KONUMA_DON
             else:
-                # Direkt bitir
+                # YENİ: Direkt bekleme ve şarj kontrol durumuna geç
                 self.get_logger().info("✅ Tüm görevler tamamlandı!")
-                self.durum = Durum.GOREV_BITTI
+                self.gorevler_tamamlandi = True
+                self.durum = Durum.BEKLEME_VE_SARJ_KONTROL
+                self.get_logger().info("🔋 Sistem şimdi sadece batarya kontrolü yapacak.")
 
     def start_task_execution(self):
         """Görev çalıştırma başlat"""
@@ -679,7 +941,7 @@ class CokluGorevYoneticisi(Node):
             self.publish_task_status(f"TASK_EXECUTING - {task_name} - Duration: {task_duration}s")
             
     def finish_task_execution(self):
-        """Görev çalıştırma bitir - DÜZELTME: Hem kutu alma hem kutu bırakma için ses kontrol akışı"""
+        """Görev çalıştırma bitir"""
         with self.lock:
             if not self.is_executing_task:
                 return
@@ -691,7 +953,7 @@ class CokluGorevYoneticisi(Node):
             task_name = "KUTU ALMA" if self.current_task == GorevTipi.KUTU_ALMA else "KUTU BIRAKMA"
             self.get_logger().info(f'✅ GÖREV TAMAMLANDI: {task_name}')
 
-            # DÜZELTME: Tamamlanan görev tipini sakla
+            # Tamamlanan görev tipini sakla
             self.completed_task_type = self.current_task
             
             # Görev durumunu sıfırla
@@ -699,7 +961,7 @@ class CokluGorevYoneticisi(Node):
             self.current_task = None
             self.task_cmd_vel = Twist()
 
-            # DÜZELTME: Kutu bırakma için servo akışı, tüm görevler için ses akışı
+            # Kutu bırakma için servo akışı, tüm görevler için ses akışı
             if self.completed_task_type == GorevTipi.KUTU_BIRAKMA:
                 # Kutu bırakma → Servo ve ses kontrolü
                 self.get_logger().info('🤖 KUTU BIRAKMA tamamlandı - Servo ve ses kontrol akışı başlıyor...')
@@ -725,7 +987,7 @@ class CokluGorevYoneticisi(Node):
                     self.durum = Durum.GOREV_SONRASI_BEKLEME
                     
             elif self.completed_task_type == GorevTipi.KUTU_ALMA and self.enable_sound_control:
-                # DÜZELTME: Kutu alma → Sadece ses kontrolü
+                # Kutu alma → Sadece ses kontrolü
                 self.get_logger().info('📦 KUTU ALMA tamamlandı - Ses kontrol akışı başlıyor...')
                 self.get_logger().info(f"🔊 {self.pre_sound_wait} saniye ses öncesi bekleme başlıyor...")
                 self.sound_wait_start_time = time.time()
@@ -738,7 +1000,7 @@ class CokluGorevYoneticisi(Node):
                 self.wait_start_time = time.time()
                 self.durum = Durum.GOREV_SONRASI_BEKLEME
 
-    # YENİ: Servo tetikleme fonksiyonu
+    # Servo tetikleme fonksiyonu
     def trigger_servo(self):
         """Servo tetikleme servisi çağır"""
         if not self.servo_service_ready:
@@ -799,7 +1061,7 @@ class CokluGorevYoneticisi(Node):
             self.durum = Durum.GOREV_SONRASI_BEKLEME
             
     def play_task_sound(self, task_type):
-        """DÜZELTME: Görev tipine göre ses çal - parametre olarak görev tipi al"""
+        """Görev tipine göre ses çal"""
         if not self.services_ready:
             self.get_logger().warn('🚫 Ses servisleri hazır değil!')
             return
@@ -849,10 +1111,16 @@ class CokluGorevYoneticisi(Node):
         info_msg.data = info
         self.goal_info_publisher.publish(info_msg)
 
+    def publish_battery_info(self, info):
+        """Batarya bilgisini yayınla"""
+        info_msg = String()
+        info_msg.data = info
+        self.battery_info_publisher.publish(info_msg)
+
     def emergency_stop(self):
         """Acil durdurma"""
         with self.lock:
-            # YENİ: Acil durumda engel algılamayı kapat
+            # Acil durumda engel algılamayı kapat
             self.set_obstacle_detection(False)
             
             if self.is_executing_task:

@@ -19,6 +19,7 @@
 #include <limits>
 #include <memory>
 #include <vector>
+#include <iomanip>
 
 #include "hardware_interface/types/hardware_interface_type_values.hpp"
 #include "rclcpp/rclcpp.hpp"
@@ -82,6 +83,20 @@ hardware_interface::CallbackReturn DiffDriveArduinoHardware::on_init(
   {
     cfg_.enable_servo_control = true; // Default aktif
   }
+
+  // Battery read interval parametresi
+  if (info_.hardware_parameters.count("battery_read_interval") > 0)
+  {
+    cfg_.battery_read_interval = ::std::stod(info_.hardware_parameters["battery_read_interval"]);
+    RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                "Battery read interval set to: %.1f seconds", cfg_.battery_read_interval);
+  }
+  else 
+  {
+    cfg_.battery_read_interval = 5.0; // Default değer
+    RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                "Using default battery read interval: %.1f seconds", cfg_.battery_read_interval);
+  }
   
   if (info_.hardware_parameters.count("pid_p") > 0)
   {
@@ -106,6 +121,11 @@ hardware_interface::CallbackReturn DiffDriveArduinoHardware::on_init(
 
   // Servo durumunu başlat
   servo_triggered_ = false;
+
+  // Battery durumunu başlat
+  battery_voltage_ = 0.0f;
+  battery_percentage_ = 0.0f;
+  battery_available_ = false;
 
   // ROS interfaces kurulumu
   setup_ros_interfaces();
@@ -188,7 +208,7 @@ void DiffDriveArduinoHardware::setup_ros_interfaces()
     std::bind(&DiffDriveArduinoHardware::sound2_service_callback, this,
               std::placeholders::_1, std::placeholders::_2));
 
-  // SERVO SERVISI VE PUBLISHER - DÜZELTİLDİ!
+  // Servo servisi ve publisher
   servo_trigger_service_ = node_->create_service<std_srvs::srv::Trigger>(
     "trigger_servo",
     std::bind(&DiffDriveArduinoHardware::servo_trigger_service_callback, this,
@@ -197,8 +217,21 @@ void DiffDriveArduinoHardware::setup_ros_interfaces()
   servo_status_publisher_ = node_->create_publisher<std_msgs::msg::Bool>(
     "servo_status", 10);
 
+  // Battery servisi ve publisher
+  battery_service_ = node_->create_service<std_srvs::srv::Trigger>(
+    "get_battery_status",
+    std::bind(&DiffDriveArduinoHardware::battery_service_callback, this,
+              std::placeholders::_1, std::placeholders::_2));
+
+  battery_status_publisher_ = node_->create_publisher<sensor_msgs::msg::BatteryState>(
+    "battery_status", 10);
+
+  // Battery timing başlatma
+  battery_read_interval_ = cfg_.battery_read_interval;
+  last_battery_read_ = rclcpp::Clock().now();
+
   RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
-              "ROS interfaces setup complete - Services: /set_buzzer_state, /play_sound_1, /play_sound_2, /trigger_servo, Topics: /buzzer_status, /servo_status");
+              "ROS interfaces setup complete - Services: /set_buzzer_state, /play_sound_1, /play_sound_2, /trigger_servo, /get_battery_status, Topics: /buzzer_status, /servo_status, /battery_status");
 }
 
 void DiffDriveArduinoHardware::buzzer_service_callback(
@@ -292,6 +325,51 @@ void DiffDriveArduinoHardware::servo_trigger_service_callback(
   }
 }
 
+void DiffDriveArduinoHardware::battery_service_callback(
+  const std::shared_ptr<std_srvs::srv::Trigger::Request> request,
+  std::shared_ptr<std_srvs::srv::Trigger::Response> response)
+{
+  (void)request; // Trigger service'inin request'i kullanılmıyor
+  
+  if (comms_.connected())
+  {
+    update_battery_data();
+    
+    if (battery_available_)
+    {
+      response->success = true;
+      
+      std::stringstream ss;
+      ss << "Battery: " << std::fixed << std::setprecision(2) 
+         << battery_voltage_ << "V (" << std::setprecision(1) 
+         << battery_percentage_ << "%)";
+      response->message = ss.str();
+      
+      // Anında battery status publish et
+      publish_battery_status();
+      
+      RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                  "Battery service called: %s", response->message.c_str());
+    }
+    else
+    {
+      response->success = false;
+      response->message = "Battery data not available or invalid";
+      
+      RCLCPP_WARN(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                  "Battery service failed: %s", response->message.c_str());
+    }
+  }
+  else
+  {
+    response->success = false;
+    response->message = "Arduino connection not available";
+    
+    RCLCPP_ERROR(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                 "Battery service failed: %s", response->message.c_str());
+  }
+}
+
 void DiffDriveArduinoHardware::publish_buzzer_status()
 {
   auto msg = std_msgs::msg::Bool();
@@ -310,6 +388,41 @@ void DiffDriveArduinoHardware::publish_servo_status(bool triggered)
     RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
                 "Servo status published: TRIGGERED");
   }
+}
+
+void DiffDriveArduinoHardware::publish_battery_status()
+{
+  auto battery_msg = sensor_msgs::msg::BatteryState();
+  
+  // Temel bilgiler
+  battery_msg.header.stamp = rclcpp::Clock().now();
+  battery_msg.header.frame_id = "base_link";
+  
+  if (battery_available_)
+  {
+    battery_msg.voltage = battery_voltage_;
+    battery_msg.percentage = battery_percentage_ / 100.0f; // ROS standartı 0-1 arası
+    battery_msg.present = true;
+    
+    // Basit durum belirleme
+    battery_msg.power_supply_status = sensor_msgs::msg::BatteryState::POWER_SUPPLY_STATUS_DISCHARGING;
+    battery_msg.power_supply_health = sensor_msgs::msg::BatteryState::POWER_SUPPLY_HEALTH_GOOD;
+    battery_msg.power_supply_technology = sensor_msgs::msg::BatteryState::POWER_SUPPLY_TECHNOLOGY_UNKNOWN;
+    
+    // Kapasite bilgileri
+    battery_msg.design_capacity = 100.0f; // % cinsinden maksimum kapasite
+    battery_msg.capacity = battery_percentage_; // Mevcut kapasite
+  }
+  else
+  {
+    battery_msg.voltage = 0.0f;
+    battery_msg.percentage = 0.0f;
+    battery_msg.present = false;
+    battery_msg.power_supply_status = sensor_msgs::msg::BatteryState::POWER_SUPPLY_STATUS_UNKNOWN;
+    battery_msg.power_supply_health = sensor_msgs::msg::BatteryState::POWER_SUPPLY_HEALTH_UNKNOWN;
+  }
+  
+  battery_status_publisher_->publish(battery_msg);
 }
 
 ::std::vector<hardware_interface::StateInterface> DiffDriveArduinoHardware::export_state_interfaces()
@@ -425,6 +538,17 @@ hardware_interface::return_type DiffDriveArduinoHardware::read(
   double pos_prev_r = wheel_r_.pos;
   wheel_r_.pos = wheel_r_.calc_enc_angle();
   wheel_r_.vel = (wheel_r_.pos - pos_prev_r) / delta_seconds;
+
+  // Battery durumunu düzenli aralıklarla oku
+  rclcpp::Time current_time = rclcpp::Clock().now();
+  double elapsed_seconds = (current_time - last_battery_read_).seconds();
+  
+  if (elapsed_seconds >= battery_read_interval_)
+  {
+    update_battery_data();
+    publish_battery_status();
+    last_battery_read_ = current_time;
+  }
 
   // ROS spin for service calls
   if (node_)
@@ -617,6 +741,76 @@ void DiffDriveArduinoHardware::trigger_servo(int servo_index)
 bool DiffDriveArduinoHardware::is_servo_available() const
 {
   return (comms_.connected() && cfg_.enable_servo_control);
+}
+
+void DiffDriveArduinoHardware::read_battery_status()
+{
+  update_battery_data();
+}
+
+bool DiffDriveArduinoHardware::get_battery_info(float &voltage, float &percentage)
+{
+  if (comms_.connected())
+  {
+    update_battery_data();
+    voltage = battery_voltage_;
+    percentage = battery_percentage_;
+    return battery_available_;
+  }
+  else
+  {
+    voltage = 0.0f;
+    percentage = 0.0f;
+    return false;
+  }
+}
+
+bool DiffDriveArduinoHardware::is_battery_available() const
+{
+  return (comms_.connected() && battery_available_);
+}
+
+void DiffDriveArduinoHardware::set_battery_read_interval(double interval_seconds)
+{
+  battery_read_interval_ = interval_seconds;
+  cfg_.battery_read_interval = interval_seconds;
+  RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+              "Battery read interval changed to: %.1f seconds", interval_seconds);
+}
+
+double DiffDriveArduinoHardware::get_battery_read_interval() const
+{
+  return battery_read_interval_;
+}
+
+void DiffDriveArduinoHardware::update_battery_data()
+{
+  if (!comms_.connected())
+  {
+    battery_available_ = false;
+    return;
+  }
+  
+  try
+  {
+    float voltage, percentage;
+    battery_available_ = comms_.get_battery_status(voltage, percentage);
+    
+    if (battery_available_)
+    {
+      battery_voltage_ = voltage;
+      battery_percentage_ = percentage;
+      
+      RCLCPP_DEBUG(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                   "Battery: %.2fV (%.1f%%)", battery_voltage_, battery_percentage_);
+    }
+  }
+  catch (const std::exception& e)
+  {
+    battery_available_ = false;
+    RCLCPP_DEBUG(rclcpp::get_logger("DiffDriveArduinoHardware"), 
+                 "Battery read error: %s", e.what());
+  }
 }
 
 }  // namespace diffdrive_arduino

@@ -1,4 +1,9 @@
 {
     "cmake.sourceDirectory": "/home/ubuntu/denem/diffdrive_arduino",
-    "ros.distro": "humble"
+    "ros.distro": "humble",
+    "files.associations": {
+        "bitset": "cpp",
+        "chrono": "cpp",
+        "algorithm": "cpp"
+    }
 }

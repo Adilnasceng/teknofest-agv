@@ -17,7 +17,7 @@ def generate_launch_description():
             'wait_duration': 15.0,                  # Engel tespit edildiğinde bekleme süresi (saniye)
             'min_scan_points': 10,                   # Minimum engel noktası sayısı
             'enable_obstacle_wait': True,           # Engel bekleme özelliğini aktif et
-            'ignore_duration': 30.0,                # Bekleme sonrası ignore süresi (saniye)
+            'ignore_duration': 10.0,                # Bekleme sonrası ignore süresi (saniye)
             'activation_delay': 5.0,                # Aktivasyon gecikme süresi (saniye)
             'enable_buzzer': True                   # Buzzer kontrolünü aktif et
         }],
